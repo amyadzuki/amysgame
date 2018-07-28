@@ -6,19 +6,7 @@ import (
 	"github.com/amyadzuki/amystuff/styles"
 	"github.com/amyadzuki/amystuff/widget"
 
-	//	"github.com/g3n/engine/audio"
-	"github.com/g3n/engine/camera"
-	"github.com/g3n/engine/core"
-	"github.com/g3n/engine/gls"
 	"github.com/g3n/engine/gui"
-	"github.com/g3n/engine/light"
-	"github.com/g3n/engine/math32"
-	"github.com/g3n/engine/renderer"
-	"github.com/g3n/engine/window"
-
-	"github.com/golang-ui/nuklear/nk"
-
-	"github.com/go-gl/glfw/v3.2/glfw"
 )
 
 func (game *Game) AddWidgetCharaChanger(label string) {
