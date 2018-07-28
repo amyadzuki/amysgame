@@ -10,11 +10,13 @@ import (
 	"github.com/amyadzuki/amygolib/str"
 
 	"github.com/amyadzuki/amystuff/logs"
+	"github.com/amyadzuki/amystuff/styles"
 
 	"github.com/g3n/engine/camera"
 	"github.com/g3n/engine/gls"
 	"github.com/g3n/engine/gui"
 	"github.com/g3n/engine/light"
+	"github.com/g3n/engine/math32"
 	"github.com/g3n/engine/renderer"
 	"github.com/g3n/engine/window"
 )
