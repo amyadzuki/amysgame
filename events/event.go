@@ -16,7 +16,7 @@ const (
 )
 
 var (
-	onNothing func(string, string, event interface{})
+	onNothing func(string, bool, string, event interface{})
 	OnToggleFullScreen
-	OnInventory
+	OnToggleInventory
 )
