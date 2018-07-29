@@ -7,7 +7,7 @@ import (
 )
 
 func (game *Game) AddWindowInventory() {
-	game.WindowInventory = gui.NewWindow(DflWidth, DflHeight)
+	game.WindowInventory = gui.NewWindow(960, 720)
 	game.WindowInventory.SetTitle("Inventory") // TODO: translate
 	game.WindowInventory.SetPosition(60, 60)
 	// Resizable windows are currently buggy.
