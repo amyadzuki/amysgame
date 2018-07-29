@@ -9,7 +9,7 @@ void main() {
 	vec4 position;
 	position = vec4(VertexPosition.xyz, 1);
 	gl_Position = MVP * position;
-	vTexcoord = VertexTexcoord.xy;
+	vTexcoord = vec2(VertexTexcoord.x, 1.0 - VertexTexcoord.y);
 }
 `
 
