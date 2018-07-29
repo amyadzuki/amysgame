@@ -4,10 +4,10 @@ import (
 	"github.com/g3n/engine/window"
 )
 
-var Keycode map[window.Key]EventId
+var Keycode map[window.Key]Id
 
 func init() {
-	Keycode = make(map[int]EventId)
+	Keycode = make(map[window.Key]Id)
 	Keycode[window.KeyI] = ToggleInventory
 	Keycode[window.KeyF11] = ToggleFullScreen
 }
