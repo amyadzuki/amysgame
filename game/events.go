@@ -6,12 +6,12 @@ import (
 
 func init() {
 	events.Event[events.ToggleFullScreen] = func(id int, down bool, evname string, ev interface{}) {
-		if !down {
+		if down {
 			Main.ToggleFullScreen()
 		}
 	}
 	events.Event[events.ToggleInventory] = func(id int, down bool, evname string, ev interface{}) {
-		if !down {
+		if down {
 			Main.ToggleInventory()
 		}
 	}
