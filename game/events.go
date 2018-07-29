@@ -2,19 +2,17 @@ package game
 
 import (
 	"github.com/amyadzuki/amysgame/events"
-
-	"github.com/g3n/engine/window"
 )
 
 func init() {
 	events.OnToggleFullScreen = func(name string, down bool, evname string, ev interface{}) {
 		if !down {
-			game.ToggleFullScreen()
+			Game.ToggleFullScreen()
 		}
 	}
 	events.OnToggleInventory = func(name string, down bool, evname string, ev interface{}) {
 		if !down {
-			game.ToggleInventory()
+			Game.ToggleInventory()
 		}
 	}
 }
