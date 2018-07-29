@@ -10,8 +10,8 @@ func init() {
 	events.OnInventory = func(evname string, ev interface{}) {
 		game.ToggleInventory()
 	}
-	events.OnToggleFullscreen = func(evname string, ev interface{}) {
-		game.ToggleFullscreen()
+	events.OnToggleFullScreen = func(evname string, ev interface{}) {
+		game.ToggleFullScreen()
 	}
 }
 
