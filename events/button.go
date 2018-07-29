@@ -32,5 +32,5 @@ func OnMouseButton(evname string, event interface{}) {
 	if !ok {
 		return
 	}
-	m.Defer(down, evname, event)
+	m.Defer(id, down, evname, event)
 }
