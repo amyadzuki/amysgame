@@ -17,6 +17,6 @@ const (
 	ToggleInventory
 )
 
-Map(id Id, fn func(int, bool, string, interface{})) {
+func Map(id Id, fn func(int, bool, string, interface{})) {
 	Event[id] = Mapping(fn)
 }
