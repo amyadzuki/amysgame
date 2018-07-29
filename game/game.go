@@ -78,6 +78,8 @@ type Game struct {
 	InfoTrace bool
 	MusicHush bool
 	MusicMute bool
+
+	OpenInventory bool
 }
 
 func New(title string) (game *Game) {
@@ -186,9 +188,9 @@ func (game *Game) SetInventory(open bool) {
 	}
 	game.OpenInventory = open
 	if open {
-		game.Gui.Add(WindowInventory)
+		game.Gui.Add(game.WindowInventory)
 	} else {
-		game.Gui.Remove(WindowInventory)
+		game.Gui.Remove(game.WindowInventory)
 	}
 }
 
