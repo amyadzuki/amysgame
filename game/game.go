@@ -29,7 +29,8 @@ const DflWidth, DflHeight = 1600, 900
 
 var _ = glfw.CreateWindow
 
-type Game struct {
+var Game GameType
+type GameType struct {
 	Camera *camera.Perspective // TODO: camera.ICamera
 	Win    window.IWindow
 	Wm     window.IWindowManager
@@ -79,55 +80,55 @@ type Game struct {
 	MusicMute bool
 }
 
-func New(title string) (game *Game) {
-	game = new(Game)
+func New(title string) (game *GameType) {
+	game = new(GameType)
 	game.Init(title)
 	return
 }
 
-func (game *Game) AddDockBotLeft() {
+func (game *GameType) AddDockBotLeft() {
 	game.DockBotLeft = gui.NewPanel(0, 0)
 	game.DockBotLeft.SetLayout(gui.NewDockLayout())
 	game.Gui.Add(game.DockBotLeft)
 }
 
-func (game *Game) AddDockBotRight() {
+func (game *GameType) AddDockBotRight() {
 	game.DockBotRight = gui.NewPanel(0, 0)
 	game.DockBotRight.SetLayout(gui.NewDockLayout())
 	game.Gui.Add(game.DockBotRight)
 }
 
-func (game *Game) AddDockTop() {
+func (game *GameType) AddDockTop() {
 	game.DockTop = gui.NewPanel(0, 0)
 	game.DockTop.SetLayout(gui.NewDockLayout())
 	game.DockTop.SetLayoutParams(&gui.DockLayoutParams{gui.DockTop})
 	game.Gui.Add(game.DockTop)
 }
 
-func (game *Game) Close() error {
+func (game *GameType) Close() error {
 	game.Dispose()
 	return nil
 }
 
-func (game *Game) Dispose() {
+func (game *GameType) Dispose() {
 	nk.NkPlatformShutdown()
 }
 
-func (game *Game) FullScreen() bool {
+func (game *GameType) FullScreen() bool {
 	return game.Win.FullScreen()
 }
 
-func (game *Game) Init(title string) {
+func (game *GameType) Init(title string) {
 	game.Title = title
 	game.Scene = core.NewNode()
 	return
 }
 
-func (game *Game) Quit() {
+func (game *GameType) Quit() {
 	game.Win.SetShouldClose(true)
 }
 
-func (game *Game) RecalcDocks() {
+func (game *GameType) RecalcDocks() {
 	w, h := game.Size()
 	w64, h64 := float64(w), float64(h)
 	/*
@@ -158,7 +159,7 @@ func (game *Game) RecalcDocks() {
 	}
 }
 
-func (game *Game) SetFullScreen(fullScreen bool) {
+func (game *GameType) SetFullScreen(fullScreen bool) {
 	game.Win.SetFullScreen(fullScreen)
 	if game.WidgetFullScreen != nil {
 		label := game.LabelFullScreen
@@ -170,7 +171,7 @@ func (game *Game) SetFullScreen(fullScreen bool) {
 	game.onWinCh("", nil)
 }
 
-func (game *Game) SetHint(label string) {
+func (game *GameType) SetHint(label string) {
 	if game.WidgetHint.Label != nil {
 		game.WidgetHint.Label.SetText(label)
 		game.WidgetHint.Panel.SetWidth(game.WidgetHint.Label.TotalWidth())
@@ -179,7 +180,7 @@ func (game *Game) SetHint(label string) {
 	game.AddWidgetHint(label)
 }
 
-func (game *Game) SetInventory(open bool) {
+func (game *GameType) SetInventory(open bool) {
 	if open == game.OpenInventory {
 		return
 	}
@@ -191,18 +192,18 @@ func (game *Game) SetInventory(open bool) {
 	}
 }
 
-func (game *Game) Size() (w, h int) {
+func (game *GameType) Size() (w, h int) {
 	w, h = game.w, game.h
 	return
 }
 
-func (game *Game) SizeRecalc() (w, h int) {
+func (game *GameType) SizeRecalc() (w, h int) {
 	w, h = game.Win.Size()
 	game.w, game.h = w, h
 	return
 }
 
-func (game *Game) SoftQuit() int8 {
+func (game *GameType) SoftQuit() int8 {
 	was := game.AskQuit
 	now := int(was) + 1
 	if now > 127 {
@@ -212,22 +213,22 @@ func (game *Game) SoftQuit() int8 {
 	return was
 }
 
-func (game *Game) ToggleFullScreen() {
+func (game *GameType) ToggleFullScreen() {
 	game.SetFullScreen(!game.FullScreen())
 }
 
-func (game *Game) ToggleInventory() {
+func (game *GameType) ToggleInventory() {
 	game.SetInventory(!game.OpenInventory)
 }
 
-func (game *Game) ViewportFull() {
+func (game *GameType) ViewportFull() {
 	w, h := game.Size()
 	game.Gs.Viewport(0, 0, int32(w), int32(h))
 	return
 }
 
 /*
-func (game *Game) VolumeChanged() {
+func (game *GameType) VolumeChanged() {
 	if game.HaveAudio {
 		loud := game.Settings.MusVolume.Value()
 		if game.MusicHush {
@@ -242,7 +243,7 @@ func (game *Game) VolumeChanged() {
 
 // Internal functions
 
-func (game *Game) addDockSize(p *gui.Panel, w gui.IPanel) {
+func (game *GameType) addDockSize(p *gui.Panel, w gui.IPanel) {
 	oldW, oldH := p.TotalWidth(), p.TotalHeight()
 	newW, newH := oldW+w.TotalWidth(), w.TotalHeight()
 	if oldH > newH {
