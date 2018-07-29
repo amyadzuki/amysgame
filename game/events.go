@@ -5,11 +5,11 @@ import (
 )
 
 func init() {
-	events.Map(events.ToggleFullScreen, func(id int, down bool, evname string, ev interface{}) {
+	events.Event[events.ToggleFullScreen] = func(id int, down bool, evname string, ev interface{}) {
 		if !down {
 			Main.ToggleFullScreen()
 		}
-	})
+	}
 	events.Event[events.ToggleInventory] = func(id int, down bool, evname string, ev interface{}) {
 		if !down {
 			Main.ToggleInventory()
