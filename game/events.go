@@ -5,16 +5,16 @@ import (
 )
 
 func init() {
-	events.Map(events.ToggleFullScreen, func(name string, down bool, evname string, ev interface{}) {
+	events.Map(events.ToggleFullScreen, func(id int, down bool, evname string, ev interface{}) {
 		if !down {
 			Main.ToggleFullScreen()
 		}
 	})
-	events.Map(events.ToggleInventory, func(name string, down bool, evname string, ev interface{}) {
+	events.Events[events.ToggleInventory] = func(id int, down bool, evname string, ev interface{}) {
 		if !down {
 			Main.ToggleInventory()
 		}
-	})
+	}
 }
 
 func (game *Game) onKeyboardKey(evname string, ev interface{}) {
