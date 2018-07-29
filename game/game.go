@@ -179,6 +179,18 @@ func (game *Game) SetHint(label string) {
 	game.AddWidgetHint(label)
 }
 
+func (game *Game) SetInventory(open bool) {
+	if open == game.OpenInventory {
+		return
+	}
+	game.OpenInventory = open
+	if open {
+		game.Gui.Add(WindowInventory)
+	} else {
+		game.Gui.Remove(WindowInventory)
+	}
+}
+
 func (game *Game) Size() (w, h int) {
 	w, h = game.w, game.h
 	return
@@ -202,6 +214,10 @@ func (game *Game) SoftQuit() int8 {
 
 func (game *Game) ToggleFullScreen() {
 	game.SetFullScreen(!game.FullScreen())
+}
+
+func (game *Game) ToggleInventory() {
+	game.SetInventory(!game.OpenInventory)
 }
 
 func (game *Game) ViewportFull() {
