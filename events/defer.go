@@ -1,8 +1,13 @@
 package events
 
-func defer(name, evname string, event interface{}, fn func(string, string, interface{})) {
+type Mapping struct {
+	Name string
+	Func func(string, string, interface{})
+}
+
+func (m *Mapping) Defer(evname string, event interface{}) {
+	fn := m.Func
 	if fn != nil {
-		fn(name, evname, event)
-		return
+		fn(m.Name, evname, event)
 	}
 }
