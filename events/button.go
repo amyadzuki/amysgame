@@ -4,10 +4,10 @@ import (
 	"github.com/g3n/engine/window"
 )
 
-var Button map[int]EventId
+var Button map[window.MouseButton]Id
 
 func init() {
-	Button = make(map[window.MouseButton]EventId)
+	Button = make(map[window.MouseButton]Id)
 }
 
 func OnMouseButton(evname string, event interface{}) {
