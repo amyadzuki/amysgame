@@ -34,5 +34,5 @@ func OnKeyboardKey(evname string, event interface{}) {
 	if !ok {
 		return
 	}
-	m.Defer(evname, event, down)
+	m.Defer(down, evname, event)
 }
