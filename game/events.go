@@ -1,15 +1,21 @@
 package game
 
 import (
+	"github.com/amyadzuki/amysgame/events"
+
 	"github.com/g3n/engine/window"
 )
 
-func (game *Game) onKeyboardKey(evname string, ev interface{}) {
-	kev := ev.(*window.KeyEvent)
-	switch kev.Keycode {
-	case window.KeyF11:
-		game.ToggleFullScreen()
+func init() {
+	events.OnInventory = func(evname string, ev interface{}) {
+		game.ToggleInventory()
 	}
+	events.OnToggleFullscreen = func(evname string, ev interface{}) {
+		game.ToggleFullscreen()
+	}
+}
+
+func (game *Game) onKeyboardKey(evname string, ev interface{}) {
 }
 
 func (game *Game) onMouseButton(evname string, ev interface{}) {
