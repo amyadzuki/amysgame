@@ -1,16 +1,16 @@
 package events
 
-var Event map[EventId]Mapping
+var Event map[Id]Mapping
 
 func init() {
-	Event = make(map[EventId]Mapping)
+	Event = make(map[Id]Mapping)
 	Event[ToggleFullScreen] = Mapping{"Toggle FullScreen", OnToggleFullScreen}
 	Event[ToggleInventory] = Mapping{"Inventory", OnToggleInventory}
 }
 
-type EventId int
+type Id int
 const (
-	nothing EventId = iota
+	nothing Id = iota
 	ToggleFullScreen
 	ToggleInventory
 )
