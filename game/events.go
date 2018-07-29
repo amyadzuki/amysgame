@@ -10,7 +10,7 @@ func init() {
 			Main.ToggleFullScreen()
 		}
 	})
-	events.Events[events.ToggleInventory] = func(id int, down bool, evname string, ev interface{}) {
+	events.Event[events.ToggleInventory] = func(id int, down bool, evname string, ev interface{}) {
 		if !down {
 			Main.ToggleInventory()
 		}
