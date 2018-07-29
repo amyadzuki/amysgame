@@ -26,11 +26,11 @@ func OnKeyboardKey(evname string, event interface{}) {
 	default:
 		return
 	}
-	kei, ok := Keycode[ev.Keycode]
+	id, ok := Keycode[ev.Keycode]
 	if !ok {
 		return
 	}
-	m, ok := KevEvent[kei]
+	m, ok := KevEvent[id]
 	if !ok {
 		return
 	}
