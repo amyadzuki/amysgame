@@ -4,7 +4,7 @@ import (
 	"github.com/g3n/engine/window"
 )
 
-var Keycode map[int]EventId
+var Keycode map[window.Key]EventId
 
 func init() {
 	Keycode = make(map[int]EventId)
