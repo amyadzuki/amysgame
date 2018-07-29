@@ -5,12 +5,12 @@ import (
 )
 
 func init() {
-	events.OnToggleFullScreen = func(name string, down bool, evname string, ev interface{}) {
+	events.Event[ToggleFullScreen].Func = func(name string, down bool, evname string, ev interface{}) {
 		if !down {
 			Main.ToggleFullScreen()
 		}
 	}
-	events.OnToggleInventory = func(name string, down bool, evname string, ev interface{}) {
+	events.Event[ToggleInventory].Func = func(name string, down bool, evname string, ev interface{}) {
 		if !down {
 			Main.ToggleInventory()
 		}
