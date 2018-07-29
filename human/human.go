@@ -36,16 +36,16 @@ func (human *Human) Init(dec *obj.Decoder) (err error) {
 		name := dec.Objects[idx].Name
 		switch {
 		case strings.HasSuffix(name, "-highpolyeyes"):
-			human.Eyes = &dec.Objects[idx]
-			mesh, err = dec.NewMesh(human.Eyes)
+			mesh, err = dec.NewMesh(&dec.Objects[idx])
+			human.Eyes = mesh
 			index := dec.Objects[idx].Faces[0].Vertices[0]
 			_ = index // TODO
 			// human.heightToEye = TODO:
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
-			human.Skin = &dec.Objects[idx]
-			mesh, err = NewMeshSkin(dec, human.Skin)
+			mesh, err = NewMeshSkin(dec, &dec.Objects[idx])
+			human.Skin = mesh
 		default:
 			fmt.Printf("human.Init: Name: \"%s\"\n", name)
 		}
