@@ -56,7 +56,7 @@ func (human *Human) Init(dec *obj.Decoder) (err error) {
 	return nil
 }
 
-var NewMeshSkin (dec *obj.Decoder, object *obj.Object) (*graphic.Mesh, error) {
+var NewMeshSkin = func(dec *obj.Decoder, object *obj.Object) (*graphic.Mesh, error) {
 	geom, err := dec.NewGeometry(object)
 	if err != nil {
 		return nil, err
