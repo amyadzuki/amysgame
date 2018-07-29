@@ -7,11 +7,11 @@ import (
 )
 
 func init() {
-	events.OnInventory = func(evname string, ev interface{}) {
-		game.ToggleInventory()
-	}
 	events.OnToggleFullScreen = func(evname string, ev interface{}) {
 		game.ToggleFullScreen()
+	}
+	events.OnToggleInventory = func(evname string, ev interface{}) {
+		game.ToggleInventory()
 	}
 }
 
