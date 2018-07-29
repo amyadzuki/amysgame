@@ -7,11 +7,15 @@ import (
 )
 
 func init() {
-	events.OnToggleFullScreen = func(evname string, ev interface{}) {
-		game.ToggleFullScreen()
+	events.OnToggleFullScreen = func(name string, down bool, evname string, ev interface{}) {
+		if !down {
+			game.ToggleFullScreen()
+		}
 	}
-	events.OnToggleInventory = func(evname string, ev interface{}) {
-		game.ToggleInventory()
+	events.OnToggleInventory = func(name string, down bool, evname string, ev interface{}) {
+		if !down {
+			game.ToggleInventory()
+		}
 	}
 }
 
