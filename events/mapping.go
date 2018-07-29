@@ -1,13 +1,9 @@
 package events
 
-type Mapping struct {
-	Name string
-	Func func(string, bool, string, interface{})
-}
+type Mapping func(int, bool, string, interface{})
 
-func (m *Mapping) Defer(down bool, evname string, event interface{}) {
-	fn := m.Func
-	if fn != nil {
-		fn(m.Name, down, evname, event)
+func (m Mapping) Defer(id Id, down bool, evname string, event interface{}) {
+	if m != nil {
+		m(int(id), down, evname, event)
 	}
 }
