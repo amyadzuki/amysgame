@@ -7,7 +7,7 @@ import (
 var Button map[int]EventId
 
 func init() {
-	Button = make(map[int]EventId)
+	Button = make(map[window.MouseButton]EventId)
 }
 
 func OnMouseButton(evname string, event interface{}) {
