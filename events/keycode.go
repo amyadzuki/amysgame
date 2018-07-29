@@ -30,7 +30,7 @@ func OnKeyboardKey(evname string, event interface{}) {
 	if !ok {
 		return
 	}
-	m, ok := KevEvent[id]
+	m, ok := KeyEvent[id]
 	if !ok {
 		return
 	}
