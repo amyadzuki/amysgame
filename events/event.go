@@ -16,7 +16,3 @@ const (
 	ToggleFullScreen
 	ToggleInventory
 )
-
-func Map(id Id, fn func(int, bool, string, interface{})) {
-	Event[id] = Mapping(fn)
-}
