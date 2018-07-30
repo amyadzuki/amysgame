@@ -14,7 +14,10 @@ type HumanSkinMaterial struct {
 }
 
 type HumanSkinMaterialUdata struct {
-	Dummy float32
+	SkinColor [4]float32
+	UwFabric  [4]float32
+	UwDetail  [4]float32
+	UwTrim    [4]float32
 }
 
 func (m *HumanSkinMaterial) RenderSetup(gs *gls.GLS) {
