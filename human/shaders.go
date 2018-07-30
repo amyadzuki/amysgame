@@ -45,7 +45,7 @@ void main() {
 	hslSkin = sampColor.rgb;
 	hslSkin += HsmSkinDelta;
 	hslSkin.r -= floor(hslSkin.r);
-	if hslSkin.r < 0 {
+	if (hslSkin.r < 0) {
 		hslSkin.r += 1;
 	}
 	rgbSkin = HslToRgb(hslSkin);
