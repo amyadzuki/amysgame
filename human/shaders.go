@@ -102,7 +102,8 @@ void main() {
 	if (vTexcoord.x < 0.8125 || vTexcoord.y < 0.8125) {
 		color = vec4(mix(HumanEyesColor.rgb, sampColor.rgb, sampColor.a), 1);
 	} else {
-		color = sampColor.rgba;
+		discard;
+		// color = sampColor.rgba; // <-- this doesn't seem to work right
 	}
 #else
 	color = vec3(1, 0, 1, 1);
