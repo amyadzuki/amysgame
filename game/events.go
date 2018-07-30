@@ -5,6 +5,11 @@ import (
 )
 
 func init() {
+	events.Event[events.ToggleCharaDesigner] = func(id int, down bool, evname string, ev interface{}) {
+		if down {
+			Main.ToggleCharaDesigner()
+		}
+	}
 	events.Event[events.ToggleFullScreen] = func(id int, down bool, evname string, ev interface{}) {
 		if down {
 			Main.ToggleFullScreen()
