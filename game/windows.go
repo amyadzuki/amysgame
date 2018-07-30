@@ -8,6 +8,12 @@ import (
 
 func (game *Game) InitWindows() {
 	game.WindowCharaDesigner = game.newWindow(480, 720, "Character Designer")
+	{
+		tree := gui.NewTree(480, 720)
+		tree.AddNode("Hello")
+		tree.AddNode("World")
+		game.WindowCharaDesigner.Add(tree)
+	}
 	game.WindowInventory = game.newWindow(960, 720, "Inventory")
 }
 
