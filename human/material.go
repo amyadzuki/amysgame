@@ -8,6 +8,8 @@ import (
 	"github.com/g3n/engine/math32"
 )
 
+// Skin ///////////////////////////////////////////////////////////////////////
+
 type HumanSkinMaterial struct {
 	material.Standard
 	uni gls.Uniform
@@ -32,7 +34,7 @@ func (m *HumanSkinMaterial) RenderSetup(gs *gls.GLS) {
 	gs.Uniform4fvUP(location, int32(unsafe.Sizeof(m.Udata) / 16), unsafe.Pointer(&m.Udata))
 }
 
-
+// Eyes ///////////////////////////////////////////////////////////////////////
 
 type HumanEyesMaterial struct {
 	material.Standard
