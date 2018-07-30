@@ -119,5 +119,6 @@ func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest f
 			}
 		}
 	}
+	fmt.Printf("\"%s\": %f v^ %f  |  %f\n", object.Name, lowest, highest, frontest)
 	return
 }
