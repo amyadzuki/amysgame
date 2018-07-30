@@ -74,39 +74,36 @@ void main() {
 // Eyes ///////////////////////////////////////////////////////////////////////
 
 var HumanEyesVs = `
-#include <attributes>
-// blank line required by preprocessor
-uniform mat4 MVP;
-out vec2 vTexcoord;
-void main() {
-	vec4 position;
-	position = vec4(VertexPosition.xyz, 1);
-	gl_Position = MVP * position;
-	vTexcoord = vec2(VertexTexcoord.x, 1.0 - VertexTexcoord.y); // TODO: flip textures
-}
 `
 
 var HumanEyesFs = `
 #include <material>
 // blank line required by preprocessor
+in vec4 vPosition;
 in vec2 vTexcoord;
-uniform vec4 HumanEyes[` + strconv.Itoa(int(unsafe.Sizeof(HumanEyesMaterialUdata{}) / 16)) + `];
+uniform vec4 HumanEyes[4];
 #define HumanEyesColor HumanEyes[0]
 out vec4 fColor;
 
 void main() {
-	vec4 color;
+    vec4 color;
 #if MAT_TEXTURES>0
-	vec4 sampColor;
-	sampColor = texture(MatTexture[0], vTexcoord);
-	color = vec4(mix(HumanEyesColor.rgb, sampColor.rgb, sampColor.a * sampColor.a), 1);
-	if (min(vTexcoord.x, vTexcoord.y) >= 0.8125) {
-		discard;
-		// color = sampColor.rgba; // <-- this doesn't seem to work right
-	}
+    vec4 sampColor = texture(MatTexture[0], vTexcoord);
+    vec4 invSamp = 1 - sampColor;
+    float scalar = invSamp.x * invSamp.y * invSamp.z;
+    vec4 mixColor = max(sampColor, vec4(HumanEyesColor.rgb, 1));
+    float mixAmt = clamp(vPosition.z / vPosition.w, 0, 1);
+    mixAmt = pow(mixAmt, 64) * scalar;
+    color = mix(sampColor, mixColor, mixAmt);
+    color = vec4(mix(HumanEyesColor.rgb, color.rgb, color.a), 1);
+    if (min(vTexcoord.x, vTexcoord.y) >= 0.8125) {
+        discard;
+        // color = sampColor.rgba; // <-- this doesn't seem to work right
+    }
 #else
-	color = vec3(1, 0, 1, 1);
+    color = vec3(1, 0, 1, 1);
 #endif
-	fColor = color;
+    fColor = color;
 }
+
 `
