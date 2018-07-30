@@ -18,7 +18,7 @@ var HumanSkinFs = `
 // blank line required by preprocessor
 in vec2 vTexcoord;
 uniform vec4 HumanSkin[4];
-#define HsmSkinColor HumanSkin[0]
+#define HsmSkinDelta HumanSkin[0]
 #define HsmUwFabric HumanSkin[1]
 #define HsmUwDetail HumanSkin[2]
 #define HsmUwTrim HumanSkin[3]
@@ -43,7 +43,7 @@ void main() {
 	vec3 hslSkin, rgbSkin;
 	sampColor = texture(MatTexture[0], vTexcoord);
 	hslSkin = sampColor.rgb;
-	hslSkin += HsmSkinColor;
+	hslSkin += HsmSkinDelta;
 	hslSkin.r -= floor(hslSkin.r);
 	if hslSkin.r < 0 {
 		hslSkin.r += 1;
