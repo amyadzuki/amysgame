@@ -53,11 +53,7 @@ void main() {
 #endif
 	float hue = hsvSkin.x;
 	hsvSkin *= HumanSkinDelta.xyz * 2;
-	hsvSkin.x = hue + HumanSkinDelta.x;
-	hsvSkin.x -= floor(hsvSkin.x);
-	if (hsvSkin.x < 0) {
-		hsvSkin.x += 1;
-	}
+	hsvSkin.x = fract(hue + HumanSkinDelta.x + 0.5);
 	rgbSkin = HsvToRgb(hsvSkin);
 	color = vec4(rgbSkin.rgb, 1);
 #if MAT_TEXTURES>2
