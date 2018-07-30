@@ -24,23 +24,46 @@ func (game *Game) InitWindows() {
 		presets.Add(b)
 		presets.Add(c)
 		presets.Add(d)
+
 		skin := tree.AddNode("Skin")
+
 		game.CharaDesignerSkinTone = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerSkinTone.SetText("Skin Tone")
 		game.CharaDesignerSkinTone.SetValue(0.5)
 		skin.Add(game.CharaDesignerSkinTone)
-		sHue := gui.NewHSlider(sliderWidth, 20)
-		sHue.SetText("Hue Adjustment")
-		sHue.SetValue(0.5)
-		skin.Add(sHue)
-		sSaturation := gui.NewHSlider(sliderWidth, 20)
-		sSaturation.SetText("Saturation Adjustment")
-		sSaturation.SetValue(0.5)
-		skin.Add(sSaturation)
-		sValue := gui.NewHSlider(sliderWidth, 20)
-		sValue.SetText("Value Adjustment")
-		sValue.SetValue(0.5)
-		skin.Add(sValue)
+
+		game.CharaDesignerSkinHue = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerSkinHue.SetText("Hue Adjustment")
+		game.CharaDesignerSkinHue.SetValue(0.5)
+		skin.Add(game.CharaDesignerSkinHue)
+
+		game.CharaDesignerSkinSat = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerSkinSat.SetText("Saturation Adjustment")
+		game.CharaDesignerSkinSat.SetValue(0.5)
+		skin.Add(game.CharaDesignerSkinSat)
+
+		game.CharaDesignerSkinVal = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerSkinVal.SetText("Value Adjustment")
+		game.CharaDesignerSkinVal.SetValue(0.5)
+		skin.Add(game.CharaDesignerSkinVal)
+
+		eyes := tree.AddNode("Eyes")
+
+		game.CharaDesignerEyeRed = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerEyeRed.SetText("Red")
+		game.CharaDesignerEyeRed.SetValue(0)
+		skin.Add(game.CharaDesignerEyeRed)
+
+		game.CharaDesignerEyeGreen = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerEyeGreen.SetText("Green")
+		game.CharaDesignerEyeGreen.SetValue(0)
+		skin.Add(game.CharaDesignerEyeGreen)
+
+		game.CharaDesignerEyeBlue = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerEyeBlue.SetText("Blue")
+		game.CharaDesignerEyeBlue.SetValue(0)
+		skin.Add(game.CharaDesignerEyeBlue)
+
 		game.WindowCharaDesigner.Add(tree)
 	}
 	game.WindowInventory = game.newWindow(960, 720, "Inventory")
