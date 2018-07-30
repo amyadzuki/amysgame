@@ -101,4 +101,5 @@ func zRange(dec *obj.Decoder, object *obj.Object) (lowest, highest float32) {
 			}
 		}
 	}
+	return
 }
