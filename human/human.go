@@ -17,6 +17,8 @@ type Human struct {
 	Eyes *graphic.Mesh
 	Skin *graphic.Mesh
 
+	base        float64
+	heightToCap float64
 	heightToEye float64
 }
 
@@ -24,6 +26,14 @@ func New(dec *obj.Decoder) (human *Human, err error) {
 	human = new(Human)
 	err = human.Init(dec)
 	return
+}
+
+func (human *Human) Base() float64 {
+	return human.base
+}
+
+func (human *Human) HeightToCap() float64 {
+	return human.heightToCap
 }
 
 func (human *Human) HeightToEye() float64 {
@@ -39,14 +49,16 @@ func (human *Human) Init(dec *obj.Decoder) (err error) {
 		case strings.HasSuffix(name, "-highpolyeyes"):
 			mesh, err = dec.NewMesh(&dec.Objects[idx])
 			human.Eyes = mesh
-			index := dec.Objects[idx].Faces[0].Vertices[0]
-			_ = index // TODO
-			// human.heightToEye = TODO:
+			lowest, highest := zRange(dec, &dec.Objects[idx])
+			human.heightToEye = (float64(lowest) + float64(highest)) * 0.5
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
 			mesh, err = NewMeshSkin(dec, &dec.Objects[idx])
 			human.Skin = mesh
+			lowest, highest := zRange(dec, &dec.Objects[idx])
+			human.base = float64(lowest)
+			human.heightToCap = float64(highest) - human.base
 		default:
 			fmt.Printf("human.Init: Name: \"%s\"\n", name)
 		}
@@ -69,4 +81,24 @@ var NewMeshSkin = func(dec *obj.Decoder, object *obj.Object) (*graphic.Mesh, err
 	mat.AddTexture(Underwear)
 	mesh := graphic.NewMesh(geom, mat)
 	return mesh, nil
+}
+
+func zRange(dec *obj.Decoder, object *obj.Object) (lowest, highest float32) {
+	gotFirst := false
+	for _, face := range object.Faces {
+		for _, vertex := range object.Vertices {
+			z := dec.Vertices[vertex + 2]
+			if gotFirst {
+				if z < lowest {
+					lowest = z
+				}
+				if z > highest {
+					highest = z
+				}
+			} else {
+				lowest = z
+				highest = z
+			}
+		}
+	}
 }
