@@ -58,6 +58,8 @@ type Game struct {
 	WindowCharaDesigner *gui.Window
 	WindowInventory     *gui.Window
 
+	CharaDesignerSkinTone *gui.Slider
+
 	NkCtx   *nk.Context
 	NkAtlas *nk.FontAtlas
 	NkSans  *nk.Font
