@@ -8,7 +8,7 @@ import (
 )
 
 type HumanSkinMaterial struct {
-	material.StandardMaterial
+	material.Standard
 	uni gls.Uniform
 	Udata HumanSkinMaterialUdata
 }
@@ -18,7 +18,7 @@ type HumanSkinMaterialUdata struct {
 }
 
 func (m *HumanSkinMaterial) RenderSetup(gs *gls.GLS) {
-	m.StandardMaterial.RenderSetup(gs)
+	m.Standard.RenderSetup(gs)
 	location := m.uni.Location(gs)
 	gs.Uniform3fvUP(location, unsafe.Sizeof(m.udata) / 16, unsafe.Pointer(&m.udata))
 }
