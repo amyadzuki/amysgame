@@ -97,7 +97,6 @@ func (human *Human) Init(
 			}
 			human.base = float64(lowest)
 			human.heightToCap = float64(highest) - human.base
-			continue
 		default:
 			fmt.Printf("human.Init: Name: \"%s\"\n", name)
 		}
