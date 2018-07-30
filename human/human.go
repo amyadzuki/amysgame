@@ -79,7 +79,7 @@ func (human *Human) Init(
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
-			mesh, err = NewMeshSkin(dec, skin, &skinDelta, underwear, uwFabric,
+			mesh, err = NewMeshSkin(dec, skin, skinDelta, underwear, uwFabric,
 				uwDetail, uwTrim, &dec.Objects[idx])
 			human.Skin = mesh
 			lowest, highest, _, ok := ofsRange(dec, &dec.Objects[idx])
