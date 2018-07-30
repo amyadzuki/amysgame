@@ -23,9 +23,17 @@ type Human struct {
 	heightToEye float64
 }
 
-func New(dec *obj.Decoder, skin, underwear *texture.Texture2D) (human *Human, err error) {
+func New(
+	dec       *obj.Decoder,
+	skin      *texture.Texture2D,
+	skinColor *math32.Color,
+	underwear *texture.Texture2D,
+	uwFabric  *math32.Color,
+	uwDetail  *math32.Color,
+	uwTrim    *math32.Color,
+) (human *Human, err error) {
 	human = new(Human)
-	err = human.Init(dec, skin, underwear)
+	err = human.Init(dec, skin, skinColor, underwear, uwFabric, uwDetail, uwTrim)
 	return
 }
 
@@ -45,7 +53,15 @@ func (human *Human) HeightToEye() float64 {
 	return human.heightToEye
 }
 
-func (human *Human) Init(dec *obj.Decoder, skin, underwear *texture.Texture2D) (err error) {
+func (human *Human) Init(
+	dec       *obj.Decoder,
+	skin      *texture.Texture2D,
+	skinColor *math32.Color,
+	underwear *texture.Texture2D,
+	uwFabric  *math32.Color,
+	uwDetail  *math32.Color,
+	uwTrim    *math32.Color,
+) (err error) {
 	human.Node = core.NewNode()
 	for idx := 0; idx < len(dec.Objects); idx++ {
 		var mesh *graphic.Mesh
@@ -63,7 +79,8 @@ func (human *Human) Init(dec *obj.Decoder, skin, underwear *texture.Texture2D) (
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
-			mesh, err = NewMeshSkin(dec, skin, underwear, &dec.Objects[idx])
+			mesh, err = NewMeshSkin(dec, skin, skinColor, underwear, uwFabric,
+				uwDetail, uwTrim, &dec.Objects[idx])
 			human.Skin = mesh
 			lowest, highest, _, ok := ofsRange(dec, &dec.Objects[idx])
 			if ! ok {
@@ -82,20 +99,26 @@ func (human *Human) Init(dec *obj.Decoder, skin, underwear *texture.Texture2D) (
 	return nil
 }
 
-var NewMeshSkin = func(dec *obj.Decoder, skin, underwear *texture.Texture2D, object *obj.Object) (*graphic.Mesh, error) {
+var NewMeshSkin = func(
+	dec       *obj.Decoder,
+	skin      *texture.Texture2D,
+	skinColor *math32.Color,
+	underwear *texture.Texture2D,
+	uwFabric  *math32.Color,
+	uwDetail  *math32.Color,
+	uwTrim    *math32.Color,
+	object    *obj.Object,
+) (*graphic.Mesh, error) {
 	geom, err := dec.NewGeometry(object)
 	if err != nil {
 		return nil, err
 	}
 	mat := new(HumanSkinMaterial)
-	var color = &math32.Color{1, 0, 1}
-	switch skin {
-	case SkinDark:
-		color = &SkinColorDark
-	case SkinLight:
-		color = &SkinColorLight
-	}
-	mat.Init("HumanSkin", color)
+	mat.Init("HumanSkin", &math32.Color{1, 0, 1})
+	mat.Udata.SkinColor = skinColor
+	mat.Udata.UwFabric = uwFabric
+	mat.Udata.UwDetail = uwDetail
+	mat.Udata.UwTrim = uwTrim
 	mat.AddTexture(skin)
 	mat.AddTexture(underwear)
 	mesh := graphic.NewMesh(geom, mat)
