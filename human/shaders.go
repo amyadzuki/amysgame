@@ -103,7 +103,7 @@ void main() {
 #if MAT_TEXTURES>0
 	vec4 sampColor;
 	sampColor = texture(MatTexture[0], vTexcoord);
-	color = mix(HumanEyesColor.rgb, sampColor.rgb, sampColor.a)
+	color = mix(HumanEyesColor.rgb, sampColor.rgb, sampColor.a);
 #else
 	color = vec3(1, 0, 1);
 #endif
