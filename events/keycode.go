@@ -8,6 +8,7 @@ var Keycode map[window.Key]Id
 
 func init() {
 	Keycode = make(map[window.Key]Id)
+	Keycode[window.KeyF12] = ToggleCharaDesigner
 	Keycode[window.KeyI] = ToggleInventory
 	Keycode[window.KeyF11] = ToggleFullScreen
 }
