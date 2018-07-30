@@ -85,7 +85,7 @@ func (human *Human) Init(
 			}
 			human.heightToEye = float64(highest) - HalfEyeHeight
 			human.frontOfEye = float64(frontest)
-			return
+			continue
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
