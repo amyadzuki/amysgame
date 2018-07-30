@@ -11,15 +11,15 @@ var (
 	Underwear *texture.Texture2D
 )
 
-func Init(rend *renderer.Renderer) {
+func Init(rend *renderer.Renderer, darkSkin, lightSkin, underwear string) {
 	rend.AddShader("HumanSkinVs", HumanSkinVs)
 	rend.AddShader("HumanSkinFs", HumanSkinFs)
 	rend.AddProgram("HumanSkin", "HumanSkinVs", "HumanSkinFs")
 	// TODO: do these return error codes?
 
-	SkinDark = Load("01-dark.png")
-	SkinLight = Load("03-light.png")
-	Underwear = Load("10-under.png")
+	SkinDark = Load(darkSkin)
+	SkinLight = Load(lightSkin)
+	Underwear = Load(underwear)
 }
 
 func Load(path string) *texture.Texture2D {
