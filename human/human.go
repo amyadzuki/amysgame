@@ -50,22 +50,18 @@ func (human *Human) Init(dec *obj.Decoder) (err error) {
 		case strings.HasSuffix(name, "-highpolyeyes"):
 			mesh, err = dec.NewMesh(&dec.Objects[idx])
 			human.Eyes = mesh
-			lowest, highest, ok := ofsRange(dec, &dec.Objects[idx], 2)
+			lowest, highest, frontest, ok := ofsRange(dec, &dec.Objects[idx])
 			if ! ok {
-				fmt.Printf("No vertices in \"%s\" (1)\n", name)
+				fmt.Printf("No vertices in \"%s\"\n", name)
 			}
 			human.heightToEye = (float64(lowest) + float64(highest)) * 0.5
-			frontest, _, ok2 := ofsRange(dec, &dec.Objects[idx], 1)
-			if ! ok2 {
-				fmt.Printf("No vertices in \"%s\" (2)\n", name)
-			}
 			human.frontOfEye = float64(frontest)
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
 			mesh, err = NewMeshSkin(dec, &dec.Objects[idx])
 			human.Skin = mesh
-			lowest, highest, ok := ofsRange(dec, &dec.Objects[idx], 2)
+			lowest, highest, _, ok := ofsRange(dec, &dec.Objects[idx])
 			if ! ok {
 				fmt.Printf("No vertices in \"%s\"\n", name)
 			}
@@ -95,20 +91,25 @@ var NewMeshSkin = func(dec *obj.Decoder, object *obj.Object) (*graphic.Mesh, err
 	return mesh, nil
 }
 
-func ofsRange(dec *obj.Decoder, object *obj.Object, ofs int) (lowest, highest float32, ok bool) {
+func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest float32, ok bool) {
 	for _, face := range object.Faces {
 		for _, vertex := range face.Vertices {
-			val := dec.Vertices[vertex + ofs]
+			y := dec.Vertices[vertex + 1]
+			z := dec.Vertices[vertex + 2]
 			if ok {
-				if val < lowest {
-					lowest = val
+				if z < lowest {
+					lowest = z
 				}
-				if val > highest {
-					highest = val
+				if z > highest {
+					highest = z
+				}
+				if y < frontest {
+					frontest = y
 				}
 			} else {
-				lowest = val
-				highest = val
+				lowest = z
+				highest = z
+				frontest = y
 				ok = true
 			}
 		}
