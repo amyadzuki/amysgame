@@ -5,6 +5,7 @@ import (
 
 	"github.com/g3n/engine/gls"
 	"github.com/g3n/engine/material"
+	"github.com/g3n/engine/math32"
 )
 
 type HumanSkinMaterial struct {
@@ -14,10 +15,10 @@ type HumanSkinMaterial struct {
 }
 
 type HumanSkinMaterialUdata struct {
-	SkinColor [4]float32
-	UwFabric  [4]float32
-	UwDetail  [4]float32
-	UwTrim    [4]float32
+	SkinColor math32.Color4
+	UwFabric  math32.Color4
+	UwDetail  math32.Color4
+	UwTrim    math32.Color4
 }
 
 func (m *HumanSkinMaterial) RenderSetup(gs *gls.GLS) {
