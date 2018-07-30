@@ -17,6 +17,8 @@ type Human struct {
 	Eyes *graphic.Mesh
 	Skin *graphic.Mesh
 
+	MatSkin *HumanSkinMaterial
+
 	base        float64
 	frontOfEye  float64
 	heightToCap float64
@@ -81,7 +83,7 @@ func (human *Human) Init(
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
-			mesh, err = NewMeshSkin(dec, skinDark, skinLight, skinDelta,
+			mesh, human.MatSkin, err = NewMeshSkin(dec, skinDark, skinLight, skinDelta,
 				underwear, uwFabric, uwDetail, uwTrim, &dec.Objects[idx])
 			human.Skin = mesh
 			lowest, highest, _, ok := ofsRange(dec, &dec.Objects[idx])
@@ -111,10 +113,10 @@ var NewMeshSkin = func(
 	uwDetail  *math32.Color4,
 	uwTrim    *math32.Color4,
 	object    *obj.Object,
-) (*graphic.Mesh, error) {
+) (*graphic.Mesh, *HumanSkinMaterial, error) {
 	geom, err := dec.NewGeometry(object)
 	if err != nil {
-		return nil, err
+		return nil, nil, err
 	}
 	mat := new(HumanSkinMaterial)
 	mat.Init()
@@ -126,7 +128,7 @@ var NewMeshSkin = func(
 	mat.AddTexture(skinLight)
 	mat.AddTexture(underwear)
 	mesh := graphic.NewMesh(geom, mat)
-	return mesh, nil
+	return mesh, mat, nil
 }
 
 func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest float32, ok bool) {
