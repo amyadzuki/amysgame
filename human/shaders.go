@@ -40,7 +40,7 @@ vec3 HslToRgb(vec3 hsl) {
 vec3 HsvToRgb(vec3 hsv) {
 	vec3 k = vec3(3, 2, 1) * (1.0/3);
 	vec3 p = abs(fract(hsv.xxx + k.xyz) * 6.0 - vec3(3, 3, 3));
-	return c.b * mix(k.xxx, clamp(p - k.xxx, 0, 1), c.y);
+	return hsv.b * mix(k.xxx, clamp(p - k.xxx, 0, 1), hsv.y);
 }
 
 void main() {
