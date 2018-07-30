@@ -9,7 +9,7 @@ import (
 func (game *Game) InitWindows() {
 	game.WindowCharaDesigner = game.newWindow(480, 720, "Character Designer")
 	{
-		const sliderWidth = 480 - 64
+		const sliderWidth = 480 - 60
 		tree := gui.NewTree(480, 720)
 		presets := tree.AddNode("Presets")
 		a := gui.NewRadioButton("A")
@@ -25,10 +25,10 @@ func (game *Game) InitWindows() {
 		presets.Add(c)
 		presets.Add(d)
 		skin := tree.AddNode("Skin")
-		sDarkLight := gui.NewHSlider(sliderWidth, 20)
-		sDarkLight.SetText("Skin Tone")
-		sDarkLight.SetValue(0.5)
-		skin.Add(sDarkLight)
+		game.CharaDesignerSkinTone = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerSkinTone.SetText("Skin Tone")
+		game.CharaDesignerSkinTone.SetValue(0.5)
+		skin.Add(game.CharaDesignerSkinTone)
 		sHue := gui.NewHSlider(sliderWidth, 20)
 		sHue.SetText("Hue Adjustment")
 		sHue.SetValue(0.5)
