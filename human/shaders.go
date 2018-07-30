@@ -24,45 +24,34 @@ uniform vec4 HumanSkin[4];
 #define HsmUwTrim HumanSkin[3]
 out vec4 fColor;
 
-vec3 HueToRgb(float hue) {
-	float r = abs(hue * 6 - 3) - 1;
-	float g = 2 - abs(hue * 6 - 2);
-	float b = 2 - abs(hue * 6 - 4);
-	return clamp(vec3(r, g, b), 0, 1);
-}
-
-vec3 HslToRgb(vec3 hsl) {
-	vec3 rgb = HueToRgb(hsl.x);
-	float c = (1 - abs(2 * hsl.z - 1)) * hsl.y;
-	return clamp((rgb - 0.5) * c + hsl.z, 0, 1);
-}
-
 vec3 HsvToRgb(vec3 hsv) {
-	vec3 k = vec3(3, 2, 1) * (1.0/3);
-	vec3 p = abs(fract(hsv.xxx + k.xyz) * 6.0 - vec3(3, 3, 3));
-	return hsv.b * mix(k.xxx, clamp(p - k.xxx, 0, 1), hsv.y);
+	vec3 k = vec3(3, 2, 1) / 3;
+	vec3 p = abs(fract(hsv.xxx + k.xyz) * 6.0 + vec3(-3));
+	return hsv.z * mix(k.xxx, clamp(p - k.xxx, 0, 1), hsv.y);
 }
 
 void main() {
 #if MAT_TEXTURES>0
 	vec4 color;
-	vec3 hslSkin, rgbSkin;
+	vec3 hsvSkin, rgbSkin;
 #if MAT_TEXTURES>1
 	vec4 dark, light;
 	dark = texture(MatTexture[0], vTexcoord);
 	light = texture(MatTexture[1], vTexcoord);
-	hslSkin = mix(dark.xyz, light.xyz, HsmSkinDelta.w);
+	hsvSkin = mix(dark.xyz, light.xyz, HsmSkinDelta.w);
 #else
 	vec4 sampColor;
 	sampColor = texture(MatTexture[0], vTexcoord);
-	hslSkin = sampColor.xyz;
+	hsvSkin = sampColor.xyz;
 #endif
-	hslSkin += HsmSkinDelta.xyz;
-	hslSkin.x -= floor(hslSkin.x);
-	if (hslSkin.x < 0) {
-		hslSkin.x += 1;
+	float hue = hsvSkin.x;
+	hsvSkin *= HsmSkinDelta.xyz;
+	hsvSkin.x = hue + HsmSkinDelta.x;
+	hsvSkin.x -= floor(hsvSkin.x);
+	if (hsvSkin.x < 0) {
+		hsvSkin.x += 1;
 	}
-	rgbSkin = HsvToRgb(hslSkin);
+	rgbSkin = HsvToRgb(hsvSkin);
 	color = vec4(rgbSkin.rgb, 1);
 #if MAT_TEXTURES>2
 	vec4 uwfc, uw;
