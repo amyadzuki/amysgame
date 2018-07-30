@@ -86,7 +86,7 @@ var NewMeshSkin = func(dec *obj.Decoder, object *obj.Object) (*graphic.Mesh, err
 func zRange(dec *obj.Decoder, object *obj.Object) (lowest, highest float32) {
 	gotFirst := false
 	for _, face := range object.Faces {
-		for _, vertex := range object.Vertices {
+		for _, vertex := range face.Vertices {
 			z := dec.Vertices[vertex + 2]
 			if gotFirst {
 				if z < lowest {
