@@ -95,14 +95,18 @@ uniform vec4 HumanEyes[` + strconv.Itoa(int(unsafe.Sizeof(HumanEyesMaterialUdata
 out vec4 fColor;
 
 void main() {
-	vec3 color;
+	vec4 color;
 #if MAT_TEXTURES>0
 	vec4 sampColor;
 	sampColor = texture(MatTexture[0], vTexcoord);
-	color = mix(HumanEyesColor.rgb, sampColor.rgb, sampColor.a);
+	if (vTexcoord.x < 0.75 || vTexcoord.y < 0.75) {
+		color = vec4(mix(HumanEyesColor.rgb, sampColor.rgb, sampColor.a), 1);
+	} else {
+		color = sampColor.rgba;
+	}
 #else
-	color = vec3(1, 0, 1);
+	color = vec3(1, 0, 1, 1);
 #endif
-	fColor = vec4(color.rgb, 1);
+	fColor = color;
 }
 `
