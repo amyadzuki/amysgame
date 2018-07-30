@@ -99,9 +99,8 @@ void main() {
 #if MAT_TEXTURES>0
 	vec4 sampColor;
 	sampColor = texture(MatTexture[0], vTexcoord);
-	if (vTexcoord.x < 0.8125 || vTexcoord.y < 0.8125) {
-		color = vec4(mix(HumanEyesColor.rgb, sampColor.rgb, sampColor.a), 1);
-	} else {
+	color = vec4(mix(HumanEyesColor.rgb, sampColor.rgb, sampColor.a * sampColor.a), 1);
+	if (min(vTexcoord.x, vTexcoord.y) >= 0.8125) {
 		discard;
 		// color = sampColor.rgba; // <-- this doesn't seem to work right
 	}
