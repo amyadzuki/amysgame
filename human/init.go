@@ -1,7 +1,6 @@
 package human
 
 import (
-	"github.com/g3n/engine/math32"
 	"github.com/g3n/engine/renderer"
 	"github.com/g3n/engine/texture"
 )
