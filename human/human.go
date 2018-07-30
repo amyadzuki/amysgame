@@ -152,6 +152,12 @@ var NewMeshSkin = func(
 	mat.AddTexture(underwear)
 	mesh := graphic.NewMesh(geom, mat)
 	return mesh, mat, nil
+	for fn, face := range object.Faces {
+		for vn, vertex := range face.Vertices {
+			u, v := dec.Uvs[vertex], dec.Uvs[vertex + 1]
+			fmt.Printf("%03d:%04d (%f, %f)\n", fn, vn, u, v)
+		}
+	}
 }
 
 func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest float32, ok bool) {
