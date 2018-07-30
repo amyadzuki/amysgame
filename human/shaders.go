@@ -19,7 +19,7 @@ var HumanSkinFs = `
 #include <material>
 // blank line required by preprocessor
 in vec2 vTexcoord;
-uniform vec4 HumanSkin[4];
+uniform vec4 HumanSkin[` + strconv.Itoa(int(unsafe.Sizeof(HumanSkinMaterial.Udata) / 16)) + `];
 #define HumanSkinDelta HumanSkin[0]
 #define HumanUwFabric HumanSkin[1]
 #define HumanUwDetail HumanSkin[2]
@@ -89,7 +89,7 @@ var HumanEyesFs = `
 #include <material>
 // blank line required by preprocessor
 in vec2 vTexcoord;
-uniform vec4 HumanEyes[1];
+uniform vec4 HumanEyes[` + strconv.Itoa(int(unsafe.Sizeof(HumanEyesMaterial.Udata) / 16)) + `];
 #define HumanEyesColor HumanEyes[0]
 out vec4 fColor;
 
