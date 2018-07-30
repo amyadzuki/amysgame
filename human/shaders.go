@@ -74,6 +74,17 @@ void main() {
 // Eyes ///////////////////////////////////////////////////////////////////////
 
 var HumanEyesVs = `
+#include <attributes>
+// blank line required by preprocessor
+uniform mat4 MVP;
+out vec4 vPosition;
+out vec2 vTexcoord;
+void main() {
+	vec4 position = MVP * vec4(VertexPosition.xyz, 1);
+	gl_Position = position;
+	vPosition = position;
+	vTexcoord = vec2(VertexTexcoord.x, 1.0 - VertexTexcoord.y); // TODO: flip textures
+}
 `
 
 var HumanEyesFs = `
@@ -90,7 +101,7 @@ void main() {
 #if MAT_TEXTURES>0
     vec4 sampColor = texture(MatTexture[0], vTexcoord);
     vec4 invSamp = 1 - sampColor;
-    float scalar = invSamp.x * invSamp.y * invSamp.z;
+    float scalar = dot(invSamp.xyz, vec3(1));
     vec4 mixColor = max(sampColor, vec4(HumanEyesColor.rgb, 1));
     float mixAmt = clamp(vPosition.z / vPosition.w, 0, 1);
     mixAmt = pow(mixAmt, 64) * scalar;
