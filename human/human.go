@@ -25,7 +25,8 @@ type Human struct {
 
 func New(
 	dec       *obj.Decoder,
-	skin      *texture.Texture2D,
+	skinDark  *texture.Texture2D,
+	skinLight *texture.Texture2D,
 	skinDelta *math32.Vector4,
 	underwear *texture.Texture2D,
 	uwFabric  *math32.Color4,
@@ -33,7 +34,7 @@ func New(
 	uwTrim    *math32.Color4,
 ) (human *Human, err error) {
 	human = new(Human)
-	err = human.Init(dec, skin, skinDelta, underwear, uwFabric, uwDetail, uwTrim)
+	err = human.Init(dec, skinDark, skinLight, skinDelta, underwear, uwFabric, uwDetail, uwTrim)
 	return
 }
 
@@ -55,7 +56,8 @@ func (human *Human) HeightToEye() float64 {
 
 func (human *Human) Init(
 	dec       *obj.Decoder,
-	skin      *texture.Texture2D,
+	skinDark  *texture.Texture2D,
+	skinLight *texture.Texture2D,
 	skinDelta *math32.Vector4,
 	underwear *texture.Texture2D,
 	uwFabric  *math32.Color4,
@@ -79,8 +81,8 @@ func (human *Human) Init(
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
-			mesh, err = NewMeshSkin(dec, skin, skinDelta, underwear, uwFabric,
-				uwDetail, uwTrim, &dec.Objects[idx])
+			mesh, err = NewMeshSkin(dec, skinDark, skinLight, skinDelta,
+				underwear, uwFabric, uwDetail, uwTrim, &dec.Objects[idx])
 			human.Skin = mesh
 			lowest, highest, _, ok := ofsRange(dec, &dec.Objects[idx])
 			if ! ok {
@@ -101,7 +103,8 @@ func (human *Human) Init(
 
 var NewMeshSkin = func(
 	dec       *obj.Decoder,
-	skin      *texture.Texture2D,
+	skinDark  *texture.Texture2D,
+	skinLight *texture.Texture2D,
 	skinDelta *math32.Vector4,
 	underwear *texture.Texture2D,
 	uwFabric  *math32.Color4,
@@ -119,7 +122,8 @@ var NewMeshSkin = func(
 	mat.Udata.UwFabric = *uwFabric
 	mat.Udata.UwDetail = *uwDetail
 	mat.Udata.UwTrim = *uwTrim
-	mat.AddTexture(skin)
+	mat.AddTexture(skinDark)
+	mat.AddTexture(skinLight)
 	mat.AddTexture(underwear)
 	mesh := graphic.NewMesh(geom, mat)
 	return mesh, nil
