@@ -43,7 +43,7 @@ type HumanEyesMaterial struct {
 }
 
 type HumanEyesMaterialUdata struct {
-	Color math32.Vector4
+	Color math32.Color4
 }
 
 func (m *HumanEyesMaterial) Init() {
