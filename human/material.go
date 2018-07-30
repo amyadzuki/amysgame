@@ -20,5 +20,5 @@ type HumanSkinMaterialUdata struct {
 func (m *HumanSkinMaterial) RenderSetup(gs *gls.GLS) {
 	m.Standard.RenderSetup(gs)
 	location := m.uni.Location(gs)
-	gs.Uniform3fvUP(location, int32(unsafe.Sizeof(m.Udata) / 16), unsafe.Pointer(&m.Udata))
+	gs.Uniform4fvUP(location, int32(unsafe.Sizeof(m.Udata) / 16), unsafe.Pointer(&m.Udata))
 }
