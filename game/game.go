@@ -47,15 +47,16 @@ type Game struct {
 	Frame    int64
 	SecFrame int64 // frame at start of this second
 
-	WidgetFps          widget.Performance
-	WidgetPing         widget.Performance
-	WidgetHint         widget.Small
-	WidgetCharaChanger *gui.Button
-	WidgetClose        *gui.Button
-	WidgetFullScreen   *gui.Button
-	WidgetHelp         *gui.Button
-	WidgetIconify      *gui.Button
-	WindowInventory    *gui.Window
+	WidgetFps           widget.Performance
+	WidgetPing          widget.Performance
+	WidgetHint          widget.Small
+	WidgetCharaChanger  *gui.Button
+	WidgetClose         *gui.Button
+	WidgetFullScreen    *gui.Button
+	WidgetHelp          *gui.Button
+	WidgetIconify       *gui.Button
+	WindowCharaDesigner *gui.Window
+	WindowInventory     *gui.Window
 
 	NkCtx   *nk.Context
 	NkAtlas *nk.FontAtlas
@@ -79,7 +80,8 @@ type Game struct {
 	MusicHush bool
 	MusicMute bool
 
-	OpenInventory bool
+	OpenCharaDesigner bool
+	OpenInventory     bool
 }
 
 func New(title string) (game *Game) {
@@ -161,6 +163,18 @@ func (game *Game) RecalcDocks() {
 	}
 }
 
+func (game *Game) SetCharaDesigner(open bool) {
+	if open == game.OpenCharaDesigner {
+		return
+	}
+	game.OpenCharaDesigner = open
+	if open {
+		game.Gui.Add(game.WindowCharaDesigner)
+	} else {
+		game.Gui.Remove(game.WindowCharaDesigner)
+	}
+}
+
 func (game *Game) SetFullScreen(fullScreen bool) {
 	game.Win.SetFullScreen(fullScreen)
 	if game.WidgetFullScreen != nil {
@@ -213,6 +227,10 @@ func (game *Game) SoftQuit() int8 {
 	}
 	game.AskQuit = int8(now)
 	return was
+}
+
+func (game *Game) ToggleCharaDesigner() {
+	game.SetCharaDesigner(!game.OpenCharaDesigner)
 }
 
 func (game *Game) ToggleFullScreen() {
