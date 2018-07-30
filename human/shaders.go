@@ -45,20 +45,28 @@ vec3 HsvToRgb(vec3 hsv) {
 
 void main() {
 #if MAT_TEXTURES>0
-	vec4 sampColor, color;
+	vec4 color;
 	vec3 hslSkin, rgbSkin;
-	sampColor = texture(MatTexture[0], vTexcoord);
-	hslSkin = sampColor.rgb;
-	hslSkin += HsmSkinDelta.xyz;
-	hslSkin.r -= floor(hslSkin.r);
-	if (hslSkin.r < 0) {
-		hslSkin.r += 1;
-	}
-	rgbSkin = sampColor.rgb;//HsvToRgb(hslSkin);
-	color = vec4(rgbSkin.rgb, 1);
 #if MAT_TEXTURES>1
+	vec4 dark, light;
+	dark = texture(MatTexture[0], vTexcoord);
+	light = texture(MatTexture[1], vTexcoord);
+	hslSkin = mix(dark.xyz, light.xyz, HsmSkinDelta.w);
+#else
+	vec4 sampColor;
+	sampColor = texture(MatTexture[0], vTexcoord);
+	hslSkin = sampColor.xyz;
+#endif
+	hslSkin += HsmSkinDelta.xyz;
+	hslSkin.x -= floor(hslSkin.x);
+	if (hslSkin.x < 0) {
+		hslSkin.x += 1;
+	}
+	rgbSkin = HsvToRgb(hslSkin);
+	color = vec4(rgbSkin.rgb, 1);
+#if MAT_TEXTURES>2
 	vec4 uwfc, uw;
-	uwfc = texture(MatTexture[1], vTexcoord);
+	uwfc = texture(MatTexture[2], vTexcoord);
 	uw = mix(color, HsmUwFabric, uwfc.r);
 	uw = mix(uw, HsmUwDetail, uwfc.g);
 	uw = mix(uw, HsmUwTrim, uwfc.b);
