@@ -7,7 +7,16 @@ import (
 )
 
 func (game *Game) InitWindows() {
+	game.WindowCharaDesigner = game.newWindow(480, 720, "Character Designer")
 	game.WindowInventory = game.newWindow(960, 720, "Inventory")
+}
+
+func (game *Game) WindowCharaDesignerClose() {
+	game.Gui.Remove(game.WindowCharaDesigner)
+}
+
+func (game *Game) WindowCharaDesignerOpen() {
+	game.Gui.Add(game.WindowCharaDesigner)
 }
 
 func (game *Game) WindowInventoryClose() {
