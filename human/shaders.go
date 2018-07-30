@@ -22,7 +22,7 @@ void main() {
 	vec4 transpSkin;
 	vec3 skin;
 	transpSkin = texture(MatTexture[0], vTexcoord);
-	skin = mix(MatAmbientColor.rgb, transpSkin.rgb, 1-transpSkin.a);
+	skin = mix(MatAmbientColor.rgb, transpSkin.rgb, transpSkin.a);
 #if MAT_TEXTURES>0
 	fColor = vec4(skin.rgb, 1);
 #if MAT_TEXTURES>1
