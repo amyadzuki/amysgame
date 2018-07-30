@@ -33,6 +33,10 @@ func (human *Human) Base() float64 {
 	return human.base
 }
 
+func (human *Human) FrontOfEye() float64 {
+	return human.frontOfEye
+}
+
 func (human *Human) HeightToCap() float64 {
 	return human.heightToCap
 }
