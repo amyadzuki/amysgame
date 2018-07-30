@@ -15,7 +15,7 @@ type HumanSkinMaterial struct {
 }
 
 type HumanSkinMaterialUdata struct {
-	SkinColor math32.Color4
+	SkinColor math32.Vector4
 	UwFabric  math32.Color4
 	UwDetail  math32.Color4
 	UwTrim    math32.Color4
