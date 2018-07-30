@@ -22,7 +22,7 @@ type HumanSkinMaterialUdata struct {
 }
 
 func (m *HumanSkinMaterial) Init() {
-	m.Standard.Init("HumanSkin", math32.Color{1, 0, 1})
+	m.Standard.Init("HumanSkin", &math32.Color{1, 0, 1})
 	m.uni.Init("HumanSkin")
 }
 
