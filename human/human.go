@@ -125,14 +125,6 @@ var NewMeshEyes = func(
 	mat.Udata.Color = *color
 	mat.AddTexture(eyes)
 	mesh := graphic.NewMesh(geom, mat)
-	vbo := geom.VBO(gls.VertexTexcoord)
-	if vbo == nil {
-		panic("vbo was nil")
-	}
-	buf := vbo.Buffer()
-	for i, f := range *buf {
-		fmt.Printf("%05d: %f\n", i, f)
-	}
 	return mesh, mat, nil
 }
 
