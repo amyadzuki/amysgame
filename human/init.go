@@ -6,7 +6,8 @@ import (
 )
 
 var (
-	NakedSkin *texture.Texture2D
+	SkinDark  *texture.Texture2D
+	SkinLight *texture.Texture2D
 	Underwear *texture.Texture2D
 )
 
@@ -16,7 +17,8 @@ func Init(rend *renderer.Renderer) {
 	rend.AddProgram("HumanSkin", "HumanSkinVs", "HumanSkinFs")
 	// TODO: do these return error codes?
 
-	NakedSkin = Load("00-naked.png")
+	SkinDark = Load("01-dark.png")
+	SkinLight = Load("03-light.png")
 	Underwear = Load("10-under.png")
 }
 
