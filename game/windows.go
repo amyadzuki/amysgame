@@ -89,7 +89,7 @@ func (game *Game) newWindow(w, h float32, title string) *gui.Window {
 	win := gui.NewWindow(w, h)
 	win.SetTitle(title) // TODO: translate
 	win.SetPosition(60, 60)
-	win.SetResizable(gui.ResizeAll)
+	win.SetResizable(true)
 	win.SetLayout(gui.NewFillLayout(true, true))
 	win.SetColor4(&styles.AmyDarkWindowContent)
 	return win
