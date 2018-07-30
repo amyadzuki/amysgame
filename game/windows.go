@@ -52,17 +52,17 @@ func (game *Game) InitWindows() {
 		game.CharaDesignerEyeRed = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerEyeRed.SetText("Red")
 		game.CharaDesignerEyeRed.SetValue(0)
-		skin.Add(game.CharaDesignerEyeRed)
+		eyes.Add(game.CharaDesignerEyeRed)
 
 		game.CharaDesignerEyeGreen = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerEyeGreen.SetText("Green")
 		game.CharaDesignerEyeGreen.SetValue(0)
-		skin.Add(game.CharaDesignerEyeGreen)
+		eyes.Add(game.CharaDesignerEyeGreen)
 
 		game.CharaDesignerEyeBlue = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerEyeBlue.SetText("Blue")
 		game.CharaDesignerEyeBlue.SetValue(0)
-		skin.Add(game.CharaDesignerEyeBlue)
+		eyes.Add(game.CharaDesignerEyeBlue)
 
 		game.WindowCharaDesigner.Add(tree)
 	}
