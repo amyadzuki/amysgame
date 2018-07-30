@@ -17,6 +17,7 @@ type Human struct {
 	Eyes *graphic.Mesh
 	Skin *graphic.Mesh
 
+	MatEyes *HumanEyesMaterial
 	MatSkin *HumanSkinMaterial
 
 	base        float64
@@ -30,13 +31,15 @@ func New(
 	skinDark  *texture.Texture2D,
 	skinLight *texture.Texture2D,
 	skinDelta *math32.Vector4,
+	eyes      *texture.Texture2D,
+	eyeColor  *math32.Color4,
 	underwear *texture.Texture2D,
 	uwFabric  *math32.Color4,
 	uwDetail  *math32.Color4,
 	uwTrim    *math32.Color4,
 ) (human *Human, err error) {
 	human = new(Human)
-	err = human.Init(dec, skinDark, skinLight, skinDelta, underwear, uwFabric, uwDetail, uwTrim)
+	err = human.Init(dec, skinDark, skinLight, skinDelta, eyes, eyeColor, underwear, uwFabric, uwDetail, uwTrim)
 	return
 }
 
@@ -61,6 +64,8 @@ func (human *Human) Init(
 	skinDark  *texture.Texture2D,
 	skinLight *texture.Texture2D,
 	skinDelta *math32.Vector4,
+	eyes      *texture.Texture2D,
+	eyeColor  *math32.Color4,
 	underwear *texture.Texture2D,
 	uwFabric  *math32.Color4,
 	uwDetail  *math32.Color4,
@@ -72,7 +77,7 @@ func (human *Human) Init(
 		name := dec.Objects[idx].Name
 		switch {
 		case strings.HasSuffix(name, "-highpolyeyes"):
-			mesh, err = dec.NewMesh(&dec.Objects[idx])
+			mesh, human.MatEyes, err = NewMeshEyes(dec, eyes, eyeColor, &dec.Objects[idx])
 			human.Eyes = mesh
 			_, highest, frontest, ok := ofsRange(dec, &dec.Objects[idx])
 			if ! ok {
@@ -101,6 +106,24 @@ func (human *Human) Init(
 		human.Node.Add(mesh)
 	}
 	return nil
+}
+
+var NewMeshEyes = func(
+	dec       *obj.Decoder,
+	eyes      *texture.Texture2D,
+	color     *math32.Color4,
+	object    *obj.Object,
+) (*graphic.Mesh, *HumanEyesMaterial, error) {
+	geom, err := dec.NewGeometry(object)
+	if err != nil {
+		return nil, nil, err
+	}
+	mat := new(HumanEyesMaterial)
+	mat.Init()
+	mat.Udata.Color = *color
+	mat.AddTexture(eyes)
+	mesh := graphic.NewMesh(geom, mat)
+	return mesh, mat, nil
 }
 
 var NewMeshSkin = func(
