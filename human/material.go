@@ -21,6 +21,11 @@ type HumanSkinMaterialUdata struct {
 	UwTrim    math32.Color4
 }
 
+func (m *HumanSkinMaterial) Init(gs *gls.GLS) {
+	m.Standard.Init("HumanSkin", math32.Color{1, 0, 1})
+	m.uni.Init("HumanSkin")
+}
+
 func (m *HumanSkinMaterial) RenderSetup(gs *gls.GLS) {
 	m.Standard.RenderSetup(gs)
 	location := m.uni.Location(gs)
