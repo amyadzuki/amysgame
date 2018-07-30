@@ -17,11 +17,11 @@ var HumanSkinFs = `
 #include <material>
 // blank line required by preprocessor
 in vec2 vTexcoord;
-uniform vec4 HumanSkinMaterial[4];
-#define HsmSkinColor HumanSkinMaterial[0]
-#define HsmUwFabric HumanSkinMaterial[1]
-#define HsmUwDetail HumanSkinMaterial[2]
-#define HsmUwTrim HumanSkinMaterial[3]
+uniform vec4 HumanSkin[4];
+#define HsmSkinColor HumanSkin[0]
+#define HsmUwFabric HumanSkin[1]
+#define HsmUwDetail HumanSkin[2]
+#define HsmUwTrim HumanSkin[3]
 out vec4 fColor;
 void main() {
 	vec4 transpSkin;
