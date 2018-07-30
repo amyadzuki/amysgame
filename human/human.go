@@ -114,11 +114,11 @@ var NewMeshSkin = func(
 		return nil, err
 	}
 	mat := new(HumanSkinMaterial)
-	mat.Init("HumanSkin", &math32.Color4{1, 0, 1, 1})
-	mat.Udata.SkinColor = skinColor
-	mat.Udata.UwFabric = uwFabric
-	mat.Udata.UwDetail = uwDetail
-	mat.Udata.UwTrim = uwTrim
+	mat.Init("HumanSkin", &math32.Color{1, 0, 1})
+	mat.Udata.SkinColor = *skinColor
+	mat.Udata.UwFabric = *uwFabric
+	mat.Udata.UwDetail = *uwDetail
+	mat.Udata.UwTrim = *uwTrim
 	mat.AddTexture(skin)
 	mat.AddTexture(underwear)
 	mesh := graphic.NewMesh(geom, mat)
