@@ -26,11 +26,11 @@ type Human struct {
 func New(
 	dec       *obj.Decoder,
 	skin      *texture.Texture2D,
-	skinColor *math32.Color,
+	skinColor *math32.Color4,
 	underwear *texture.Texture2D,
-	uwFabric  *math32.Color,
-	uwDetail  *math32.Color,
-	uwTrim    *math32.Color,
+	uwFabric  *math32.Color4,
+	uwDetail  *math32.Color4,
+	uwTrim    *math32.Color4,
 ) (human *Human, err error) {
 	human = new(Human)
 	err = human.Init(dec, skin, skinColor, underwear, uwFabric, uwDetail, uwTrim)
@@ -56,11 +56,11 @@ func (human *Human) HeightToEye() float64 {
 func (human *Human) Init(
 	dec       *obj.Decoder,
 	skin      *texture.Texture2D,
-	skinColor *math32.Color,
+	skinColor *math32.Color4,
 	underwear *texture.Texture2D,
-	uwFabric  *math32.Color,
-	uwDetail  *math32.Color,
-	uwTrim    *math32.Color,
+	uwFabric  *math32.Color4,
+	uwDetail  *math32.Color4,
+	uwTrim    *math32.Color4,
 ) (err error) {
 	human.Node = core.NewNode()
 	for idx := 0; idx < len(dec.Objects); idx++ {
@@ -102,11 +102,11 @@ func (human *Human) Init(
 var NewMeshSkin = func(
 	dec       *obj.Decoder,
 	skin      *texture.Texture2D,
-	skinColor *math32.Color,
+	skinColor *math32.Color4,
 	underwear *texture.Texture2D,
-	uwFabric  *math32.Color,
-	uwDetail  *math32.Color,
-	uwTrim    *math32.Color,
+	uwFabric  *math32.Color4,
+	uwDetail  *math32.Color4,
+	uwTrim    *math32.Color4,
 	object    *obj.Object,
 ) (*graphic.Mesh, error) {
 	geom, err := dec.NewGeometry(object)
@@ -114,7 +114,7 @@ var NewMeshSkin = func(
 		return nil, err
 	}
 	mat := new(HumanSkinMaterial)
-	mat.Init("HumanSkin", &math32.Color{1, 0, 1})
+	mat.Init("HumanSkin", &math32.Color4{1, 0, 1, 1})
 	mat.Udata.SkinColor = skinColor
 	mat.Udata.UwFabric = uwFabric
 	mat.Udata.UwDetail = uwDetail
