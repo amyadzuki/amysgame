@@ -1,5 +1,7 @@
 package human
 
+// Skin ///////////////////////////////////////////////////////////////////////
+
 var HumanSkinVs = `
 #include <attributes>
 // blank line required by preprocessor
@@ -9,7 +11,7 @@ void main() {
 	vec4 position;
 	position = vec4(VertexPosition.xyz, 1);
 	gl_Position = MVP * position;
-	vTexcoord = vec2(VertexTexcoord.x, 1.0 - VertexTexcoord.y);
+	vTexcoord = vec2(VertexTexcoord.x, 1.0 - VertexTexcoord.y); // TODO: flip textures
 }
 `
 
@@ -18,10 +20,10 @@ var HumanSkinFs = `
 // blank line required by preprocessor
 in vec2 vTexcoord;
 uniform vec4 HumanSkin[4];
-#define HsmSkinDelta HumanSkin[0]
-#define HsmUwFabric HumanSkin[1]
-#define HsmUwDetail HumanSkin[2]
-#define HsmUwTrim HumanSkin[3]
+#define HumanSkinDelta HumanSkin[0]
+#define HumanUwFabric HumanSkin[1]
+#define HumanUwDetail HumanSkin[2]
+#define HumanUwTrim HumanSkin[3]
 out vec4 fColor;
 
 vec3 HsvToRgb(vec3 hsv) {
@@ -38,15 +40,15 @@ void main() {
 	vec4 dark, light;
 	dark = texture(MatTexture[0], vTexcoord);
 	light = texture(MatTexture[1], vTexcoord);
-	hsvSkin = mix(dark.xyz, light.xyz, HsmSkinDelta.w);
+	hsvSkin = mix(dark.xyz, light.xyz, HumanSkinDelta.w);
 #else
 	vec4 sampColor;
 	sampColor = texture(MatTexture[0], vTexcoord);
 	hsvSkin = sampColor.xyz;
 #endif
 	float hue = hsvSkin.x;
-	hsvSkin *= HsmSkinDelta.xyz * 2;
-	hsvSkin.x = hue + HsmSkinDelta.x;
+	hsvSkin *= HumanSkinDelta.xyz * 2;
+	hsvSkin.x = hue + HumanSkinDelta.x;
 	hsvSkin.x -= floor(hsvSkin.x);
 	if (hsvSkin.x < 0) {
 		hsvSkin.x += 1;
@@ -56,13 +58,49 @@ void main() {
 #if MAT_TEXTURES>2
 	vec4 uwfc, uw;
 	uwfc = texture(MatTexture[2], vTexcoord);
-	uw = mix(color, HsmUwFabric, uwfc.r);
-	uw = mix(uw, HsmUwDetail, uwfc.g);
-	uw = mix(uw, HsmUwTrim, uwfc.b);
+	uw = mix(color, HumanUwFabric, uwfc.r);
+	uw = mix(uw, HumanUwDetail, uwfc.g);
+	uw = mix(uw, HumanUwTrim, uwfc.b);
 	color = mix(color, uw, uwfc.a);
 #endif
 #else
 	color = vec4(1, 0, 1, 1);
+#endif
+	fColor = vec4(color.rgb, 1);
+}
+`
+
+// Eyes ///////////////////////////////////////////////////////////////////////
+
+var HumanEyesVs = `
+#include <attributes>
+// blank line required by preprocessor
+uniform mat4 MVP;
+out vec2 vTexcoord;
+void main() {
+	vec4 position;
+	position = vec4(VertexPosition.xyz, 1);
+	gl_Position = MVP * position;
+	vTexcoord = vec2(VertexTexcoord.x, 1.0 - VertexTexcoord.y); // TODO: flip textures
+}
+`
+
+var HumanEyesFs = `
+#include <material>
+// blank line required by preprocessor
+in vec2 vTexcoord;
+uniform vec4 HumanEyes[1];
+#define HumanEyesColor HumanEyes[0]
+out vec4 fColor;
+
+void main() {
+	vec3 color;
+#if MAT_TEXTURES>0
+	vec4 sampColor;
+	sampColor = texture(MatTexture[0], vTexcoord);
+	color = mix(HumanEyesColor.rgb, sampColor.rgb, sampColor.a)
+#else
+	color = vec3(1, 0, 1);
 #endif
 	fColor = vec4(color.rgb, 1);
 }
