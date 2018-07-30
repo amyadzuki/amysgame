@@ -5,7 +5,6 @@ import (
 	"strings"
 
 	"github.com/g3n/engine/core"
-	"github.com/g3n/engine/gls"
 	"github.com/g3n/engine/graphic"
 	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/math32"
