@@ -8,17 +8,22 @@ import (
 var (
 	SkinDark  *texture.Texture2D
 	SkinLight *texture.Texture2D
+	Eyes      *texture.Texture2D
 	Underwear *texture.Texture2D
 )
 
-func Init(rend *renderer.Renderer, darkSkin, lightSkin, underwear string) {
+func Init(rend *renderer.Renderer, darkSkin, lightSkin, eyes, underwear string) {
 	rend.AddShader("HumanSkinVs", HumanSkinVs)
 	rend.AddShader("HumanSkinFs", HumanSkinFs)
 	rend.AddProgram("HumanSkin", "HumanSkinVs", "HumanSkinFs")
+	rend.AddShader("HumanEyesVs", HumanEyesVs)
+	rend.AddShader("HumanEyesFs", HumanEyesFs)
+	rend.AddProgram("HumanEyes", "HumanEyesVs", "HumanEyesFs")
 	// TODO: do these return error codes?
 
 	SkinDark = Load(darkSkin)
 	SkinLight = Load(lightSkin)
+	Eyes = Load(eyes)
 	Underwear = Load(underwear)
 }
 
