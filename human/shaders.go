@@ -37,6 +37,12 @@ vec3 HslToRgb(vec3 hsl) {
 	return clamp((rgb - 0.5) * c + hsl.z, 0, 1);
 }
 
+vec3 HsvToRgb(vec3 hsv) {
+	vec3 k = vec3(3, 2, 1) * (1.0/3);
+	vec3p = abs(fract(hsv.xxx + k.xyz) * 6.0 - vec3(3, 3, 3));
+	return c.b * mix(k.xxx, clamp(p - k.xxx, 0, 1), c.y);
+}
+
 void main() {
 #if MAT_TEXTURES>0
 	vec4 sampColor, color;
@@ -48,7 +54,7 @@ void main() {
 	if (hslSkin.r < 0) {
 		hslSkin.r += 1;
 	}
-	rgbSkin = HslToRgb(hslSkin);
+	rgbSkin = HsvToRgb(hslSkin);
 	color = vec4(rgbSkin.rgb, 1);
 #if MAT_TEXTURES>1
 	vec4 uwfc, uw;
