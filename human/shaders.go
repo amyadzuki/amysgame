@@ -45,7 +45,7 @@ void main() {
 	hsvSkin = sampColor.xyz;
 #endif
 	float hue = hsvSkin.x;
-	hsvSkin *= HsmSkinDelta.xyz;
+	hsvSkin *= HsmSkinDelta.xyz * 2;
 	hsvSkin.x = hue + HsmSkinDelta.x;
 	hsvSkin.x -= floor(hsvSkin.x);
 	if (hsvSkin.x < 0) {
