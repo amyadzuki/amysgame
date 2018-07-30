@@ -108,8 +108,14 @@ func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest f
 					if z > highest {
 						highest = z
 					}
-					if y < frontest {
-						frontest = y
+					if !Backest {
+						if y < frontest {
+							frontest = y
+						}
+					} else {
+						if y > frontest {
+							frontest = y
+						}
 					}
 				} else {
 					lowest = z
@@ -125,3 +131,4 @@ func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest f
 }
 
 var HalfEyeHeight float64 = 0.013799965381622314
+var Backest = false
