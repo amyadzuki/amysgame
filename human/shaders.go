@@ -45,7 +45,7 @@ void main() {
 	vec4 dark, light;
 	dark = texture(MatTexture[0], vTexcoord);
 	light = texture(MatTexture[1], vTexcoord);
-	hsvSkin = mix(dark.xyz, light.xyz, HumanSkinDelta.w);
+	hsvSkin = mix(light.xyz, dark.xyz, HumanSkinDelta.w * HumanSkinDelta.w);
 #else
 	vec4 sampColor;
 	sampColor = texture(MatTexture[0], vTexcoord);
