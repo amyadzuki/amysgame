@@ -18,6 +18,7 @@ type Human struct {
 	Skin *graphic.Mesh
 
 	base        float64
+	frontOfEye  float64
 	heightToCap float64
 	heightToEye float64
 }
@@ -49,14 +50,25 @@ func (human *Human) Init(dec *obj.Decoder) (err error) {
 		case strings.HasSuffix(name, "-highpolyeyes"):
 			mesh, err = dec.NewMesh(&dec.Objects[idx])
 			human.Eyes = mesh
-			lowest, highest := zRange(dec, &dec.Objects[idx])
+			lowest, highest, ok := ofsRange(dec, &dec.Objects[idx], 2)
+			if ! ok {
+				fmt.Printf("No vertices in \"%s\" (1)\n", name)
+			}
 			human.heightToEye = (float64(lowest) + float64(highest)) * 0.5
+			frontest, backest, ok2 := ofsRange(dec, &dec.Objects[idx], 2)
+			if ! ok2 {
+				fmt.Printf("No vertices in \"%s\" (2)\n", name)
+			}
+			human.frontOfEye = float64(frontest)
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
 			mesh, err = NewMeshSkin(dec, &dec.Objects[idx])
 			human.Skin = mesh
-			lowest, highest := zRange(dec, &dec.Objects[idx])
+			lowest, highest, ok := ofsRange(dec, &dec.Objects[idx], 2)
+			if ! ok {
+				fmt.Printf("No vertices in \"%s\"\n", name)
+			}
 			human.base = float64(lowest)
 			human.heightToCap = float64(highest) - human.base
 		default:
@@ -83,21 +95,21 @@ var NewMeshSkin = func(dec *obj.Decoder, object *obj.Object) (*graphic.Mesh, err
 	return mesh, nil
 }
 
-func zRange(dec *obj.Decoder, object *obj.Object) (lowest, highest float32) {
-	gotFirst := false
+func ofsRange(dec *obj.Decoder, object *obj.Object, ofs int) (lowest, highest float32, ok bool) {
 	for _, face := range object.Faces {
 		for _, vertex := range face.Vertices {
-			z := dec.Vertices[vertex + 2]
-			if gotFirst {
-				if z < lowest {
-					lowest = z
+			val := dec.Vertices[vertex + ofs]
+			if ok {
+				if val < lowest {
+					lowest = val
 				}
-				if z > highest {
-					highest = z
+				if val > highest {
+					highest = val
 				}
 			} else {
-				lowest = z
-				highest = z
+				lowest = val
+				highest = val
+				ok = true
 			}
 		}
 	}
