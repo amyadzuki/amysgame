@@ -56,7 +56,7 @@ func (game *Game) InitWindows() {
 
 		game.CharaDesignerEyeGreen = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerEyeGreen.SetText("Green")
-		game.CharaDesignerEyeGreen.SetValue(0)
+		game.CharaDesignerEyeGreen.SetValue(0.5)
 		eyes.Add(game.CharaDesignerEyeGreen)
 
 		game.CharaDesignerEyeBlue = gui.NewHSlider(sliderWidth, 20)
