@@ -42,7 +42,7 @@ void main() {
 	vec4 sampColor, color;
 	vec3 hslSkin, rgbSkin;
 	sampColor = texture(MatTexture[0], vTexcoord);
-	hslSkin = sampColor.agb;
+	hslSkin = sampColor.rgb;
 	hslSkin += HsmSkinDelta.xyz;
 	hslSkin.r -= floor(hslSkin.r);
 	if (hslSkin.r < 0) {
