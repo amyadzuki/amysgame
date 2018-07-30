@@ -101,7 +101,7 @@ func ofsRange(dec *obj.Decoder, object *obj.Object, fix bool) (lowest, highest, 
 		for _, vertex := range face.Vertices {
 			y := dec.Vertices[vertex + 1]
 			z := dec.Vertices[vertex + 2]
-			if !fix || z >= 0 {
+			if !fix || z >= 1 {
 				if ok {
 					if z < lowest {
 						lowest = z
