@@ -13,13 +13,12 @@ var (
 )
 
 func Init(rend *renderer.Renderer, darkSkin, lightSkin, eyes, underwear string) {
-	rend.AddShader("HumanSkinVs", HumanSkinVs)
-	rend.AddShader("HumanSkinFs", HumanSkinFs)
-	rend.AddProgram("HumanSkin", "HumanSkinVs", "HumanSkinFs")
 	rend.AddShader("HumanEyesVs", HumanEyesVs)
 	rend.AddShader("HumanEyesFs", HumanEyesFs)
 	rend.AddProgram("HumanEyes", "HumanEyesVs", "HumanEyesFs")
-	// TODO: do these return error codes?
+	rend.AddShader("HumanSkinVs", HumanSkinVs)
+	rend.AddShader("HumanSkinFs", HumanSkinFs)
+	rend.AddProgram("HumanSkin", "HumanSkinVs", "HumanSkinFs")
 
 	SkinDark = Load(darkSkin)
 	SkinLight = Load(lightSkin)
