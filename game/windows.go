@@ -29,7 +29,7 @@ func (game *Game) InitWindows() {
 
 		game.CharaDesignerSkinTone = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerSkinTone.SetText("Skin Tone")
-		game.CharaDesignerSkinTone.SetValue(0.5)
+		game.CharaDesignerSkinTone.SetValue(0.25)
 		skin.Add(game.CharaDesignerSkinTone)
 
 		game.CharaDesignerSkinHue = gui.NewHSlider(sliderWidth, 20)
@@ -61,7 +61,7 @@ func (game *Game) InitWindows() {
 
 		game.CharaDesignerEyeBlue = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerEyeBlue.SetText("Blue")
-		game.CharaDesignerEyeBlue.SetValue(0)
+		game.CharaDesignerEyeBlue.SetValue(1)
 		eyes.Add(game.CharaDesignerEyeBlue)
 
 		game.WindowCharaDesigner.Add(tree)
