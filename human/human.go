@@ -77,7 +77,6 @@ func (human *Human) Init(
 		name := dec.Objects[idx].Name
 		switch {
 		case strings.HasSuffix(name, "-highpolyeyes"):
-			return
 			mesh, human.MatEyes, err = NewMeshEyes(dec, eyes, eyeColor, &dec.Objects[idx])
 			human.Eyes = mesh
 			_, highest, frontest, ok := ofsRange(dec, &dec.Objects[idx])
@@ -86,6 +85,7 @@ func (human *Human) Init(
 			}
 			human.heightToEye = float64(highest) - HalfEyeHeight
 			human.frontOfEye = float64(frontest)
+			return
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
