@@ -54,7 +54,8 @@ func (human *Human) Init(dec *obj.Decoder) (err error) {
 			if ! ok {
 				fmt.Printf("No vertices in \"%s\"\n", name)
 			}
-			human.heightToEye = (float64(lowest) + float64(highest)) * 0.5
+			lowest64 := float64(lowest)
+			human.heightToEye = (float64(highest) - lowest64) * 0.5 + lowest64
 			human.frontOfEye = float64(frontest)
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
