@@ -10,8 +10,16 @@ func (game *Game) InitWindows() {
 	game.WindowCharaDesigner = game.newWindow(480, 720, "Character Designer")
 	{
 		tree := gui.NewTree(480, 720)
-		tree.AddNode("Hello")
-		tree.AddNode("World")
+		presets := tree.AddNode("Presets")
+		presets.Add(gui.NewRadioButton("A").SetGroup("preset"))
+		presets.Add(gui.NewRadioButton("B").SetGroup("preset"))
+		presets.Add(gui.NewRadioButton("C").SetGroup("preset"))
+		presets.Add(gui.NewRadioButton("D").SetGroup("preset"))
+		skin := tree.AddNode("Skin")
+		skin.Add(gui.NewHSlider(240, 20))
+		skin.Add(gui.NewHSlider(240, 20))
+		skin.Add(gui.NewHSlider(240, 20))
+		skin.Add(gui.NewHSlider(240, 20))
 		game.WindowCharaDesigner.Add(tree)
 	}
 	game.WindowInventory = game.newWindow(960, 720, "Inventory")
