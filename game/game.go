@@ -59,6 +59,12 @@ type Game struct {
 	WindowInventory     *gui.Window
 
 	CharaDesignerSkinTone *gui.Slider
+	CharaDesignerSkinHue  *gui.Slider
+	CharaDesignerSkinSat  *gui.Slider
+	CharaDesignerSkinVal  *gui.Slider
+	CharaDesignerEyeRed   *gui.Slider
+	CharaDesignerEyeGreen *gui.Slider
+	CharaDesignerEyeBlue  *gui.Slider
 
 	NkCtx   *nk.Context
 	NkAtlas *nk.FontAtlas
