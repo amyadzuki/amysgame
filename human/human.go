@@ -7,8 +7,8 @@ import (
 	"github.com/g3n/engine/core"
 	"github.com/g3n/engine/graphic"
 	"github.com/g3n/engine/loader/obj"
-	"github.com/g3n/engine/material"
 	"github.com/g3n/engine/math32"
+	"github.com/g3n/engine/texture"
 )
 
 type Human struct {
@@ -23,9 +23,9 @@ type Human struct {
 	heightToEye float64
 }
 
-func New(dec *obj.Decoder) (human *Human, err error) {
+func New(dec *obj.Decoder, skin, underwear *texture.Texture2D) (human *Human, err error) {
 	human = new(Human)
-	err = human.Init(dec)
+	err = human.Init(dec, skin, underwear)
 	return
 }
 
@@ -45,7 +45,7 @@ func (human *Human) HeightToEye() float64 {
 	return human.heightToEye
 }
 
-func (human *Human) Init(dec *obj.Decoder) (err error) {
+func (human *Human) Init(dec *obj.Decoder, skin, underwear *texture.Texture2D) (err error) {
 	human.Node = core.NewNode()
 	for idx := 0; idx < len(dec.Objects); idx++ {
 		var mesh *graphic.Mesh
@@ -63,7 +63,7 @@ func (human *Human) Init(dec *obj.Decoder) (err error) {
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
-			mesh, err = NewMeshSkin(dec, &dec.Objects[idx])
+			mesh, err = NewMeshSkin(dec, skin, underwear, &dec.Objects[idx])
 			human.Skin = mesh
 			lowest, highest, _, ok := ofsRange(dec, &dec.Objects[idx])
 			if ! ok {
@@ -82,15 +82,22 @@ func (human *Human) Init(dec *obj.Decoder) (err error) {
 	return nil
 }
 
-var NewMeshSkin = func(dec *obj.Decoder, object *obj.Object) (*graphic.Mesh, error) {
+var NewMeshSkin = func(dec *obj.Decoder, skin, underwear *texture.Texture2D, object *obj.Object) (*graphic.Mesh, error) {
 	geom, err := dec.NewGeometry(object)
 	if err != nil {
 		return nil, err
 	}
-	mat := new(material.Standard)
-	mat.Init("HumanSkin", math32.NewColor("magenta"))
-	mat.AddTexture(NakedSkin)
-	mat.AddTexture(Underwear)
+	mat := new(HumanSkinMaterial)
+	var color = &math32.Color{1, 0, 1}
+	switch skin {
+	case SkinDark:
+		color = &SkinColorDark
+	case SkinLight:
+		color = &SkinColorLight
+	}
+	mat.Init("HumanSkin", color)
+	mat.AddTexture(skin)
+	mat.AddTexture(underwear)
 	mesh := graphic.NewMesh(geom, mat)
 	return mesh, nil
 }
