@@ -7,14 +7,9 @@ import (
 )
 
 var (
-	SkinDark  *texture.Texture2D // 683d2b
-	SkinLight *texture.Texture2D // e2be9f
+	SkinDark  *texture.Texture2D
+	SkinLight *texture.Texture2D
 	Underwear *texture.Texture2D
-)
-
-var (
-	SkinColorDark = math32.Color{0x68/255.0, 0x3d/255.0, 0x2b/255.0}
-	SkinColorLight = math32.Color{0xe2/255.0, 0xbe/255.0, 0x9f/255.0}
 )
 
 func Init(rend *renderer.Renderer) {
