@@ -55,7 +55,7 @@ func (human *Human) Init(dec *obj.Decoder) (err error) {
 				fmt.Printf("No vertices in \"%s\" (1)\n", name)
 			}
 			human.heightToEye = (float64(lowest) + float64(highest)) * 0.5
-			frontest, backest, ok2 := ofsRange(dec, &dec.Objects[idx], 2)
+			frontest, backest, ok2 := ofsRange(dec, &dec.Objects[idx], 1)
 			if ! ok2 {
 				fmt.Printf("No vertices in \"%s\" (2)\n", name)
 			}
