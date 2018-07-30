@@ -54,7 +54,7 @@ void main() {
 	if (hslSkin.r < 0) {
 		hslSkin.r += 1;
 	}
-	rgbSkin = HsvToRgb(hslSkin);
+	rgbSkin = sampColor.rgb;//HsvToRgb(hslSkin);
 	color = vec4(rgbSkin.rgb, 1);
 #if MAT_TEXTURES>1
 	vec4 uwfc, uw;
