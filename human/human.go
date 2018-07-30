@@ -123,12 +123,6 @@ var NewMeshEyes = func(
 	mat.Udata.Color = *color
 	mat.AddTexture(eyes)
 	mesh := graphic.NewMesh(geom, mat)
-	for fn, face := range object.Faces {
-		for vn, vertex := range face.Vertices {
-			u, v := dec.Uvs[vertex], dec.Uvs[vertex + 1]
-			fmt.Printf("%05d:%d (%f, %f)\n", fn, vn, u, v)
-		}
-	}
 	return mesh, mat, nil
 }
 
