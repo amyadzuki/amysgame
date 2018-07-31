@@ -97,29 +97,19 @@ uniform vec4 HumanEyes[4];
 out vec4 fColor;
 
 void main() {
-    vec4 color;
+	vec4 color;
 #if MAT_TEXTURES>0
-    vec4 sampColor = texture(MatTexture[0], vTexcoord);
-    vec4 invSamp = 1 - sampColor;
-    float scalar = invSamp.x * invSamp.y * invSamp.z;
-    vec4 mixColor = max(sampColor, vec4(HumanEyesColor.rgb, 1));
-    float mixAmt = clamp(vPosition.z / vPosition.w, 0, 1);
-    mixAmt = mixAmt * mixAmt; // **2
-    mixAmt = mixAmt * mixAmt; // **4
-    mixAmt = mixAmt * mixAmt; // **8
-    mixAmt = mixAmt * mixAmt; // **16
-    mixAmt = mixAmt * mixAmt; // **32
-    mixAmt = mixAmt * mixAmt; // **64
-    mixAmt = clamp(mixAmt * scalar, 0, 0.5);
-    color = mix(sampColor, mixColor, mixAmt);
-    color = vec4(mix(HumanEyesColor.rgb, color.rgb, color.a), 1);
-    if (min(vTexcoord.x, vTexcoord.y) >= 0.8125) {
-        discard;
-        // color = sampColor.rgba; // <-- this doesn't seem to work right
-    }
+	if (min(vTexcoord.x, vTexcoord.y) >= 0.8125) {
+		discard;
+	}
+	float dist = vPosition.z / vPosition.w;
+	vec4 sampColor = texture(MatTexture[0], vTexcoord);
+	color = max(sampColor, vec4(HumanEyesColor.rgb, 1));
+	color = mix(sampColor, color, dist > .75 ? 0.5 : 0);
+	color = vec4(mix(HumanEyesColor.rgb, color.rgb, sampColor.a), 1);
 #else
-    color = vec3(1, 0, 1, 1);
+	color = vec3(1, 0, 1, 1);
 #endif
-    fColor = color;
+	fColor = color;
 }
 `
