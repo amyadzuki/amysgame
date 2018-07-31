@@ -65,8 +65,10 @@ func (game *Game) InitWindows() {
 		eyes.Add(game.CharaDesignerEyeBlue)
 
 		hair := tree.AddNode("Hair")
+		_ = hair
 
 		body := tree.AddNode("Body")
+		_ = body
 
 		uw := tree.AddNode("Underwear")
 
