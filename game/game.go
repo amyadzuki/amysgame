@@ -58,13 +58,23 @@ type Game struct {
 	WindowCharaDesigner *gui.Window
 	WindowInventory     *gui.Window
 
-	CharaDesignerSkinTone *gui.Slider
-	CharaDesignerSkinHue  *gui.Slider
-	CharaDesignerSkinSat  *gui.Slider
-	CharaDesignerSkinVal  *gui.Slider
-	CharaDesignerEyeRed   *gui.Slider
-	CharaDesignerEyeGreen *gui.Slider
-	CharaDesignerEyeBlue  *gui.Slider
+	CharaDesignerSkinTone      *gui.Slider
+	CharaDesignerSkinHue       *gui.Slider
+	CharaDesignerSkinSat       *gui.Slider
+	CharaDesignerSkinVal       *gui.Slider
+	CharaDesignerEyeRed        *gui.Slider
+	CharaDesignerEyeGreen      *gui.Slider
+	CharaDesignerEyeBlue       *gui.Slider
+	CharaDesignerUwFabricRed   *gui.Slider
+	CharaDesignerUwFabricGreen *gui.Slider
+	CharaDesignerUwFabricBlue  *gui.Slider
+	CharaDesignerUwDetailRed   *gui.Slider
+	CharaDesignerUwDetailGreen *gui.Slider
+	CharaDesignerUwDetailBlue  *gui.Slider
+	CharaDesignerUwDetailAlpha *gui.Slider
+	CharaDesignerUwTrimRed     *gui.Slider
+	CharaDesignerUwTrimGreen   *gui.Slider
+	CharaDesignerUwTrimBlue    *gui.Slider
 
 	NkCtx   *nk.Context
 	NkAtlas *nk.FontAtlas
