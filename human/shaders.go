@@ -101,7 +101,7 @@ void main() {
 #if MAT_TEXTURES>0
     vec4 sampColor = texture(MatTexture[0], vTexcoord);
     vec4 invSamp = 1 - sampColor;
-    float scalar = dot(invSamp.xyz, vec3(1));
+    float scalar = invSamp.x * invSamp.y * invSamp.z;
     vec4 mixColor = max(sampColor, vec4(HumanEyesColor.rgb, 1));
     float mixAmt = clamp(vPosition.z / vPosition.w, 0, 1);
     mixAmt = clamp(pow(mixAmt, 64) * scalar, 0, 0.5);
