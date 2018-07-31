@@ -104,7 +104,13 @@ void main() {
     float scalar = invSamp.x * invSamp.y * invSamp.z;
     vec4 mixColor = max(sampColor, vec4(HumanEyesColor.rgb, 1));
     float mixAmt = clamp(vPosition.z / vPosition.w, 0, 1);
-    mixAmt = clamp(pow(mixAmt, 64) * scalar, 0, 0.5);
+    mixAmt = mixAmt * mixAmt; // **2
+    mixAmt = mixAmt * mixAmt; // **4
+    mixAmt = mixAmt * mixAmt; // **8
+    mixAmt = mixAmt * mixAmt; // **16
+    mixAmt = mixAmt * mixAmt; // **32
+    mixAmt = mixAmt * mixAmt; // **64
+    mixAmt = clamp(mixAmt * scalar, 0, 0.5);
     color = mix(sampColor, mixColor, mixAmt);
     color = vec4(mix(HumanEyesColor.rgb, color.rgb, color.a), 1);
     if (min(vTexcoord.x, vTexcoord.y) >= 0.8125) {
