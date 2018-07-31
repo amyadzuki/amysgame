@@ -64,6 +64,62 @@ func (game *Game) InitWindows() {
 		game.CharaDesignerEyeBlue.SetValue(1)
 		eyes.Add(game.CharaDesignerEyeBlue)
 
+		eyes := tree.AddNode("Hair")
+
+		eyes := tree.AddNode("Body")
+
+		eyes := tree.AddNode("Underwear")
+
+		game.CharaDesignerUwFabricRed = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerUwFabricRed.SetText("Fabric Red")
+		game.CharaDesignerUwFabricRed.SetValue(1)
+		eyes.Add(game.CharaDesignerUwFabricRed)
+
+		game.CharaDesignerUwFabricGreen = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerUwFabricGreen.SetText("Fabric Green")
+		game.CharaDesignerUwFabricGreen.SetValue(1)
+		eyes.Add(game.CharaDesignerUwFabricGreen)
+
+		game.CharaDesignerUwFabricBlue = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerUwFabricBlue.SetText("Fabric Blue")
+		game.CharaDesignerUwFabricBlue.SetValue(1)
+		eyes.Add(game.CharaDesignerUwFabricBlue)
+
+		game.CharaDesignerUwDetailRed = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerUwDetailRed.SetText("Detail Red")
+		game.CharaDesignerUwDetailRed.SetValue(0.875)
+		eyes.Add(game.CharaDesignerUwDetailRed)
+
+		game.CharaDesignerUwDetailGreen = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerUwDetailGreen.SetText("Detail Green")
+		game.CharaDesignerUwDetailGreen.SetValue(0.875)
+		eyes.Add(game.CharaDesignerUwDetailGreen)
+
+		game.CharaDesignerUwDetailBlue = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerUwDetailBlue.SetText("Detail Blue")
+		game.CharaDesignerUwDetailBlue.SetValue(0.875)
+		eyes.Add(game.CharaDesignerUwDetailBlue)
+
+		game.CharaDesignerUwDetailAlpha = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerUwDetailAlpha.SetText("Detail Opacity")
+		game.CharaDesignerUwDetailAlpha.SetValue(0.5)
+		eyes.Add(game.CharaDesignerUwDetailAlpha)
+
+		game.CharaDesignerUwTrimRed = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerUwTrimRed.SetText("Trim Red")
+		game.CharaDesignerUwTrimRed.SetValue(0xff/255.0)
+		eyes.Add(game.CharaDesignerUwTrimRed)
+
+		game.CharaDesignerUwTrimGreen = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerUwTrimGreen.SetText("Trim Green")
+		game.CharaDesignerUwTrimGreen.SetValue(0xb6/255.0)
+		eyes.Add(game.CharaDesignerUwTrimGreen)
+
+		game.CharaDesignerUwTrimBlue = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerUwTrimBlue.SetText("Trim Blue")
+		game.CharaDesignerUwTrimBlue.SetValue(0xc1/255.0)
+		eyes.Add(game.CharaDesignerUwTrimBlue)
+
 		game.WindowCharaDesigner.Add(tree)
 	}
 	game.WindowInventory = game.newWindow(960, 720, "Inventory")
