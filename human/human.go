@@ -98,7 +98,8 @@ func (human *Human) Init(
 			human.base = float64(lowest)
 			human.heightToCap = float64(highest) - human.base
 		default:
-			fmt.Printf("human.Init: Name: \"%s\"\n", name)
+			fmt.Printf("Skipping: \"%s\"\n", name)
+			continue;
 		}
 		if err != nil {
 			return
