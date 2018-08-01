@@ -1,51 +1,64 @@
 package state
 
-type IState interface {
-	Common() *State
-	Enter()
-	Leave()
-	Main()
-}
+import (
+	"github.com/amyadzuki/amygolib/str"
 
-func (s IState) Run() {
-	common := s.Common()
-	common.current = common.next
-	s.Enter()
-	for !common.win.ShouldClose() && common.next == common.current {
-		s.Main()
-	}
-	s.Leave()
-}
-
-func (s IState) SetNext(next int) {
-	s.Common().next = next
-}
-
-func (s IState) SetWindow(win *window.Window) {
-	s.Common().win = win
-}
+	"github.com/g3n/engine/window"
+)
 
 type State struct {
-	win     *window.Window
-	current int32
-	next    int32
+	fnCurrent, fnNext func(*State)
+	fns               map[string]func(*State)
+	state             string
+	win               *window.Window
 }
 
-func (s *State) Common() *State {
+func New(win *window.Window) *State {
+	s := new(State)
+	s.Init(win)
 	return s
 }
 
-func (s *State) Enter() {
+func (s *State) Init(win *window.Window) {
+	s.SetWindow(win)
 }
 
-func (s *State) Init(win *window.Window, state int) {
+func (s *State) OnEnter(name string, cb func(*State)) {
+	s.fns[str.Simp(name) + "{"] = cb
+}
+
+func (s *State) OnLeave(name string, cb func(*State)) {
+	s.fns[str.Simp(name) + "}"] = cb
+}
+
+func (s *State) Register(name string, cb func(*State)) {
+	s.fns[str.Simp(name)] = cb
+}
+
+func (s *State) Run() {
+	s.fnCurrent = s.fnNext
+	enter, eok := s.fns[s.state + "{"]
+	leave, lok := s.fns[s.state + "}"]
+	if eok {
+		enter(s)
+	}
+	for !s.win.ShouldClose() && s.fnNext == s.fnCurrent {
+		s.current(s)
+	}
+	if lok {
+		leave(s)
+	}
+}
+
+func (s *State) SetNext(state string) {
+	if fn, ok := s.fns[state], ok {
+		s.state = state
+		s.fnNext = fn
+	} else {
+		panic("Unregistered state: \"" + state + "\"")
+	}
+}
+
+func (s *State) SetWindow(win *window.Window) {
 	s.win = win
-	s.current = int32(state)
-	s.next = int32(state)
-}
-
-func (s *State) Leave() {
-}
-
-func (s *State) Main() {
 }
