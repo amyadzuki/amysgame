@@ -7,9 +7,9 @@ import (
 	"runtime"
 	"strconv"
 
+	"github.com/amyadzuki/amygolib/logs"
 	"github.com/amyadzuki/amygolib/str"
 
-	"github.com/amyadzuki/amystuff/logs"
 	"github.com/amyadzuki/amystuff/styles"
 
 	"github.com/g3n/engine/camera"
