@@ -7,7 +7,8 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/amyadzuki/amystuff/logs"
+	"github.com/amyadzuki/amygolib/logs"
+
 	"github.com/amyadzuki/amystuff/widget"
 
 	//	"github.com/g3n/engine/audio"
