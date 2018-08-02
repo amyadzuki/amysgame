@@ -7,7 +7,6 @@ import (
 	"runtime"
 	"strconv"
 
-	"github.com/amyadzuki/amygolib/logs"
 	"github.com/amyadzuki/amygolib/str"
 
 	"github.com/amyadzuki/amystuff/styles"
