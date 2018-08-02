@@ -8,6 +8,7 @@ import (
 
 func (game *Game) InitWindows() {
 	game.WindowCharaDesigner = game.newWindow(480, 720, "Character Designer")
+	game.WindowCharaDesigner.SetCloseButton(false)
 	{
 		const sliderWidth = 480 - 60
 		tree := gui.NewTree(480, 720)
