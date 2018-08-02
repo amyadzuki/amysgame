@@ -31,6 +31,8 @@ var _ = glfw.CreateWindow
 
 var Main Game
 type Game struct {
+	logs.Logs
+
 	Camera *camera.Perspective // TODO: camera.ICamera
 	Win    window.IWindow
 	Wm     window.IWindowManager
@@ -82,7 +84,6 @@ type Game struct {
 
 	Gs           *gls.GLS
 	LightAmbient *light.Ambient
-	Logs         *logs.Logs
 	Rend         *renderer.Renderer
 	RealRoot     *gui.Root
 	Gui          *gui.Panel
