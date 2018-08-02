@@ -53,7 +53,7 @@ func (game *Game) StartUp(logPath string) (err error) {
 	info, debug, trace := !*flag_quiet, *flag_debug, *flag_trace
 	game.InfoDebug = debug || trace
 	game.InfoTrace = trace
-	if game.Logs, err = logs.New(logPath, info, debug, trace); err != nil {
+	if err = game.Logs.Init(logPath, info, debug, trace); err != nil {
 		return
 	}
 
