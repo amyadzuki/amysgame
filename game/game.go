@@ -61,6 +61,11 @@ type Game struct {
 	WindowCharaDesigner *gui.Window
 	WindowInventory     *gui.Window
 
+	CharaDesignerBodyAge       *gui.Slider
+	CharaDesignerBodyGender    *gui.Slider
+	CharaDesignerBodyMuscle    *gui.Slider
+	CharaDesignerBodyWeight    *gui.Slider
+	CharaDesignerBodyApply     *gui.Button
 	CharaDesignerSkinTone      *gui.Slider
 	CharaDesignerSkinHue       *gui.Slider
 	CharaDesignerSkinSat       *gui.Slider
