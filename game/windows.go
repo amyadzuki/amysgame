@@ -40,7 +40,7 @@ func (game *Game) InitWindows() {
 		game.CharaDesignerBodyWeight.SetValue(0.5)
 		body.Add(game.CharaDesignerBodyWeight)
 
-		game.CharaDesignerBodyApply = gui.Button("Apply")
+		game.CharaDesignerBodyApply = gui.NewButton("Apply")
 		body.Add(game.CharaDesignerBodyApply)
 
 		skin := tree.AddNode("Skin")
