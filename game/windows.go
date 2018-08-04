@@ -13,18 +13,35 @@ func (game *Game) InitWindows() {
 		const sliderWidth = 480 - 60
 		tree := gui.NewTree(480, 720)
 		presets := tree.AddNode("Presets")
-		a := gui.NewRadioButton("A")
-		b := gui.NewRadioButton("B")
-		c := gui.NewRadioButton("C")
-		d := gui.NewRadioButton("D")
-		a.SetGroup("preset")
-		b.SetGroup("preset")
-		c.SetGroup("preset")
-		d.SetGroup("preset")
-		presets.Add(a)
-		presets.Add(b)
-		presets.Add(c)
-		presets.Add(d)
+		presets.Add(gui.NewRadioButton("A").SetGroup("preset"))
+		presets.Add(gui.NewRadioButton("B").SetGroup("preset"))
+		presets.Add(gui.NewRadioButton("C").SetGroup("preset"))
+		presets.Add(gui.NewRadioButton("D").SetGroup("preset"))
+
+		body := tree.AddNode("Body")
+
+		game.CharaDesignerBodyAge = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerBodyAge.SetText("Apparent Age")
+		game.CharaDesignerBodyAge.SetValue(0.5)
+		body.Add(game.CharaDesignerBodyAge)
+
+		game.CharaDesignerBodyGender = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerBodyGender.SetText("Gender")
+		game.CharaDesignerBodyGender.SetValue(0.125)
+		body.Add(game.CharaDesignerBodyGender)
+
+		game.CharaDesignerBodyMuscle = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerBodyMuscle.SetText("Muscle")
+		game.CharaDesignerBodyMuscle.SetValue(0.5)
+		body.Add(game.CharaDesignerBodyMuscle)
+
+		game.CharaDesignerBodyWeight = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerBodyWeight.SetText("Weight")
+		game.CharaDesignerBodyWeight.SetValue(0.5)
+		body.Add(game.CharaDesignerBodyWeight)
+
+		game.CharaDesignerBodyApply = gui.Button("Apply")
+		body.Add(game.CharaDesignerBodyApply)
 
 		skin := tree.AddNode("Skin")
 
@@ -67,9 +84,6 @@ func (game *Game) InitWindows() {
 
 		hair := tree.AddNode("Hair")
 		_ = hair
-
-		body := tree.AddNode("Body")
-		_ = body
 
 		uw := tree.AddNode("Underwear")
 
