@@ -271,6 +271,14 @@ func (game *Game) ToggleInventory() {
 	game.SetInventory(!game.OpenInventory)
 }
 
+func (game *Game) UpdateMaker() {
+	age := CharaDesignerBodyAge.Value()
+	gender := CharaDesignerBodyGender.Value()
+	muscle := CharaDesignerBodyMuscle.Value()
+	weight := CharaDesignerBodyWeight.Value()
+	game.Maker.Update(age, gender, muscle, weight)
+}
+
 func (game *Game) ViewportFull() {
 	w, h := game.Size()
 	game.Gs.Viewport(0, 0, int32(w), int32(h))
