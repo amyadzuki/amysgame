@@ -11,6 +11,8 @@ import (
 
 	"github.com/amyadzuki/amystuff/widget"
 
+	"github.com/amyadzuki/client/loader"
+
 	//	"github.com/g3n/engine/audio"
 	"github.com/g3n/engine/camera"
 	"github.com/g3n/engine/core"
@@ -84,6 +86,8 @@ type Game struct {
 	CharaDesignerUwTrimGreen   *gui.Slider
 	CharaDesignerUwTrimBlue    *gui.Slider
 
+	Maker *loader.Maker
+
 	NkCtx   *nk.Context
 	NkAtlas *nk.FontAtlas
 	NkSans  *nk.Font
@@ -150,6 +154,7 @@ func (game *Game) FullScreen() bool {
 func (game *Game) Init(title string) {
 	game.Title = title
 	game.Scene = core.NewNode()
+	game.Maker = loader.NewMaker()
 	return
 }
 
