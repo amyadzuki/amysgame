@@ -11,8 +11,6 @@ import (
 
 	"github.com/amyadzuki/amystuff/widget"
 
-	"github.com/amyadzuki/client/loader"
-
 	//	"github.com/g3n/engine/audio"
 	"github.com/g3n/engine/camera"
 	"github.com/g3n/engine/core"
