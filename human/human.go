@@ -71,6 +71,8 @@ func (human *Human) Init(
 	uwDetail  *math32.Color4,
 	uwTrim    *math32.Color4,
 ) (err error) {
+	fmt.Println("** len(dec.Uvs):   ", len(dec.Uvs))
+	fmt.Println("** dec.Uvs.Size(): ", dec.Uvs.Size())
 	human.Node = core.NewNode()
 	for idx := 0; idx < len(dec.Objects); idx++ {
 		var mesh *graphic.Mesh
