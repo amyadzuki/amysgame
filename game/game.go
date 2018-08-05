@@ -86,8 +86,6 @@ type Game struct {
 	CharaDesignerUwTrimGreen   *gui.Slider
 	CharaDesignerUwTrimBlue    *gui.Slider
 
-	Maker *loader.Maker
-
 	NkCtx   *nk.Context
 	NkAtlas *nk.FontAtlas
 	NkSans  *nk.Font
@@ -269,14 +267,6 @@ func (game *Game) ToggleFullScreen() {
 
 func (game *Game) ToggleInventory() {
 	game.SetInventory(!game.OpenInventory)
-}
-
-func (game *Game) UpdateMaker() {
-	age := CharaDesignerBodyAge.Value()
-	gender := CharaDesignerBodyGender.Value()
-	muscle := CharaDesignerBodyMuscle.Value()
-	weight := CharaDesignerBodyWeight.Value()
-	game.Maker.Update(age, gender, muscle, weight)
 }
 
 func (game *Game) ViewportFull() {
