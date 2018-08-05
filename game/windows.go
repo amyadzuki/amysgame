@@ -41,6 +41,9 @@ func (game *Game) InitWindows() {
 		body.Add(game.CharaDesignerBodyWeight)
 
 		game.CharaDesignerBodyApply = gui.NewButton("Apply")
+		game.CharaDesignerBodyApply.Subscribe(gui.OnClick, func(evname string, event interface{}) {
+			game.UpdateMaker()
+		})
 		body.Add(game.CharaDesignerBodyApply)
 
 		skin := tree.AddNode("Skin")
