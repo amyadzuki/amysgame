@@ -38,8 +38,8 @@ vec3 HsvToRgb(vec3 hsv) {
 }
 
 void main() {
-#if MAT_TEXTURES>0
 	vec4 color;
+#if MAT_TEXTURES>0
 	vec3 hsvSkin, rgbSkin;
 #if MAT_TEXTURES>1
 	vec4 dark, light;
