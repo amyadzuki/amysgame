@@ -150,7 +150,6 @@ func (game *Game) FullScreen() bool {
 func (game *Game) Init(title string) {
 	game.Title = title
 	game.Scene = core.NewNode()
-	game.Maker = loader.NewMaker()
 	return
 }
 
