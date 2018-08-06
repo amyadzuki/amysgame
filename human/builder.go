@@ -7,8 +7,10 @@ import (
 type Builder struct {
 	F, M           Human
 	F0, F1, F2, F3 float64
+
 	sync.Mutex
-	finalized, male   bool
+
+	finalized, male bool
 }
 
 func New(f, m *obj.Decoder) *Builder {
