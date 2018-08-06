@@ -24,7 +24,7 @@ var HumanSkinFs = `
 #include <material>
 // blank line required by preprocessor
 in vec2 vTexcoord;
-uniform vec4 HumanSkin[` + strconv.Itoa(int(unsafe.Sizeof(HumanSkinMaterialUdata{}) / 16)) + `];
+uniform vec4 HumanSkin[` + strconv.Itoa(int(unsafe.Sizeof(SkinMaterialUdata{}) / 16)) + `];
 #define HumanSkinDelta HumanSkin[0]
 #define HumanUwFabric HumanSkin[1]
 #define HumanUwDetail HumanSkin[2]
