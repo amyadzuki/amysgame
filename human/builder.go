@@ -57,7 +57,10 @@ func (b *Builder) Params() (float64, float64, float64, float64) {
 func (b *Builder) Update(f0, f1, f2, f3 float64) *Builder {
 	b.Lock() ; defer b.Unlock()
 	if !b.finalized {
-		b.f0, b.f1, b.f2, b.f3 = f0, f1, f2, f3
+		b.f0 = maths.ClampFloat64(f0, 0, 1)
+		b.f1 = maths.ClampFloat64(f1, 0, 1)
+		b.f2 = maths.ClampFloat64(f2, 0, 1)
+		b.f3 = maths.ClampFloat64(f3, 0, 1)
 	}
 	update_unlocked(false)
 }
