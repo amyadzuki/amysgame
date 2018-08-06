@@ -8,7 +8,7 @@ type Builder struct {
 	F, M           Human
 	F0, F1, F2, F3 float64
 	sync.Mutex
-	Locked, Male   bool
+	finalized, male   bool
 }
 
 func New(f, m *obj.Decoder) *Builder {
@@ -17,11 +17,11 @@ func New(f, m *obj.Decoder) *Builder {
 
 func (b *Builder) Finalize() *Human {
 	b.Lock() ; defer b.Unlock()
-	if !b.Locked {
+	if !b.finalized {
 		b.update_unlocked(b.F0, b.F1, b.F2, b.F3, true)
-		b.Locked = true
+		b.finalized = true
 	}
-	if Male {
+	if b.male {
 		return b.M
 	} else {
 		return b.F
@@ -37,7 +37,7 @@ func (b *Builder) Init(f, m *obj.Decoder) *Builder {
 	b.F.Init(f, SkinDark, SkinLight, skinDelta, Eyes, eyeColor, Underwear, uwF, uwD, uwT)
 	b.M.Init(m, SkinDark, SkinLight, skinDelta, Eyes, eyeColor, Underwear, uwF, uwD, uwT)
 	b.Update = updateBuilder
-	b.Locked, b.Male = false, false
+	b.finalized, b.male = false, false
 	if BuilderInit != nil {
 		BuilderInit(b)
 	}
@@ -50,7 +50,7 @@ func (b *Builder) Update(f0, f1, f2, f3 float64) *Builder {
 }
 
 func (b *Builder) update_unlocked(f0, f1, f2, f3 float64, final bool) *Builder {
-	if b.Locked {
+	if b.finalized {
 		return
 	}
 	if !final {
