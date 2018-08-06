@@ -81,9 +81,10 @@ func (b *Builder) Update(f0, f1, f2, f3 float64) *Builder {
 		b.f3 = maths.ClampFloat64(f3, 0, 1)
 	}
 	b.update_unlocked(false)
+	return b
 }
 
-func (b *Builder) update_unlocked(final bool) *Builder {
+func (b *Builder) update_unlocked(final bool) {
 	if b.finalized {
 		return
 	}
