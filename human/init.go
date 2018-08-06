@@ -6,6 +6,8 @@ import (
 )
 
 var (
+	MainBuilder *Builder
+
 	Eyes       *texture.Texture2D
 	SkinDarkF  *texture.Texture2D
 	SkinDarkM  *texture.Texture2D
@@ -15,8 +17,8 @@ var (
 	UnderwearM *texture.Texture2D
 )
 
-func Init(rend *renderer.Renderer, darkSkinF, lightSkinF, underwearF,
-	darkSkinM, lightSkinM, underwearM, eyes string,
+func Init(rend *renderer.Renderer, objF, mtlF, darkSkinF, lightSkinF, underwearF,
+	objM, mtlM, darkSkinM, lightSkinM, underwearM, eyes string,
 ) {
 	rend.AddShader("HumanEyesVs", HumanEyesVs)
 	rend.AddShader("HumanEyesFs", HumanEyesFs)
@@ -32,6 +34,17 @@ func Init(rend *renderer.Renderer, darkSkinF, lightSkinF, underwearF,
 	UnderwearF = Load(underwearF)
 	UnderwearM = Load(underwearM)
 	Eyes = Load(eyes)
+
+	decF, err := obj.Decode(objF, mtlF)
+	if err != nil {
+		panic(err)
+	}
+	decM, err := obj.Decode(objM, mtlM)
+	if err != nil {
+		panic(err)
+	}
+
+	MainBuilder = New(decF, decM)
 }
 
 func Load(path string) *texture.Texture2D {
