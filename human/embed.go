@@ -79,8 +79,8 @@ func (human *Embed) Init(
 		var vbo *gls.VBO
 		var mesh *graphic.Mesh
 		name := dec.Objects[idx].Name
-		switch {
-		case strings.HasSuffix(name, "-highpolyeyes"):
+		switch name {
+		case "high-poly.obj":
 			var m *EyesMaterial
 			vbo, m, mesh, err = NewMeshEyes(dec, eyes, eyeColor, &dec.Objects[idx])
 			if vbo == nil {
@@ -93,9 +93,9 @@ func (human *Embed) Init(
 			}
 			human.heightToEye = float64(highest) - HalfEyeHeight
 			human.frontOfEye = float64(frontest)
-		case strings.HasSuffix(name, "-female_generic"):
+		case "female_generic.obj":
 			fallthrough
-		case strings.HasSuffix(name, "-male_generic"):
+		case "male_generic.obj":
 			var m *SkinMaterial
 			vbo, m, mesh, err = NewMeshSkin(dec, skinDark, skinLight, skinDelta,
 				underwear, uwFabric, uwDetail, uwTrim, &dec.Objects[idx])
