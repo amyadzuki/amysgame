@@ -12,8 +12,7 @@ import (
 	"github.com/g3n/engine/texture"
 )
 
-type Human struct {
-	Update func(*Human, float64, float64, float64, float64)
+type HumanEmbed struct {
 	*core.Node
 
 	Eyes *graphic.Mesh
@@ -31,7 +30,7 @@ type Human struct {
 	heightToEye float64
 }
 
-func NewHuman(
+func NewHumanEmbed(
 	dec       *obj.Decoder,
 	skinDark  *texture.Texture2D,
 	skinLight *texture.Texture2D,
@@ -42,29 +41,29 @@ func NewHuman(
 	uwFabric  *math32.Color4,
 	uwDetail  *math32.Color4,
 	uwTrim    *math32.Color4,
-) (human *Human, err error) {
-	human = new(Human)
+) (human *HumanEmbed, err error) {
+	human = new(HumanEmbed)
 	err = human.Init(dec, skinDark, skinLight, skinDelta, eyes, eyeColor, underwear, uwFabric, uwDetail, uwTrim)
 	return
 }
 
-func (human *Human) Base() float64 {
+func (human *HumanEmbed) Base() float64 {
 	return human.base
 }
 
-func (human *Human) FrontOfEye() float64 {
+func (human *HumanEmbed) FrontOfEye() float64 {
 	return human.frontOfEye
 }
 
-func (human *Human) HeightToCap() float64 {
+func (human *HumanEmbed) HeightToCap() float64 {
 	return human.heightToCap
 }
 
-func (human *Human) HeightToEye() float64 {
+func (human *HumanEmbed) HeightToEye() float64 {
 	return human.heightToEye
 }
 
-func (human *Human) Init(
+func (human *HumanEmbed) Init(
 	dec       *obj.Decoder,
 	skinDark  *texture.Texture2D,
 	skinLight *texture.Texture2D,
@@ -76,7 +75,6 @@ func (human *Human) Init(
 	uwDetail  *math32.Color4,
 	uwTrim    *math32.Color4,
 ) (err error) {
-	human.Update = updateDefault
 	human.Node = core.NewNode()
 	for idx := 0; idx < len(dec.Objects); idx++ {
 		var vbo *gls.VBO
@@ -205,9 +203,6 @@ func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest f
 	}
 	// fmt.Printf("\"%s\": %f v^ %f (%v)  |  %f\n", object.Name, lowest, highest, 0.5 * (float64(highest) - float64(lowest)), frontest)
 	return
-}
-
-func updateDefault(h *Human, a, b, c, d float64) {
 }
 
 var HalfEyeHeight float64 = 0.013799965381622314
