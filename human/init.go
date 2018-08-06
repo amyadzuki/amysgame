@@ -1,6 +1,7 @@
 package human
 
 import (
+	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/renderer"
 	"github.com/g3n/engine/texture"
 )
@@ -44,7 +45,9 @@ func Init(rend *renderer.Renderer, objF, mtlF, darkSkinF, lightSkinF, underwearF
 		panic(err)
 	}
 
-	MainBuilder = New(decF, decM)
+	if MainBuilder, err = New(decF, decM); err != nil {
+		panic(err)
+	}
 }
 
 func Load(path string) *texture.Texture2D {
