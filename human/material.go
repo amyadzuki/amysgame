@@ -10,25 +10,25 @@ import (
 
 // Skin ///////////////////////////////////////////////////////////////////////
 
-type HumanSkinMaterial struct {
+type SkinMaterial struct {
 	material.Standard
 	uni gls.Uniform
-	Udata HumanSkinMaterialUdata
+	Udata SkinMaterialUdata
 }
 
-type HumanSkinMaterialUdata struct {
+type SkinMaterialUdata struct {
 	SkinDelta math32.Vector4
 	UwFabric  math32.Color4
 	UwDetail  math32.Color4
 	UwTrim    math32.Color4
 }
 
-func (m *HumanSkinMaterial) Init() {
+func (m *SkinMaterial) Init() {
 	m.Standard.Init("HumanSkin", &math32.Color{1, 0, 1})
 	m.uni.Init("HumanSkin")
 }
 
-func (m *HumanSkinMaterial) RenderSetup(gs *gls.GLS) {
+func (m *SkinMaterial) RenderSetup(gs *gls.GLS) {
 	m.Standard.RenderSetup(gs)
 	location := m.uni.Location(gs)
 	gs.Uniform4fvUP(location, int32(unsafe.Sizeof(m.Udata) / 16), unsafe.Pointer(&m.Udata))
@@ -36,22 +36,22 @@ func (m *HumanSkinMaterial) RenderSetup(gs *gls.GLS) {
 
 // Eyes ///////////////////////////////////////////////////////////////////////
 
-type HumanEyesMaterial struct {
+type EyesMaterial struct {
 	material.Standard
 	uni gls.Uniform
-	Udata HumanEyesMaterialUdata
+	Udata EyesMaterialUdata
 }
 
-type HumanEyesMaterialUdata struct {
+type EyesMaterialUdata struct {
 	Color math32.Color4
 }
 
-func (m *HumanEyesMaterial) Init() {
+func (m *EyesMaterial) Init() {
 	m.Standard.Init("HumanEyes", &math32.Color{1, 0, 1})
 	m.uni.Init("HumanEyes")
 }
 
-func (m *HumanEyesMaterial) RenderSetup(gs *gls.GLS) {
+func (m *EyesMaterial) RenderSetup(gs *gls.GLS) {
 	m.Standard.RenderSetup(gs)
 	location := m.uni.Location(gs)
 	gs.Uniform4fvUP(location, int32(unsafe.Sizeof(m.Udata) / 16), unsafe.Pointer(&m.Udata))
