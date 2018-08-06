@@ -35,6 +35,7 @@ func (b *Builder) Finalized() bool {
 }
 
 func (b *Builder) Init(f, m *obj.Decoder) *Builder {
+	b.Lock() ; defer b.Unlock()
 	skinDelta = &math32.Vector4{0.5, 0.5, 0.5, 0.25}
 	eyeColor = &math32.Color4{1.0/3.0, 2.0/3.0, 1, 1}
 	uwF = &math32.Color4{1, 1, 1, 1}
@@ -42,10 +43,13 @@ func (b *Builder) Init(f, m *obj.Decoder) *Builder {
 	uwT = &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
 	b.F.Init(f, SkinDarkF, SkinLightF, skinDelta, Eyes, eyeColor, UnderwearF, uwF, uwD, uwT)
 	b.M.Init(m, SkinDarkM, SkinLightM, skinDelta, Eyes, eyeColor, UnderwearM, uwF, uwD, uwT)
-	b.Update = updateBuilder
+	b.f0, b.f1, b.f2, b.f3 = 0.5, 0.125, 0.5, 0.5
 	b.finalized, b.male = false, false
 	if BuilderInit != nil {
 		BuilderInit(b)
+	}
+	if BuilderUpdate != nil {
+		BuilderUpdate(b, false)
 	}
 	return b
 }
