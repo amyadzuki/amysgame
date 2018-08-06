@@ -36,8 +36,8 @@ func (b *Builder) Init(f, m *obj.Decoder) *Builder {
 	uwF = &math32.Color4{1, 1, 1, 1}
 	uwD = &math32.Color4{0.875, 0.875, 0.875, 0.5}
 	uwT = &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
-	b.F.Init(f, SkinDark, SkinLight, skinDelta, Eyes, eyeColor, Underwear, uwF, uwD, uwT)
-	b.M.Init(m, SkinDark, SkinLight, skinDelta, Eyes, eyeColor, Underwear, uwF, uwD, uwT)
+	b.F.Init(f, SkinDarkF, SkinLightF, skinDelta, Eyes, eyeColor, UnderwearF, uwF, uwD, uwT)
+	b.M.Init(m, SkinDarkM, SkinLightM, skinDelta, Eyes, eyeColor, UnderwearM, uwF, uwD, uwT)
 	b.Update = updateBuilder
 	b.finalized, b.male = false, false
 	if BuilderInit != nil {
