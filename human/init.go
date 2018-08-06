@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	MainBuilder *Builder
+	Builder *Human
 
 	Eyes      *texture.Texture2D
 	SkinDark  *texture.Texture2D
@@ -33,7 +33,7 @@ func Init(rend *renderer.Renderer, objPath, mtlPath, darkSkin, lightSkin, underw
 		panic(err)
 	}
 
-	if MainBuilder, err = New(dec); err != nil {
+	if Builder, err = New(dec); err != nil {
 		panic(err)
 	}
 }
