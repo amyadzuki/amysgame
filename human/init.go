@@ -6,13 +6,18 @@ import (
 )
 
 var (
-	SkinDark  *texture.Texture2D
-	SkinLight *texture.Texture2D
-	Eyes      *texture.Texture2D
-	Underwear *texture.Texture2D
+	Eyes       *texture.Texture2D
+	SkinDarkF  *texture.Texture2D
+	SkinDarkM  *texture.Texture2D
+	SkinLightF *texture.Texture2D
+	SkinLightM *texture.Texture2D
+	UnderwearF *texture.Texture2D
+	UnderwearM *texture.Texture2D
 )
 
-func Init(rend *renderer.Renderer, darkSkin, lightSkin, eyes, underwear string) {
+func Init(rend *renderer.Renderer, darkSkinF, lightSkinF, underwearF,
+	darkSkinM, lightSkinM, underwearM, eyes string,
+) {
 	rend.AddShader("HumanEyesVs", HumanEyesVs)
 	rend.AddShader("HumanEyesFs", HumanEyesFs)
 	rend.AddProgram("HumanEyes", "HumanEyesVs", "HumanEyesFs")
@@ -20,10 +25,13 @@ func Init(rend *renderer.Renderer, darkSkin, lightSkin, eyes, underwear string) 
 	rend.AddShader("HumanSkinFs", HumanSkinFs)
 	rend.AddProgram("HumanSkin", "HumanSkinVs", "HumanSkinFs")
 
-	SkinDark = Load(darkSkin)
-	SkinLight = Load(lightSkin)
+	SkinDarkF = Load(darkSkinF)
+	SkinDarkM = Load(darkSkinM)
+	SkinLightF = Load(lightSkinF)
+	SkinLightM = Load(lightSkinM)
+	UnderwearF = Load(underwearF)
+	UnderwearM = Load(underwearM)
 	Eyes = Load(eyes)
-	Underwear = Load(underwear)
 }
 
 func Load(path string) *texture.Texture2D {
