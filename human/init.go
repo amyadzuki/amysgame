@@ -1,6 +1,7 @@
 package human
 
 import (
+	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/renderer"
 	"github.com/g3n/engine/texture"
 )
@@ -14,7 +15,7 @@ var (
 	Underwear *texture.Texture2D
 )
 
-func Init(rend *renderer.Renderer, obj, mtl, darkSkin, lightSkin, underwear, eyes string) {
+func Init(rend *renderer.Renderer, objPath, mtlPath, darkSkin, lightSkin, underwear, eyes string) {
 	rend.AddShader("HumanEyesVs", HumanEyesVs)
 	rend.AddShader("HumanEyesFs", HumanEyesFs)
 	rend.AddProgram("HumanEyes", "HumanEyesVs", "HumanEyesFs")
@@ -27,7 +28,7 @@ func Init(rend *renderer.Renderer, obj, mtl, darkSkin, lightSkin, underwear, eye
 	Underwear = Load(underwear)
 	Eyes = Load(eyes)
 
-	dec, err := obj.Decode(obj, mtl)
+	dec, err := obj.Decode(objPath, mtlPath)
 	if err != nil {
 		panic(err)
 	}
