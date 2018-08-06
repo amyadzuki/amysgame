@@ -5,7 +5,6 @@ import (
 
 	"github.com/amyadzuki/amygolib/maths"
 
-	"github.com/g3n/engine/core"
 	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/math32"
 )
