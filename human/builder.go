@@ -20,7 +20,7 @@ func New(f, m *obj.Decoder) *Builder {
 func (b *Builder) Finalize() *Human {
 	b.Lock() ; defer b.Unlock()
 	if !b.finalized {
-		b.update_unlocked(b.f0, b.f1, b.f2, b.f3, true)
+		b.update_unlocked(true)
 		b.finalized = true
 	}
 	if b.male {
@@ -56,20 +56,20 @@ func (b *Builder) Params() (float64, float64, float64, float64) {
 
 func (b *Builder) Update(f0, f1, f2, f3 float64) *Builder {
 	b.Lock() ; defer b.Unlock()
-	update_unlocked(f0, f1, f2, f3)
+	if !b.finalized {
+		b.f0, b.f1, b.f2, b.f3 = f0, f1, f2, f3
+	}
+	update_unlocked(false)
 }
 
-func (b *Builder) update_unlocked(f0, f1, f2, f3 float64, final bool) *Builder {
+func (b *Builder) update_unlocked(final bool) *Builder {
 	if b.finalized {
 		return
 	}
-	if !final {
-		b.f0, b.f1, b.f2, b.f3 = f0, f1, f2, f3
-	}
 	if BuilderUpdate != nil {
-		BuilderUpdate(b, f0, f1, f2, f3, final)
+		BuilderUpdate(b, final)
 	}
 }
 
 var BuilderInit func(*Builder)
-var BuilderUpdate func(*Builder, float64, float64, float64, float64, bool)
+var BuilderUpdate func(*Builder, bool)
