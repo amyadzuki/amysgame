@@ -17,8 +17,10 @@ type Builder struct {
 	finalized, male bool
 }
 
-func New(f, m *obj.Decoder) *Builder {
-	return new(Builder).Init(f, m)
+func New(f, m *obj.Decoder) (b *Builder, err error) {
+	b = new(Builder)
+	err = b.Init(f, m)
+	return
 }
 
 func (b *Builder) Finalize() *Human {
@@ -38,15 +40,21 @@ func (b *Builder) Finalized() bool {
 	return b.finalized
 }
 
-func (b *Builder) Init(f, m *obj.Decoder) *Builder {
+func (b *Builder) Init(f, m *obj.Decoder) (err error) {
 	b.Lock() ; defer b.Unlock()
 	skinDelta := &math32.Vector4{0.5, 0.5, 0.5, 0.25}
 	eyeColor := &math32.Color4{1.0/3.0, 2.0/3.0, 1, 1}
 	uwF := &math32.Color4{1, 1, 1, 1}
 	uwD := &math32.Color4{0.875, 0.875, 0.875, 0.5}
 	uwT := &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
-	b.F = NewHuman(f, SkinDarkF, SkinLightF, skinDelta, Eyes, eyeColor, UnderwearF, uwF, uwD, uwT)
-	b.M = NewHuman(m, SkinDarkM, SkinLightM, skinDelta, Eyes, eyeColor, UnderwearM, uwF, uwD, uwT)
+	b.F, err = NewHuman(f, SkinDarkF, SkinLightF, skinDelta, Eyes, eyeColor, UnderwearF, uwF, uwD, uwT)
+	if err != nil {
+		return
+	}
+	b.M, err = NewHuman(m, SkinDarkM, SkinLightM, skinDelta, Eyes, eyeColor, UnderwearM, uwF, uwD, uwT)
+	if err != nil {
+		return
+	}
 	b.f0, b.f1, b.f2, b.f3 = 0.5, 0.125, 0.5, 0.5
 	b.finalized, b.male = false, false
 	if BuilderInit != nil {
@@ -55,7 +63,7 @@ func (b *Builder) Init(f, m *obj.Decoder) *Builder {
 	if BuilderUpdate != nil {
 		BuilderUpdate(b, false)
 	}
-	return b
+	return
 }
 
 func (b *Builder) Params() (float64, float64, float64, float64) {
