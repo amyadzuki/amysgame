@@ -13,23 +13,17 @@ import (
 type Builder struct {
 	age, gender, muscle, weight float64
 
-	F, M *Human
-
-	*core.Node
+	human *Human
 
 	sync.Mutex
 
 	finalized bool
 }
 
-func New(f, m *obj.Decoder) (b *Builder, err error) {
+func New(dec *obj.Decoder) (b *Builder, err error) {
 	b = new(Builder)
-	err = b.Init(f, m)
+	err = b.Init(dec)
 	return
-}
-
-func (b *Builder) Female() bool {
-	return b.gender <= 0.5
 }
 
 func (b *Builder) Finalize() *Human {
@@ -38,34 +32,23 @@ func (b *Builder) Finalize() *Human {
 		b.update_unlocked(true)
 		b.finalized = true
 	}
-	if b.Female() {
-		return b.F
-	} else {
-		return b.M
-	}
+	return b.human
 }
 
 func (b *Builder) Finalized() bool {
 	return b.finalized
 }
 
-func (b *Builder) Init(f, m *obj.Decoder) (err error) {
+func (b *Builder) Init(dec *obj.Decoder) (err error) {
 	b.Lock() ; defer b.Unlock()
-	skinDelta := &math32.Vector4{0.5, 0.5, 0.5, 0.25}
-	eyeColor := &math32.Color4{1.0/3.0, 2.0/3.0, 1, 1}
+	skin := &math32.Vector4{0.5, 0.5, 0.5, 0.25}
+	eyes := &math32.Color4{1.0/3.0, 2.0/3.0, 1, 1}
 	uwF := &math32.Color4{1, 1, 1, 1}
 	uwD := &math32.Color4{0.875, 0.875, 0.875, 0.5}
 	uwT := &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
-	b.F, err = NewHuman(f, SkinDarkF, SkinLightF, skinDelta, Eyes, eyeColor, UnderwearF, uwF, uwD, uwT)
-	if err != nil {
+	if b.human, err = NewHuman(dec, SkinDark, SkinLight, skin, Eyes, eyes, Underwear, uwF, uwD, uwT); err != nil {
 		return
 	}
-	b.M, err = NewHuman(m, SkinDarkM, SkinLightM, skinDelta, Eyes, eyeColor, UnderwearM, uwF, uwD, uwT)
-	if err != nil {
-		return
-	}
-	b.Node = core.NewNode()
-	b.Node.Add(b.F)
 	b.age, b.gender, b.muscle, b.weight = 0.5, 0.125, 0.5, 0.5
 	b.finalized = false
 	if BuilderInit != nil {
@@ -77,10 +60,6 @@ func (b *Builder) Init(f, m *obj.Decoder) (err error) {
 	return
 }
 
-func (b *Builder) Male() bool {
-	return !b.Female()
-}
-
 func (b *Builder) Params() (float64, float64, float64, float64) {
 	return b.age, b.gender, b.muscle, b.weight
 }
@@ -89,17 +68,7 @@ func (b *Builder) Update(age, gender, muscle, weight float64) *Builder {
 	b.Lock() ; defer b.Unlock()
 	if !b.finalized {
 		b.age = maths.ClampFloat64(age, 0, 1)
-		if b.Female() {
-			b.Node.Remove(b.F)
-		} else {
-			b.Node.Remove(b.M)
-		}
 		b.gender = maths.ClampFloat64(gender, 0, 1)
-		if b.Female() {
-			b.Node.Add(b.F)
-		} else {
-			b.Node.Add(b.M)
-		}
 		b.muscle = maths.ClampFloat64(muscle, 0, 1)
 		b.weight = maths.ClampFloat64(weight, 0, 1)
 	}
