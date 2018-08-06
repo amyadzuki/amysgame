@@ -6,7 +6,7 @@ import (
 
 type Builder struct {
 	F, M           Human
-	F0, F1, F2, F3 float64
+	f0, f1, f2, f3 float64
 
 	sync.Mutex
 
@@ -20,7 +20,7 @@ func New(f, m *obj.Decoder) *Builder {
 func (b *Builder) Finalize() *Human {
 	b.Lock() ; defer b.Unlock()
 	if !b.finalized {
-		b.update_unlocked(b.F0, b.F1, b.F2, b.F3, true)
+		b.update_unlocked(b.f0, b.f1, b.f2, b.f3, true)
 		b.finalized = true
 	}
 	if b.male {
@@ -50,6 +50,10 @@ func (b *Builder) Init(f, m *obj.Decoder) *Builder {
 	return b
 }
 
+func (b *Builder) Params() (float64, float64, float64, float64) {
+	return b.f0, b.f1, b.f2, b.f3
+}
+
 func (b *Builder) Update(f0, f1, f2, f3 float64) *Builder {
 	b.Lock() ; defer b.Unlock()
 	update_unlocked(f0, f1, f2, f3)
@@ -60,7 +64,7 @@ func (b *Builder) update_unlocked(f0, f1, f2, f3 float64, final bool) *Builder {
 		return
 	}
 	if !final {
-		b.F0, b.F1, b.F2, b.F3 = f0, f1, f2, f3
+		b.f0, b.f1, b.f2, b.f3 = f0, f1, f2, f3
 	}
 	if BuilderUpdate != nil {
 		BuilderUpdate(b, f0, f1, f2, f3, final)
