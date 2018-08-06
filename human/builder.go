@@ -2,11 +2,14 @@ package human
 
 import (
 	"sync"
+
+	"github.com/g3n/engine/loader/obj"
 )
 
 type Builder struct {
-	F, M           Human
 	f0, f1, f2, f3 float64
+
+	F, M *Human
 
 	sync.Mutex
 
@@ -41,8 +44,8 @@ func (b *Builder) Init(f, m *obj.Decoder) *Builder {
 	uwF = &math32.Color4{1, 1, 1, 1}
 	uwD = &math32.Color4{0.875, 0.875, 0.875, 0.5}
 	uwT = &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
-	b.F.Init(f, SkinDarkF, SkinLightF, skinDelta, Eyes, eyeColor, UnderwearF, uwF, uwD, uwT)
-	b.M.Init(m, SkinDarkM, SkinLightM, skinDelta, Eyes, eyeColor, UnderwearM, uwF, uwD, uwT)
+	b.F = NewHuman(f, SkinDarkF, SkinLightF, skinDelta, Eyes, eyeColor, UnderwearF, uwF, uwD, uwT)
+	b.M = NewHuman(m, SkinDarkM, SkinLightM, skinDelta, Eyes, eyeColor, UnderwearM, uwF, uwD, uwT)
 	b.f0, b.f1, b.f2, b.f3 = 0.5, 0.125, 0.5, 0.5
 	b.finalized, b.male = false, false
 	if BuilderInit != nil {
