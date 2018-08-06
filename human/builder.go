@@ -1,8 +1,13 @@
 package human
 
+import (
+	"sync"
+)
+
 type Builder struct {
 	F, M           Human
 	F0, F1, F2, F3 float64
+	sync.Mutex
 	Locked, Male   bool
 }
 
