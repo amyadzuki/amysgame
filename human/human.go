@@ -79,17 +79,17 @@ func (human *Human) Init(
 	human.Update = updateDefault
 	human.Node = core.NewNode()
 	for idx := 0; idx < len(dec.Objects); idx++ {
-		var vbo *gls.Vbo
-		var hsm *HumanSkinMaterial
+		var vbo *gls.VBO
 		var mesh *graphic.Mesh
 		name := dec.Objects[idx].Name
 		switch {
 		case strings.HasSuffix(name, "-highpolyeyes"):
-			vbo, hsm, mesh, err = NewMeshEyes(dec, eyes, eyeColor, &dec.Objects[idx])
+			var hem *HumanEyesMaterial
+			vbo, hem, mesh, err = NewMeshEyes(dec, eyes, eyeColor, &dec.Objects[idx])
 			if vbo == nil {
 				panic("VboEyes was nil")
 			}
-			human.VboEyes, human.MatEyes, human.Eyes = vbo, hsm, mesh
+			human.VboEyes, human.MatEyes, human.Eyes = vbo, hem, mesh
 			_, highest, frontest, ok := ofsRange(dec, &dec.Objects[idx])
 			if ! ok {
 				fmt.Printf("No vertices in \"%s\"\n", name)
@@ -99,6 +99,7 @@ func (human *Human) Init(
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
+			var hsm *HumanSkinMaterial
 			vbo, hsm, mesh, err = NewMeshSkin(dec, skinDark, skinLight, skinDelta,
 				underwear, uwFabric, uwDetail, uwTrim, &dec.Objects[idx])
 			if vbo == nil {
