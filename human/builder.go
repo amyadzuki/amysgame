@@ -30,6 +30,10 @@ func (b *Builder) Finalize() *Human {
 	}
 }
 
+func (b *Builder) Finalized() bool {
+	return b.finalized
+}
+
 func (b *Builder) Init(f, m *obj.Decoder) *Builder {
 	skinDelta = &math32.Vector4{0.5, 0.5, 0.5, 0.25}
 	eyeColor = &math32.Color4{1.0/3.0, 2.0/3.0, 1, 1}
