@@ -31,7 +31,7 @@ type Human struct {
 	heightToEye float64
 }
 
-func New(
+func NewHuman(
 	dec       *obj.Decoder,
 	skinDark  *texture.Texture2D,
 	skinLight *texture.Texture2D,
