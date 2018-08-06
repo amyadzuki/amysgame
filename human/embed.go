@@ -18,9 +18,8 @@ type Embed struct {
 	Eyes *graphic.Mesh
 	Skin *graphic.Mesh
 
-	MatEyes *HumanEyesMaterial
-	MatSkin *HumanSkinMaterial
-
+	MatEyes *EyesMaterial
+	MatSkin *SkinMaterial
 	VboEyes *gls.VBO
 	VboSkin *gls.VBO
 
@@ -82,12 +81,12 @@ func (human *Embed) Init(
 		name := dec.Objects[idx].Name
 		switch {
 		case strings.HasSuffix(name, "-highpolyeyes"):
-			var hem *HumanEyesMaterial
-			vbo, hem, mesh, err = NewMeshEyes(dec, eyes, eyeColor, &dec.Objects[idx])
+			var m *EyesMaterial
+			vbo, m, mesh, err = NewMeshEyes(dec, eyes, eyeColor, &dec.Objects[idx])
 			if vbo == nil {
 				panic("VboEyes was nil")
 			}
-			human.VboEyes, human.MatEyes, human.Eyes = vbo, hem, mesh
+			human.VboEyes, human.MatEyes, human.Eyes = vbo, m, mesh
 			_, highest, frontest, ok := ofsRange(dec, &dec.Objects[idx])
 			if ! ok {
 				fmt.Printf("No vertices in \"%s\"\n", name)
@@ -97,13 +96,13 @@ func (human *Embed) Init(
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
-			var hsm *HumanSkinMaterial
-			vbo, hsm, mesh, err = NewMeshSkin(dec, skinDark, skinLight, skinDelta,
+			var m *SkinMaterial
+			vbo, m, mesh, err = NewMeshSkin(dec, skinDark, skinLight, skinDelta,
 				underwear, uwFabric, uwDetail, uwTrim, &dec.Objects[idx])
 			if vbo == nil {
 				panic("VboSkin was nil")
 			}
-			human.VboSkin, human.MatSkin, human.Skin = vbo, hsm, mesh
+			human.VboSkin, human.MatSkin, human.Skin = vbo, m, mesh
 			lowest, highest, _, ok := ofsRange(dec, &dec.Objects[idx])
 			if ! ok {
 				fmt.Printf("No vertices in \"%s\"\n", name)
@@ -127,13 +126,13 @@ var NewMeshEyes = func(
 	eyes      *texture.Texture2D,
 	color     *math32.Color4,
 	object    *obj.Object,
-) (*gls.VBO, *HumanEyesMaterial, *graphic.Mesh, error) {
+) (*gls.VBO, *EyesMaterial, *graphic.Mesh, error) {
 	geom, err := dec.NewGeometry(object)
 	if err != nil {
 		return nil, nil, nil, err
 	}
 	vbo := geom.VBO(gls.VertexPosition)
-	mat := new(HumanEyesMaterial)
+	mat := new(EyesMaterial)
 	mat.Init()
 	mat.Udata.Color = *color
 	mat.AddTexture(eyes)
@@ -151,13 +150,13 @@ var NewMeshSkin = func(
 	uwDetail  *math32.Color4,
 	uwTrim    *math32.Color4,
 	object    *obj.Object,
-) (*gls.VBO, *HumanSkinMaterial, *graphic.Mesh, error) {
+) (*gls.VBO, *SkinMaterial, *graphic.Mesh, error) {
 	geom, err := dec.NewGeometry(object)
 	if err != nil {
 		return nil, nil, nil, err
 	}
 	vbo := geom.VBO(gls.VertexPosition)
-	mat := new(HumanSkinMaterial)
+	mat := new(SkinMaterial)
 	mat.Init()
 	mat.Udata.SkinDelta = *skinDelta
 	mat.Udata.UwFabric = *uwFabric
