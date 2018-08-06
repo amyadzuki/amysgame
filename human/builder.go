@@ -4,6 +4,7 @@ import (
 	"sync"
 
 	"github.com/g3n/engine/loader/obj"
+	"github.com/g3n/engine/math32"
 )
 
 type Builder struct {
@@ -39,11 +40,11 @@ func (b *Builder) Finalized() bool {
 
 func (b *Builder) Init(f, m *obj.Decoder) *Builder {
 	b.Lock() ; defer b.Unlock()
-	skinDelta = &math32.Vector4{0.5, 0.5, 0.5, 0.25}
-	eyeColor = &math32.Color4{1.0/3.0, 2.0/3.0, 1, 1}
-	uwF = &math32.Color4{1, 1, 1, 1}
-	uwD = &math32.Color4{0.875, 0.875, 0.875, 0.5}
-	uwT = &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
+	skinDelta := &math32.Vector4{0.5, 0.5, 0.5, 0.25}
+	eyeColor := &math32.Color4{1.0/3.0, 2.0/3.0, 1, 1}
+	uwF := &math32.Color4{1, 1, 1, 1}
+	uwD := &math32.Color4{0.875, 0.875, 0.875, 0.5}
+	uwT := &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
 	b.F = NewHuman(f, SkinDarkF, SkinLightF, skinDelta, Eyes, eyeColor, UnderwearF, uwF, uwD, uwT)
 	b.M = NewHuman(m, SkinDarkM, SkinLightM, skinDelta, Eyes, eyeColor, UnderwearM, uwF, uwD, uwT)
 	b.f0, b.f1, b.f2, b.f3 = 0.5, 0.125, 0.5, 0.5
