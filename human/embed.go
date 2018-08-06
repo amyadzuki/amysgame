@@ -12,7 +12,7 @@ import (
 	"github.com/g3n/engine/texture"
 )
 
-type HumanEmbed struct {
+type Embed struct {
 	*core.Node
 
 	Eyes *graphic.Mesh
@@ -30,7 +30,7 @@ type HumanEmbed struct {
 	heightToEye float64
 }
 
-func NewHumanEmbed(
+func NewEmbed(
 	dec       *obj.Decoder,
 	skinDark  *texture.Texture2D,
 	skinLight *texture.Texture2D,
@@ -41,29 +41,29 @@ func NewHumanEmbed(
 	uwFabric  *math32.Color4,
 	uwDetail  *math32.Color4,
 	uwTrim    *math32.Color4,
-) (human *HumanEmbed, err error) {
-	human = new(HumanEmbed)
+) (human *Embed, err error) {
+	human = new(Embed)
 	err = human.Init(dec, skinDark, skinLight, skinDelta, eyes, eyeColor, underwear, uwFabric, uwDetail, uwTrim)
 	return
 }
 
-func (human *HumanEmbed) Base() float64 {
+func (human *Embed) Base() float64 {
 	return human.base
 }
 
-func (human *HumanEmbed) FrontOfEye() float64 {
+func (human *Embed) FrontOfEye() float64 {
 	return human.frontOfEye
 }
 
-func (human *HumanEmbed) HeightToCap() float64 {
+func (human *Embed) HeightToCap() float64 {
 	return human.heightToCap
 }
 
-func (human *HumanEmbed) HeightToEye() float64 {
+func (human *Embed) HeightToEye() float64 {
 	return human.heightToEye
 }
 
-func (human *HumanEmbed) Init(
+func (human *Embed) Init(
 	dec       *obj.Decoder,
 	skinDark  *texture.Texture2D,
 	skinLight *texture.Texture2D,
