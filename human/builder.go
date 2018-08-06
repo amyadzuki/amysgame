@@ -5,18 +5,21 @@ import (
 
 	"github.com/amyadzuki/amygolib/maths"
 
+	"github.com/g3n/engine/core"
 	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/math32"
 )
 
 type Builder struct {
-	f0, f1, f2, f3 float64
+	age, gender, muscle, weight float64
 
 	F, M *Human
 
+	*core.Node
+
 	sync.Mutex
 
-	finalized, male bool
+	finalized bool
 }
 
 func New(f, m *obj.Decoder) (b *Builder, err error) {
@@ -25,16 +28,20 @@ func New(f, m *obj.Decoder) (b *Builder, err error) {
 	return
 }
 
+func (b *Builder) Female() bool {
+	return b.gender <= 0.5
+}
+
 func (b *Builder) Finalize() *Human {
 	b.Lock() ; defer b.Unlock()
 	if !b.finalized {
 		b.update_unlocked(true)
 		b.finalized = true
 	}
-	if b.male {
-		return b.M
-	} else {
+	if b.Female() {
 		return b.F
+	} else {
+		return b.M
 	}
 }
 
@@ -57,8 +64,10 @@ func (b *Builder) Init(f, m *obj.Decoder) (err error) {
 	if err != nil {
 		return
 	}
-	b.f0, b.f1, b.f2, b.f3 = 0.5, 0.125, 0.5, 0.5
-	b.finalized, b.male = false, false
+	b.Node = core.NewNode()
+	b.Node.Add(b.F)
+	b.age, b.gender, b.muscle, b.weight = 0.5, 0.125, 0.5, 0.5
+	b.finalized = false
 	if BuilderInit != nil {
 		BuilderInit(b)
 	}
@@ -68,17 +77,31 @@ func (b *Builder) Init(f, m *obj.Decoder) (err error) {
 	return
 }
 
-func (b *Builder) Params() (float64, float64, float64, float64) {
-	return b.f0, b.f1, b.f2, b.f3
+func (b *Builder) Male() bool {
+	return !b.Female()
 }
 
-func (b *Builder) Update(f0, f1, f2, f3 float64) *Builder {
+func (b *Builder) Params() (float64, float64, float64, float64) {
+	return b.age, b.gender, b.muscle, b.weight
+}
+
+func (b *Builder) Update(age, gender, muscle, weight float64) *Builder {
 	b.Lock() ; defer b.Unlock()
 	if !b.finalized {
-		b.f0 = maths.ClampFloat64(f0, 0, 1)
-		b.f1 = maths.ClampFloat64(f1, 0, 1)
-		b.f2 = maths.ClampFloat64(f2, 0, 1)
-		b.f3 = maths.ClampFloat64(f3, 0, 1)
+		b.age = maths.ClampFloat64(age, 0, 1)
+		if b.Female() {
+			b.Node.Remove(b.F)
+		} else {
+			b.Node.Remove(b.M)
+		}
+		b.gender = maths.ClampFloat64(gender, 0, 1)
+		if b.Female() {
+			b.Node.Add(b.F)
+		} else {
+			b.Node.Add(b.M)
+		}
+		b.muscle = maths.ClampFloat64(muscle, 0, 1)
+		b.weight = maths.ClampFloat64(weight, 0, 1)
 	}
 	b.update_unlocked(false)
 	return b
