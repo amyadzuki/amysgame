@@ -80,7 +80,7 @@ func (b *Builder) Update(f0, f1, f2, f3 float64) *Builder {
 		b.f2 = maths.ClampFloat64(f2, 0, 1)
 		b.f3 = maths.ClampFloat64(f3, 0, 1)
 	}
-	update_unlocked(false)
+	b.update_unlocked(false)
 }
 
 func (b *Builder) update_unlocked(final bool) *Builder {
