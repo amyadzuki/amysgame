@@ -25,13 +25,13 @@ func New(dec *obj.Decoder) (b *Builder, err error) {
 	return
 }
 
-func (b *Builder) Finalize() *Human {
+func (b *Builder) Finalize() *Builder {
 	b.Lock() ; defer b.Unlock()
 	if !b.finalized {
 		b.update_unlocked(true)
 		b.finalized = true
 	}
-	return b.human
+	return b
 }
 
 func (b *Builder) Finalized() bool {
@@ -45,7 +45,7 @@ func (b *Builder) Init(dec *obj.Decoder) (err error) {
 	uwF := &math32.Color4{1, 1, 1, 1}
 	uwD := &math32.Color4{0.875, 0.875, 0.875, 0.5}
 	uwT := &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
-	if b.human, err = NewHuman(dec, SkinDark, SkinLight, skin, Eyes, eyes, Underwear, uwF, uwD, uwT); err != nil {
+	if b.human, err = NewHumanEmbed(dec, SkinDark, SkinLight, skin, Eyes, eyes, Underwear, uwF, uwD, uwT); err != nil {
 		return
 	}
 	b.age, b.gender, b.muscle, b.weight = 0.5, 0.125, 0.5, 0.5
