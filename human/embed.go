@@ -2,7 +2,6 @@ package human
 
 import (
 	"fmt"
-	"strings"
 
 	"github.com/g3n/engine/core"
 	"github.com/g3n/engine/gls"
