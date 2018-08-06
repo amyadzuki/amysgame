@@ -12,7 +12,7 @@ import (
 type Builder struct {
 	age, gender, muscle, weight float64
 
-	human *Human
+	*HumanEmbed
 
 	sync.Mutex
 
