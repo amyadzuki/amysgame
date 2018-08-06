@@ -18,9 +18,7 @@ var (
 	UnderwearM *texture.Texture2D
 )
 
-func Init(rend *renderer.Renderer, objF, mtlF, darkSkinF, lightSkinF, underwearF,
-	objM, mtlM, darkSkinM, lightSkinM, underwearM, eyes string,
-) {
+func Init(rend *renderer.Renderer, obj, mtl, darkSkin, lightSkin, underwear, eyes string) {
 	rend.AddShader("HumanEyesVs", HumanEyesVs)
 	rend.AddShader("HumanEyesFs", HumanEyesFs)
 	rend.AddProgram("HumanEyes", "HumanEyesVs", "HumanEyesFs")
@@ -28,24 +26,17 @@ func Init(rend *renderer.Renderer, objF, mtlF, darkSkinF, lightSkinF, underwearF
 	rend.AddShader("HumanSkinFs", HumanSkinFs)
 	rend.AddProgram("HumanSkin", "HumanSkinVs", "HumanSkinFs")
 
-	SkinDarkF = Load(darkSkinF)
-	SkinDarkM = Load(darkSkinM)
-	SkinLightF = Load(lightSkinF)
-	SkinLightM = Load(lightSkinM)
-	UnderwearF = Load(underwearF)
-	UnderwearM = Load(underwearM)
+	SkinDark = Load(darkSkin)
+	SkinLight = Load(lightSkin)
+	Underwear = Load(underwear)
 	Eyes = Load(eyes)
 
-	decF, err := obj.Decode(objF, mtlF)
-	if err != nil {
-		panic(err)
-	}
-	decM, err := obj.Decode(objM, mtlM)
+	dec, err := obj.Decode(obj, mtl)
 	if err != nil {
 		panic(err)
 	}
 
-	if MainBuilder, err = New(decF, decM); err != nil {
+	if MainBuilder, err = New(dec); err != nil {
 		panic(err)
 	}
 }
