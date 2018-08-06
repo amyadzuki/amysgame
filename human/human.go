@@ -153,7 +153,7 @@ var NewMeshSkin = func(
 	uwDetail  *math32.Color4,
 	uwTrim    *math32.Color4,
 	object    *obj.Object,
-) (*gls.VBO, *graphic.Mesh, *HumanSkinMaterial, error) {
+) (*gls.VBO, *HumanSkinMaterial, *graphic.Mesh, error) {
 	geom, err := dec.NewGeometry(object)
 	if err != nil {
 		return nil, nil, nil, err
