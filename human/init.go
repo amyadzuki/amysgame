@@ -1,7 +1,6 @@
 package human
 
 import (
-	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/renderer"
 	"github.com/g3n/engine/texture"
 )
@@ -9,13 +8,10 @@ import (
 var (
 	MainBuilder *Builder
 
-	Eyes       *texture.Texture2D
-	SkinDarkF  *texture.Texture2D
-	SkinDarkM  *texture.Texture2D
-	SkinLightF *texture.Texture2D
-	SkinLightM *texture.Texture2D
-	UnderwearF *texture.Texture2D
-	UnderwearM *texture.Texture2D
+	Eyes      *texture.Texture2D
+	SkinDark  *texture.Texture2D
+	SkinLight *texture.Texture2D
+	Underwear *texture.Texture2D
 )
 
 func Init(rend *renderer.Renderer, obj, mtl, darkSkin, lightSkin, underwear, eyes string) {
