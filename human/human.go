@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	"github.com/g3n/engine/core"
+	"github.com/g3n/engine/gls"
 	"github.com/g3n/engine/graphic"
 	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/math32"
@@ -12,13 +13,17 @@ import (
 )
 
 type Human struct {
-	Node *core.Node
+	Update func(*Human, float64, float64, float64, float64)
+	*core.Node
 
 	Eyes *graphic.Mesh
 	Skin *graphic.Mesh
 
 	MatEyes *HumanEyesMaterial
 	MatSkin *HumanSkinMaterial
+
+	VboEyes *gls.VBO
+	VboSkin *gls.VBO
 
 	base        float64
 	frontOfEye  float64
@@ -71,16 +76,20 @@ func (human *Human) Init(
 	uwDetail  *math32.Color4,
 	uwTrim    *math32.Color4,
 ) (err error) {
-	fmt.Println("** len(dec.Uvs):   ", len(dec.Uvs))
-	fmt.Println("** dec.Uvs.Size(): ", dec.Uvs.Size())
+	human.Update = updateDefault
 	human.Node = core.NewNode()
 	for idx := 0; idx < len(dec.Objects); idx++ {
+		var vbo *gls.Vbo
+		var hsm *HumanSkinMaterial
 		var mesh *graphic.Mesh
 		name := dec.Objects[idx].Name
 		switch {
 		case strings.HasSuffix(name, "-highpolyeyes"):
-			mesh, human.MatEyes, err = NewMeshEyes(dec, eyes, eyeColor, &dec.Objects[idx])
-			human.Eyes = mesh
+			vbo, hsm, mesh, err = NewMeshEyes(dec, eyes, eyeColor, &dec.Objects[idx])
+			if vbo == nil {
+				panic("VboEyes was nil")
+			}
+			human.VboEyes, human.MatEyes, human.Eyes = vbo, hsm, mesh
 			_, highest, frontest, ok := ofsRange(dec, &dec.Objects[idx])
 			if ! ok {
 				fmt.Printf("No vertices in \"%s\"\n", name)
@@ -90,9 +99,12 @@ func (human *Human) Init(
 		case strings.HasSuffix(name, "-female_generic"):
 			fallthrough
 		case strings.HasSuffix(name, "-male_generic"):
-			mesh, human.MatSkin, err = NewMeshSkin(dec, skinDark, skinLight, skinDelta,
+			vbo, hsm, mesh, err = NewMeshSkin(dec, skinDark, skinLight, skinDelta,
 				underwear, uwFabric, uwDetail, uwTrim, &dec.Objects[idx])
-			human.Skin = mesh
+			if vbo == nil {
+				panic("VboSkin was nil")
+			}
+			human.VboSkin, human.MatSkin, human.Skin = vbo, hsm, mesh
 			lowest, highest, _, ok := ofsRange(dec, &dec.Objects[idx])
 			if ! ok {
 				fmt.Printf("No vertices in \"%s\"\n", name)
@@ -116,17 +128,18 @@ var NewMeshEyes = func(
 	eyes      *texture.Texture2D,
 	color     *math32.Color4,
 	object    *obj.Object,
-) (*graphic.Mesh, *HumanEyesMaterial, error) {
+) (*gls.VBO, *HumanEyesMaterial, *graphic.Mesh, error) {
 	geom, err := dec.NewGeometry(object)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
 	}
+	vbo := geom.VBO(gls.VertexPosition)
 	mat := new(HumanEyesMaterial)
 	mat.Init()
 	mat.Udata.Color = *color
 	mat.AddTexture(eyes)
 	mesh := graphic.NewMesh(geom, mat)
-	return mesh, mat, nil
+	return vbo, mat, mesh, nil
 }
 
 var NewMeshSkin = func(
@@ -139,11 +152,12 @@ var NewMeshSkin = func(
 	uwDetail  *math32.Color4,
 	uwTrim    *math32.Color4,
 	object    *obj.Object,
-) (*graphic.Mesh, *HumanSkinMaterial, error) {
+) (*gls.VBO, *graphic.Mesh, *HumanSkinMaterial, error) {
 	geom, err := dec.NewGeometry(object)
 	if err != nil {
-		return nil, nil, err
+		return nil, nil, nil, err
 	}
+	vbo := geom.VBO(gls.VertexPosition)
 	mat := new(HumanSkinMaterial)
 	mat.Init()
 	mat.Udata.SkinDelta = *skinDelta
@@ -154,7 +168,7 @@ var NewMeshSkin = func(
 	mat.AddTexture(skinLight)
 	mat.AddTexture(underwear)
 	mesh := graphic.NewMesh(geom, mat)
-	return mesh, mat, nil
+	return vbo, mat, mesh, nil
 }
 
 func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest float32, ok bool) {
@@ -190,6 +204,9 @@ func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest f
 	}
 	// fmt.Printf("\"%s\": %f v^ %f (%v)  |  %f\n", object.Name, lowest, highest, 0.5 * (float64(highest) - float64(lowest)), frontest)
 	return
+}
+
+func updateDefault(h *Human, a, b, c, d float64) {
 }
 
 var HalfEyeHeight float64 = 0.013799965381622314
