@@ -1,3 +1,4 @@
+// COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
 package human
 
 import (
@@ -113,3 +114,5 @@ void main() {
 	fColor = color;
 }
 `
+
+// COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
