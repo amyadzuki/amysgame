@@ -29,7 +29,9 @@ var rootCmd = &cobra.Command{
 	Use:   ApplicationName,
 	Short: "The client application for games by amyadzuki",
 	Long: `The client application for games by amyadzuki`,
-	Run: func(cmd *cobra.Command, args []string) { },
+	Run: func(cmd *cobra.Command, args []string) {
+		play.Play()
+	},
 }
 
 // Execute adds all child commands to the root command and sets flags appropriately.
