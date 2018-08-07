@@ -8,6 +8,8 @@ import (
 
 	"github.com/amyadzuki/amygolib/dirs"
 
+	"github.com/amyadzuki/amysgame/play"
+
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
 )
