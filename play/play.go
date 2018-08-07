@@ -1,3 +1,4 @@
+// COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
 package play
 
 import (
@@ -69,8 +70,7 @@ func update() {
 	Me.Update(age, gender, muscle, weight)
 }
 
-func Play(ofs int) {
-	fmt.Println("Offset:", ofs)
+func Play() {
 	game.Main.Init("My Game")
 	game.Main.StartUp("log.txt") // calls flag.Parse
 	human.Init(game.Main.Rend)
@@ -222,3 +222,5 @@ func Play(ofs int) {
 
 	}).SetNext("main menu").Run()
 }
+
+// COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
