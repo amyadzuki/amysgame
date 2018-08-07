@@ -12,7 +12,6 @@ import (
 	"github.com/g3n/engine/geometry"
 	"github.com/g3n/engine/gls"
 	"github.com/g3n/engine/graphic"
-	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/math32"
 )
 
@@ -72,7 +71,7 @@ func (h *Human) HeightToEye() float64 {
 	return h.hToEye
 }
 
-func (h *Human) Init() {
+func (h *Human) Init() *Human {
 	h.Lock() ; defer h.Unlock()
 	h.age, h.gender, h.muscle, h.weight = 0.5, 0.125, 0.5, 0.5
 	h.base, h.fOfEye, h.hToCap, h.hToEye = 0, -0.125, 1.5, 1.14
@@ -117,6 +116,7 @@ func (h *Human) Init() {
 	if HumanUpdate != nil {
 		HumanUpdate(h, false)
 	}
+	return h
 }
 
 func (h *Human) Params() (float64, float64, float64, float64) {
