@@ -13,5 +13,5 @@ go build
 
 ## Testing
 ```sh
-./amysgame
+$GOPATH/github.com/amyadzuki/amysgame
 ```
