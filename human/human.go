@@ -1,7 +1,7 @@
+// COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
 package human
 
 import (
-	"fmt"
 	"sync"
 
 	"github.com/amyadzuki/amygolib/maths"
@@ -9,11 +9,11 @@ import (
 	"github.com/amyadzuki/amysgame/data"
 
 	"github.com/g3n/engine/core"
+	"github.com/g3n/engine/geometry"
 	"github.com/g3n/engine/gls"
 	"github.com/g3n/engine/graphic"
 	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/math32"
-	"github.com/g3n/engine/texture"
 )
 
 type Human struct {
@@ -258,3 +258,5 @@ var VboUvs *gls.VBO
 func init() {
 	VboUvs = gls.NewVBO(data.Coords[:]).AddAttrib(gls.VertexTexcoord)
 }
+
+// COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
