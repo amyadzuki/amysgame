@@ -14,7 +14,6 @@ import (
 	"github.com/g3n/engine/graphic"
 	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/math32"
-	"github.com/g3n/engine/material"
 )
 
 type Human struct {
