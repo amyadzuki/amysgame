@@ -20,10 +20,7 @@ type Human struct {
 
 	BufIndEyes math32.ArrayU32
 	BufIndSkin math32.ArrayU32
-	BufPosEyes math32.ArrayF32
-	BufPosSkin math32.ArrayF32
-	BufUvsEyes math32.ArrayF32
-	BufUvsSkin math32.ArrayF32
+	BufPos     math32.ArrayF32
 	GeomEyes   *geometry.Geometry
 	GeomSkin   *geometry.Geometry
 	GroupEyes  *geometry.Group
@@ -32,10 +29,7 @@ type Human struct {
 	MatSkin    *SkinMaterial
 	MeshEyes   *graphic.Mesh
 	MeshSkin   *graphic.Mesh
-	VboPosEyes *gls.VBO
-	VboPosSkin *gls.VBO
-	VboUvsEyes *gls.VBO
-	VboUvsSkin *gls.VBO
+	VboPos     *gls.VBO
 
 	sync.Mutex
 	*core.Node
@@ -80,11 +74,6 @@ func (h *Human) HeightToEye() float64 {
 
 func (h *Human) Init(dec *obj.Decoder) (err error) {
 	h.Lock() ; defer h.Unlock()
-//	skin := &math32.Vector4{0.5, 0.5, 0.5, 0.25}
-//	eyes := &math32.Color4{1.0/3.0, 2.0/3.0, 1, 1}
-//	uwF := &math32.Color4{1, 1, 1, 1}
-//	uwD := &math32.Color4{0.875, 0.875, 0.875, 0.5}
-//	uwT := &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
 	h.age, h.gender, h.muscle, h.weight = 0.5, 0.125, 0.5, 0.5
 	h.base, h.fOfEye, h.hToCap, h.hToEye = 0, -0.125, 1.5, 1.14
 	h.BufIndEyes = math32.NewArrayU32(0, 0)
@@ -101,17 +90,23 @@ func (h *Human) Init(dec *obj.Decoder) (err error) {
 	h.GroupSkin.Count = h.BufPosSkin.Len()
 	h.GeomEyes.SetIndices(h.BufIndEyes)
 	h.GeomSkin.SetIndices(h.BufIndSkin)
-	h.VboPosEyes = gls.NewVBO(h.BufPosEyes).AddAttrib(gls.VertexPosition)
-	h.VboPosSkin = gls.NewVBO(h.BufPosSkin).AddAttrib(gls.VertexPosition)
-	h.VboUvsEyes = gls.NewVBO(h.BufUvsEyes).AddAttrib(gls.VertexTexcoord)
-	h.VboUvsSkin = gls.NewVBO(h.BufUvsSkin).AddAttrib(gls.VertexTexcoord)
-	h.GeomEyes.AddVBO(h.VboPosEyes)
-	h.GeomSkin.AddVBO(h.VboPosSkin)
-	h.GeomEyes.AddVBO(h.VboUvsEyes)
-	h.GeomSkin.AddVBO(h.VboUvsSkin)
+	h.VboPos = gls.NewVBO(h.BufPos).AddAttrib(gls.VertexPosition)
+	h.GeomEyes.AddVBO(h.VboPos)
+	h.GeomSkin.AddVBO(h.VboPos)
+	h.GeomEyes.AddVBO(VboUvs)
+	h.GeomSkin.AddVBO(VboUvs)
 	h.MatEyes = material.NewStandard(&math32.Color{1.0/3, 2.0/3, 1})
-	h.MatSkin = material.NewStandard(&math32.Color{1, 1, 1})
+	h.MatEyes = new(EyesMaterial)
+	h.MatEyes.Init()
+	h.MatEyes.Udata.Color = math32.Color4{1.0/3, 2.0/3, 1, 1}
 	h.MatEyes.AddTexture(Eyes)
+	h.MatSkin = material.NewStandard(&math32.Color{1, 1, 1})
+	h.MatSkin = new(SkinMaterial)
+	h.MatSkin.Init()
+	h.MatSkin.Udata.SkinDelta = math32.Vector4{0.5, 0.5, 0.5, 0.25}
+	h.MatSkin.Udata.UwFabric = math32.Color4{1, 1, 1, 1}
+	h.MatSkin.Udata.UwDetail = math32.Color4{0.875, 0.875, 0.875, 0.5}
+	h.MatSkin.Udata.UwTrim = math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
 	h.MatSkin.AddTexture(SkinDark)
 	h.MatSkin.AddTexture(SkinLight)
 	h.MatSkin.AddTexture(Underwear)
@@ -158,10 +153,7 @@ func (h *Human) update_unlocked(final bool) {
 var HumanInit func(*Human)
 var HumanUpdate func(*Human, bool)
 
-
-
-
-
+/*
 func (human *Embed) Init(
 	dec       *obj.Decoder,
 	skinDark  *texture.Texture2D,
@@ -221,54 +213,6 @@ func (human *Embed) Init(
 	return nil
 }
 
-var NewMeshEyes = func(
-	dec       *obj.Decoder,
-	eyes      *texture.Texture2D,
-	color     *math32.Color4,
-	object    *obj.Object,
-) (*gls.VBO, *EyesMaterial, *graphic.Mesh, error) {
-	geom, err := dec.NewGeometry(object)
-	if err != nil {
-		return nil, nil, nil, err
-	}
-	vbo := geom.VBO(gls.VertexPosition)
-	mat := new(EyesMaterial)
-	mat.Init()
-	mat.Udata.Color = *color
-	mat.AddTexture(eyes)
-	mesh := graphic.NewMesh(geom, mat)
-	return vbo, mat, mesh, nil
-}
-
-var NewMeshSkin = func(
-	dec       *obj.Decoder,
-	skinDark  *texture.Texture2D,
-	skinLight *texture.Texture2D,
-	skinDelta *math32.Vector4,
-	underwear *texture.Texture2D,
-	uwFabric  *math32.Color4,
-	uwDetail  *math32.Color4,
-	uwTrim    *math32.Color4,
-	object    *obj.Object,
-) (*gls.VBO, *SkinMaterial, *graphic.Mesh, error) {
-	geom, err := dec.NewGeometry(object)
-	if err != nil {
-		return nil, nil, nil, err
-	}
-	vbo := geom.VBO(gls.VertexPosition)
-	mat := new(SkinMaterial)
-	mat.Init()
-	mat.Udata.SkinDelta = *skinDelta
-	mat.Udata.UwFabric = *uwFabric
-	mat.Udata.UwDetail = *uwDetail
-	mat.Udata.UwTrim = *uwTrim
-	mat.AddTexture(skinDark)
-	mat.AddTexture(skinLight)
-	mat.AddTexture(underwear)
-	mesh := graphic.NewMesh(geom, mat)
-	return vbo, mat, mesh, nil
-}
-
 func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest float32, ok bool) {
 	for _, face := range object.Faces {
 		for _, vertex := range face.Vertices {
@@ -303,6 +247,12 @@ func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest f
 	// fmt.Printf("\"%s\": %f v^ %f (%v)  |  %f\n", object.Name, lowest, highest, 0.5 * (float64(highest) - float64(lowest)), frontest)
 	return
 }
+*/
 
 var HalfEyeHeight float64 = 0.013799965381622314
 var Backest = false
+var VboUvs *gls.VBO
+
+func init() {
+	VboUvs = gls.NewVBO(amysdata.Coords[:]).AddAttrib(gls.VertexTexcoord)
+}
