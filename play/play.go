@@ -3,6 +3,7 @@ package play
 import (
 	"fmt"
 	"math"
+	"path/filepath"
 	"strconv"
 	"strings"
 
@@ -23,15 +24,18 @@ import (
 	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/material"
 	"github.com/g3n/engine/math32"
-	"github.com/g3n/engine/texture"
 	"github.com/g3n/engine/window"
 )
 
 var _ = fmt.Printf
+var _ = strconv.Itoa
+var _ = strings.ToLower
 var _ = collada.Decode
 var _ = obj.Decode
 var _ = core.NewNode
+var _ = geometry.NewGeometry
 var _ = gls.NewVBO
+var _ = material.NewStandard
 
 var Fps, Ping int
 var start = false
