@@ -1,6 +1,7 @@
 // COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
 package data
 
+
 var Indices = map[string][]uint32{
 	"female_generic.obj": {
 		10, 12, 0, 10, 22, 12, 7, 18, 6, 7, 19, 18, 0, 13, 1, 0,
