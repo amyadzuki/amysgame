@@ -76,7 +76,13 @@ func (h *Human) Init() *Human {
 	h.age, h.gender, h.muscle, h.weight = 0.5, 0.125, 0.5, 0.5
 	h.base, h.fOfEye, h.hToCap, h.hToEye = 0, -0.125, 1.5, 1.14
 	h.BufIndEyes = math32.NewArrayU32(0, 0)
+	for _, index := range data.Indices["high-poly.obj"] {
+		h.BufIndEyes.Append(index)
+	}
 	h.BufIndSkin = math32.NewArrayU32(0, 0)
+	for _, index := range data.Indices["female_generic.obj"] {
+		h.BufIndSkin.Append(index)
+	}
 	h.BufPos = math32.NewArrayF32(0, 0)
 	h.GeomEyes = geometry.NewGeometry()
 	h.GeomSkin = geometry.NewGeometry()
