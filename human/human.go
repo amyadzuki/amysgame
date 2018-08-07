@@ -1,12 +1,17 @@
 package human
 
 import (
+	"fmt"
 	"sync"
 
 	"github.com/amyadzuki/amygolib/maths"
 
+	"github.com/g3n/engine/core"
+	"github.com/g3n/engine/gls"
+	"github.com/g3n/engine/graphic"
 	"github.com/g3n/engine/loader/obj"
 	"github.com/g3n/engine/math32"
+	"github.com/g3n/engine/texture"
 )
 
 type Human struct {
@@ -91,18 +96,7 @@ var HumanUpdate func(*Human, bool)
 
 
 
-package human
 
-import (
-	"fmt"
-
-	"github.com/g3n/engine/core"
-	"github.com/g3n/engine/gls"
-	"github.com/g3n/engine/graphic"
-	"github.com/g3n/engine/loader/obj"
-	"github.com/g3n/engine/math32"
-	"github.com/g3n/engine/texture"
-)
 
 type Embed struct {
 	*core.Node
