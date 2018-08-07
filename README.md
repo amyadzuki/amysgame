@@ -6,5 +6,12 @@ This library is open-source proprietary software.  You may look and study the co
 
 ## Installation
 ```sh
-go get -u github.com/amyadzuki/amysgame/...
+go get -u github.com/amyadzuki/amysgame
+cd $GOPATH/github.com/amyadzuki/amysgame
+go build
+```
+
+## Testing
+```sh
+./amysgame
 ```
