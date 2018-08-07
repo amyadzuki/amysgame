@@ -95,12 +95,10 @@ func (h *Human) Init(dec *obj.Decoder) (err error) {
 	h.GeomSkin.AddVBO(h.VboPos)
 	h.GeomEyes.AddVBO(VboUvs)
 	h.GeomSkin.AddVBO(VboUvs)
-	h.MatEyes = material.NewStandard(&math32.Color{1.0/3, 2.0/3, 1})
 	h.MatEyes = new(EyesMaterial)
 	h.MatEyes.Init()
 	h.MatEyes.Udata.Color = math32.Color4{1.0/3, 2.0/3, 1, 1}
 	h.MatEyes.AddTexture(Eyes)
-	h.MatSkin = material.NewStandard(&math32.Color{1, 1, 1})
 	h.MatSkin = new(SkinMaterial)
 	h.MatSkin.Init()
 	h.MatSkin.Udata.SkinDelta = math32.Vector4{0.5, 0.5, 0.5, 0.25}
