@@ -22,7 +22,7 @@ var (
 	Underwear *texture.Texture2D
 )
 
-func Init(rend *renderer.Renderer, objPath, mtlPath, darkSkin, lightSkin, underwear, eyes string) {
+func Init(rend *renderer.Renderer) {
 	rend.AddShader("HumanEyesVs", HumanEyesVs)
 	rend.AddShader("HumanEyesFs", HumanEyesFs)
 	rend.AddProgram("HumanEyes", "HumanEyesVs", "HumanEyesFs")
