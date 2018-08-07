@@ -6,6 +6,8 @@ import (
 
 	"github.com/amyadzuki/amygolib/maths"
 
+	"github.com/amyadzuki/amysgame/data"
+
 	"github.com/g3n/engine/core"
 	"github.com/g3n/engine/gls"
 	"github.com/g3n/engine/graphic"
@@ -254,5 +256,5 @@ var Backest = false
 var VboUvs *gls.VBO
 
 func init() {
-	VboUvs = gls.NewVBO(amysdata.Coords[:]).AddAttrib(gls.VertexTexcoord)
+	VboUvs = gls.NewVBO(data.Coords[:]).AddAttrib(gls.VertexTexcoord)
 }
