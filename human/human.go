@@ -18,20 +18,27 @@ type Human struct {
 	age, gender, muscle, weight  float64
 	base, fOfEye, hToCap, hToEye float64
 
-	GeomEyes  *geometry.Geometry
-	GeomSkin  *geometry.Geometry
-	GroupEyes *geometry.Group
-	GroupSkin *geometry.Group
-	MatEyes   *EyesMaterial
-	MatSkin   *SkinMaterial
-	MeshEyes  *graphic.Mesh
-	MeshSkin  *graphic.Mesh
-	VboEyes   *gls.VBO
-	VboSkin   *gls.VBO
-
-	*core.Node
+	BufIndEyes math32.ArrayU32
+	BufIndSkin math32.ArrayU32
+	BufPosEyes math32.ArrayF32
+	BufPosSkin math32.ArrayF32
+	BufUvsEyes math32.ArrayF32
+	BufUvsSkin math32.ArrayF32
+	GeomEyes   *geometry.Geometry
+	GeomSkin   *geometry.Geometry
+	GroupEyes  *geometry.Group
+	GroupSkin  *geometry.Group
+	MatEyes    *EyesMaterial
+	MatSkin    *SkinMaterial
+	MeshEyes   *graphic.Mesh
+	MeshSkin   *graphic.Mesh
+	VboPosEyes *gls.VBO
+	VboPosSkin *gls.VBO
+	VboUvsEyes *gls.VBO
+	VboUvsSkin *gls.VBO
 
 	sync.Mutex
+	*core.Node
 
 	finalized bool
 }
@@ -80,20 +87,28 @@ func (h *Human) Init(dec *obj.Decoder) (err error) {
 //	uwT := &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
 	h.age, h.gender, h.muscle, h.weight = 0.5, 0.125, 0.5, 0.5
 	h.base, h.fOfEye, h.hToCap, h.hToEye = 0, -0.125, 1.5, 1.14
+	h.BufIndEyes = math32.NewArrayU32(0, 0)
+	h.BufIndSkin = math32.NewArrayU32(0, 0)
+	h.BufPosEyes = math32.NewArrayF32(0, 0)
+	h.BufPosSkin = math32.NewArrayF32(0, 0)
+	h.BufUvsEyes = math32.NewArrayF32(0, 0)
+	h.BufUvsSkin = math32.NewArrayF32(0, 0)
 	h.GeomEyes = geometry.NewGeometry()
 	h.GeomSkin = geometry.NewGeometry()
-	h.GroupEyes = h.GeomEyes.AddGroup(h.IndicesEyes.Len(), 0, 0)
-	h.GroupSkin = h.GeomSkin.AddGroup(h.IndicesSkin.Len(), 0, 0)
-	h.GroupEyes.Count = h.PositionsEyes.Len()
-	h.GroupSkin.Count = h.PositionsSkin.Len()
-	h.GeomEyes.SetIndices(h.IndicesEyes)
-	h.GeomSkin.SetIndices(h.IndicesSkin)
-	h.VboEyes = gls.NewVBO(h.PositionsEyes).AddAttrib(gls.VertexPosition)
-	h.VboSkin = gls.NewVBO(h.PositionsSkin).AddAttrib(gls.VertexPosition)
-	h.GeomEyes.AddVBO(h.VboEyes)
-	h.GeomSkin.AddVBO(h.VboSkin)
-	h.GeomEyes.AddVBO(gls.NewVBO(h.UvsEyes).AddAttrib(gls.VertexTexcoord))
-	h.GeomSkin.AddVBO(gls.NewVBO(h.UvsSkin).AddAttrib(gls.VertexTexcoord))
+	h.GroupEyes = h.GeomEyes.AddGroup(h.BufIndEyes.Len(), 0, 0)
+	h.GroupSkin = h.GeomSkin.AddGroup(h.BufIndSkin.Len(), 0, 0)
+	h.GroupEyes.Count = h.BufPosEyes.Len()
+	h.GroupSkin.Count = h.BufPosSkin.Len()
+	h.GeomEyes.SetIndices(h.BufIndEyes)
+	h.GeomSkin.SetIndices(h.BufIndSkin)
+	h.VboPosEyes = gls.NewVBO(h.BufPosEyes).AddAttrib(gls.VertexPosition)
+	h.VboPosSkin = gls.NewVBO(h.BufPosSkin).AddAttrib(gls.VertexPosition)
+	h.VboUvsEyes = gls.NewVBO(h.BufUvsEyes).AddAttrib(gls.VertexTexcoord)
+	h.VboUvsSkin = gls.NewVBO(h.BufUvsSkin).AddAttrib(gls.VertexTexcoord)
+	h.GeomEyes.AddVBO(h.VboPosEyes)
+	h.GeomSkin.AddVBO(h.VboPosSkin)
+	h.GeomEyes.AddVBO(h.VboUvsEyes)
+	h.GeomSkin.AddVBO(h.VboUvsSkin)
 	h.MatEyes = material.NewStandard(&math32.Color{1.0/3, 2.0/3, 1})
 	h.MatSkin = material.NewStandard(&math32.Color{1, 1, 1})
 	h.MatEyes.AddTexture(Eyes)
@@ -291,6 +306,3 @@ func ofsRange(dec *obj.Decoder, object *obj.Object) (lowest, highest, frontest f
 
 var HalfEyeHeight float64 = 0.013799965381622314
 var Backest = false
-
-
-
