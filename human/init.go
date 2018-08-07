@@ -29,11 +29,6 @@ func Init(rend *renderer.Renderer, objPath, mtlPath, darkSkin, lightSkin, underw
 	Underwear = Load(underwear)
 	Eyes = Load(eyes)
 
-	dec, err := obj.Decode(objPath, mtlPath)
-	if err != nil {
-		panic(err)
-	}
-
 	Builder = New()
 }
 
