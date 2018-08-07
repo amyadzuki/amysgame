@@ -15,9 +15,21 @@ import (
 )
 
 type Human struct {
-	age, gender, muscle, weight float64
+	age, gender, muscle, weight  float64
+	base, fOfEye, hToCap, hToEye float64
 
-	*Embed
+	GeomEyes  *geometry.Geometry
+	GeomSkin  *geometry.Geometry
+	GroupEyes *geometry.Group
+	GroupSkin *geometry.Group
+	MatEyes   *EyesMaterial
+	MatSkin   *SkinMaterial
+	MeshEyes  *graphic.Mesh
+	MeshSkin  *graphic.Mesh
+	VboEyes   *gls.VBO
+	VboSkin   *gls.VBO
+
+	*core.Node
 
 	sync.Mutex
 
@@ -28,6 +40,10 @@ func New(dec *obj.Decoder) (h *Human, err error) {
 	h = new(Human)
 	err = h.Init(dec)
 	return
+}
+
+func (h *Human) Base() float64 {
+	return h.base
 }
 
 func (h *Human) Finalize() *Human {
@@ -43,17 +59,52 @@ func (h *Human) Finalized() bool {
 	return h.finalized
 }
 
+func (h *Human) FrontOfEye() float64 {
+	return h.fOfEye
+}
+
+func (h *Human) HeightToCap() float64 {
+	return h.hToCap
+}
+
+func (h *Human) HeightToEye() float64 {
+	return h.hToEye
+}
+
 func (h *Human) Init(dec *obj.Decoder) (err error) {
 	h.Lock() ; defer h.Unlock()
-	skin := &math32.Vector4{0.5, 0.5, 0.5, 0.25}
-	eyes := &math32.Color4{1.0/3.0, 2.0/3.0, 1, 1}
-	uwF := &math32.Color4{1, 1, 1, 1}
-	uwD := &math32.Color4{0.875, 0.875, 0.875, 0.5}
-	uwT := &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
-	if h.Embed, err = NewEmbed(dec, SkinDark, SkinLight, skin, Eyes, eyes, Underwear, uwF, uwD, uwT); err != nil {
-		return
-	}
+//	skin := &math32.Vector4{0.5, 0.5, 0.5, 0.25}
+//	eyes := &math32.Color4{1.0/3.0, 2.0/3.0, 1, 1}
+//	uwF := &math32.Color4{1, 1, 1, 1}
+//	uwD := &math32.Color4{0.875, 0.875, 0.875, 0.5}
+//	uwT := &math32.Color4{0xff/255.0, 0xb6/255.0, 0xc1/255.0, 1}
 	h.age, h.gender, h.muscle, h.weight = 0.5, 0.125, 0.5, 0.5
+	h.base, h.fOfEye, h.hToCap, h.hToEye = 0, -0.125, 1.5, 1.14
+	h.GeomEyes = geometry.NewGeometry()
+	h.GeomSkin = geometry.NewGeometry()
+	h.GroupEyes = h.GeomEyes.AddGroup(h.IndicesEyes.Len(), 0, 0)
+	h.GroupSkin = h.GeomSkin.AddGroup(h.IndicesSkin.Len(), 0, 0)
+	h.GroupEyes.Count = h.PositionsEyes.Len()
+	h.GroupSkin.Count = h.PositionsSkin.Len()
+	h.GeomEyes.SetIndices(h.IndicesEyes)
+	h.GeomSkin.SetIndices(h.IndicesSkin)
+	h.VboEyes = gls.NewVBO(h.PositionsEyes).AddAttrib(gls.VertexPosition)
+	h.VboSkin = gls.NewVBO(h.PositionsSkin).AddAttrib(gls.VertexPosition)
+	h.GeomEyes.AddVBO(h.VboEyes)
+	h.GeomSkin.AddVBO(h.VboSkin)
+	h.GeomEyes.AddVBO(gls.NewVBO(h.UvsEyes).AddAttrib(gls.VertexTexcoord))
+	h.GeomSkin.AddVBO(gls.NewVBO(h.UvsSkin).AddAttrib(gls.VertexTexcoord))
+	h.MatEyes = material.NewStandard(&math32.Color{1.0/3, 2.0/3, 1})
+	h.MatSkin = material.NewStandard(&math32.Color{1, 1, 1})
+	h.MatEyes.AddTexture(Eyes)
+	h.MatSkin.AddTexture(SkinDark)
+	h.MatSkin.AddTexture(SkinLight)
+	h.MatSkin.AddTexture(Underwear)
+	h.MeshEyes = graphic.NewMesh(h.GeomEyes, h.MatEyes)
+	h.MeshSkin = graphic.NewMesh(h.GeomSkin, h.MatSkin)
+	h.Node = core.NewNode()
+	h.Node.Add(h.MeshSkin)
+	h.Node.Add(h.MeshEyes)
 	h.finalized = false
 	if HumanInit != nil {
 		HumanInit(h)
@@ -95,58 +146,6 @@ var HumanUpdate func(*Human, bool)
 
 
 
-
-
-
-type Embed struct {
-	*core.Node
-
-	Eyes *graphic.Mesh
-	Skin *graphic.Mesh
-
-	MatEyes *EyesMaterial
-	MatSkin *SkinMaterial
-	VboEyes *gls.VBO
-	VboSkin *gls.VBO
-
-	base        float64
-	frontOfEye  float64
-	heightToCap float64
-	heightToEye float64
-}
-
-func NewEmbed(
-	dec       *obj.Decoder,
-	skinDark  *texture.Texture2D,
-	skinLight *texture.Texture2D,
-	skinDelta *math32.Vector4,
-	eyes      *texture.Texture2D,
-	eyeColor  *math32.Color4,
-	underwear *texture.Texture2D,
-	uwFabric  *math32.Color4,
-	uwDetail  *math32.Color4,
-	uwTrim    *math32.Color4,
-) (human *Embed, err error) {
-	human = new(Embed)
-	err = human.Init(dec, skinDark, skinLight, skinDelta, eyes, eyeColor, underwear, uwFabric, uwDetail, uwTrim)
-	return
-}
-
-func (human *Embed) Base() float64 {
-	return human.base
-}
-
-func (human *Embed) FrontOfEye() float64 {
-	return human.frontOfEye
-}
-
-func (human *Embed) HeightToCap() float64 {
-	return human.heightToCap
-}
-
-func (human *Embed) HeightToEye() float64 {
-	return human.heightToEye
-}
 
 func (human *Embed) Init(
 	dec       *obj.Decoder,
