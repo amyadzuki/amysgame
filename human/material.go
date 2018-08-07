@@ -1,3 +1,4 @@
+// COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
 package human
 
 import (
@@ -56,3 +57,5 @@ func (m *EyesMaterial) RenderSetup(gs *gls.GLS) {
 	location := m.uni.Location(gs)
 	gs.Uniform4fvUP(location, int32(unsafe.Sizeof(m.Udata) / 16), unsafe.Pointer(&m.Udata))
 }
+
+// COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
