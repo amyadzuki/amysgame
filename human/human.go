@@ -39,10 +39,8 @@ type Human struct {
 	finalized bool
 }
 
-func New(dec *obj.Decoder) (h *Human, err error) {
-	h = new(Human)
-	err = h.Init(dec)
-	return
+func New() *Human {
+	return new(Human).Init()
 }
 
 func (h *Human) Base() float64 {
@@ -74,7 +72,7 @@ func (h *Human) HeightToEye() float64 {
 	return h.hToEye
 }
 
-func (h *Human) Init(dec *obj.Decoder) (err error) {
+func (h *Human) Init() {
 	h.Lock() ; defer h.Unlock()
 	h.age, h.gender, h.muscle, h.weight = 0.5, 0.125, 0.5, 0.5
 	h.base, h.fOfEye, h.hToCap, h.hToEye = 0, -0.125, 1.5, 1.14
@@ -119,7 +117,6 @@ func (h *Human) Init(dec *obj.Decoder) (err error) {
 	if HumanUpdate != nil {
 		HumanUpdate(h, false)
 	}
-	return
 }
 
 func (h *Human) Params() (float64, float64, float64, float64) {
