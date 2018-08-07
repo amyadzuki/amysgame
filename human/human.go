@@ -84,6 +84,9 @@ func (h *Human) Init() *Human {
 		h.BufIndSkin.Append(index)
 	}
 	h.BufPos = math32.NewArrayF32(0, 0)
+	for _, set := range data.Float {
+		h.BufPos.Append(set[18*4 + 4]) // 21yo f 1muscle 1weight // TODO: change to younger default age after underwear works
+	}
 	h.GeomEyes = geometry.NewGeometry()
 	h.GeomSkin = geometry.NewGeometry()
 	h.GroupEyes = h.GeomEyes.AddGroup(h.BufIndEyes.Len(), 0, 0)
