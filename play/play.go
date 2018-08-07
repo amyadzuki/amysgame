@@ -106,7 +106,7 @@ func Play(ofs int) {
 	update()
 	game.Main.CharaDesignerBodyApply.Subscribe(gui.OnClick, func(evname string, event interface{}) {
 		update()
-	}
+	})
 	game.Main.WidgetHelp.SetEnabled(false)
 	game.Main.RecalcDocks()
 	game.Main.Win.Subscribe(window.OnKeyDown, events.OnKeyboardKey)
