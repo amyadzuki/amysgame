@@ -88,7 +88,7 @@ func init() {
 		w1 *= 1
 
 		buf := b.VboPos.Buffer()
-		for idx, vtx := range amysdata.Float {
+		for idx, vtx := range data.Float {
 			(*buf)[idx] = updateCoord(vtx, age, gender, muscle, weight, a0, a1, g0, g1, m0, m1, w0, w1)
 		}
 		b.VboPos.Update()
