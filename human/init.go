@@ -1,3 +1,4 @@
+// COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
 package human
 
 import (
@@ -33,9 +34,7 @@ func Init(rend *renderer.Renderer, objPath, mtlPath, darkSkin, lightSkin, underw
 		panic(err)
 	}
 
-	if Builder, err = New(dec); err != nil {
-		panic(err)
-	}
+	Builder = New()
 }
 
 func Load(path string) *texture.Texture2D {
@@ -46,3 +45,5 @@ func Load(path string) *texture.Texture2D {
 	tex.SetFlipY(false)
 	return tex
 }
+
+// COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
