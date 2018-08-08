@@ -122,12 +122,20 @@ func Play() {
 	LogIn := gui.NewPanel(0, 0)
 	LogIn.SetLayout(gui.NewDockLayout())
 	{
-		b := gui.NewButton("LOG IN")
+		e0 := gui.NewEdit(0, "E-mail address")
+		e1 := gui.NewEdit(0, "Password")
+		b := gui.NewButton("Log in")
+		e0.SetLayoutParams(&gui.DockLayoutParams{gui.DockTop})
+		e1.SetLayoutParams(&gui.DockLayoutParams{gui.DockTop})
 		b.SetLayoutParams(&gui.DockLayoutParams{gui.DockTop})
-		b.SetHeight(40)
+		e0.SetHeight(80)
+		e1.SetHeight(80)
+		b.SetHeight(80)
 		b.Subscribe(gui.OnClick, func(evname string, event interface{}) {
 			State.SetNext("chara select")
 		})
+		LogIn.Add(e0)
+		LogIn.Add(e1)
 		LogIn.Add(b)
 	}
 
