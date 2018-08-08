@@ -116,8 +116,8 @@ func (h *Human) Init() *Human {
 	h.MeshEyes = graphic.NewMesh(h.GeomEyes, h.MatEyes)
 	h.MeshSkin = graphic.NewMesh(h.GeomSkin, h.MatSkin)
 	h.Node = core.NewNode()
-	h.Node.Add(h.MeshSkin)
 	h.Node.Add(h.MeshEyes)
+	h.Node.Add(h.MeshSkin)
 	h.finalized = false
 	if HumanInit != nil {
 		HumanInit(h)
