@@ -10,7 +10,7 @@ import (
 )
 
 var PaddingClose float32 = 16
-var PaddingTopRight float32 = 8
+var PaddingTopRight float32 = 9
 
 func (game *Game) AddWidgetCharaChanger(label string) {
 	if game.DockTop == nil {
