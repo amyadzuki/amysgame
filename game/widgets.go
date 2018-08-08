@@ -9,8 +9,8 @@ import (
 	"github.com/g3n/engine/gui"
 )
 
-var PaddingClose float32 = 8
-var PaddingTopRight float32 = 4
+var PaddingClose float32 = 16
+var PaddingTopRight float32 = 8
 
 func (game *Game) AddWidgetCharaChanger(label string) {
 	if game.DockTop == nil {
@@ -33,7 +33,7 @@ func (game *Game) AddWidgetClose(label string) {
 	game.WidgetClose = gui.NewButton(label)
 	game.WidgetClose.SetLayoutParams(&gui.DockLayoutParams{gui.DockRight})
 	game.WidgetClose.SetStyles(&styles.AmyDarkCloseButton)
-	game.WidgetClose.SetPaddings(0, PaddingClose, 0, PaddingClose)
+	setPaddingHoriz(game.WidgetClose, PaddingClose)
 	game.WidgetClose.Subscribe(gui.OnClick, func(name string, ev interface{}) {
 		game.WidgetClose.SetStyles(&styles.AmyDarkClosingButton)
 		if game.SoftQuit() > 0 {
@@ -68,7 +68,7 @@ func (game *Game) AddWidgetFullScreen(labelFullScreen, labelWindow string) {
 	}
 	game.WidgetFullScreen = gui.NewButton(label)
 	game.WidgetFullScreen.SetLayoutParams(&gui.DockLayoutParams{gui.DockRight})
-	game.WidgetClose.SetPaddings(0, PaddingTopRight, 0, PaddingTopRight)
+	setPaddingHoriz(game.WidgetClose, PaddingTopRight)
 	game.WidgetFullScreen.Subscribe(gui.OnClick, func(name string, ev interface{}) {
 		game.ToggleFullScreen()
 	})
@@ -82,7 +82,7 @@ func (game *Game) AddWidgetHelp(label string) {
 	}
 	game.WidgetHelp = gui.NewButton(label)
 	game.WidgetHelp.SetLayoutParams(&gui.DockLayoutParams{gui.DockRight})
-	game.WidgetClose.SetPaddings(0, PaddingTopRight, 0, PaddingTopRight)
+	setPaddingHoriz(game.WidgetClose, PaddingTopRight)
 	game.WidgetHelp.Subscribe(gui.OnClick, func(name string, ev interface{}) {
 		game.WantHelp = !game.WantHelp
 	})
@@ -105,7 +105,7 @@ func (game *Game) AddWidgetIconify(label string) {
 	}
 	game.WidgetIconify = gui.NewButton(label)
 	game.WidgetIconify.SetLayoutParams(&gui.DockLayoutParams{gui.DockRight})
-	game.WidgetClose.SetPaddings(0, PaddingTopRight, 0, PaddingTopRight)
+	setPaddingHoriz(game.WidgetClose, PaddingTopRight)
 	game.WidgetIconify.Subscribe(gui.OnClick, func(name string, ev interface{}) {
 		// TODO
 	})
@@ -122,3 +122,12 @@ func (game *Game) AddWidgetPerformance(w *widget.Performance, large int, label s
 func (game *Game) AddWidgetPing() {
 	game.AddWidgetPerformance(&game.WidgetPing, 999999, " ms  ")
 }
+
+func setPaddingHoriz(iPanel gui.IPanel, horiz int) {
+	panel := iPanel.GetPanel()
+	paddings := panel.Paddings()
+	paddings.Left = horiz
+	paddings.Right = horiz
+	panel.SetPaddingsFrom(&paddings)
+}
+
