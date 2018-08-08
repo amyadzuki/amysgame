@@ -100,10 +100,10 @@ func Play() {
 
 	game.Main.AddWidgetCharaChanger("Log in")
 	game.Main.AddWidgetHint("Welcome to My Game!")
-	game.Main.AddWidgetClose("     X     ")
-	game.Main.AddWidgetFullScreen("   +   ", "   o   ")
-	game.Main.AddWidgetIconify("   _   ")
-	game.Main.AddWidgetHelp("   ?   ")
+	game.Main.AddWidgetClose("X") // TODO: use about 5/3 padding of the other ones
+	game.Main.AddWidgetFullScreen("+", "o")
+	game.Main.AddWidgetIconify("_")
+	game.Main.AddWidgetHelp("?")
 	game.Main.AddWidgetPing()
 	game.Main.AddWidgetFps()
 	game.Main.InitWindows()
