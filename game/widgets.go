@@ -123,7 +123,7 @@ func (game *Game) AddWidgetPing() {
 	game.AddWidgetPerformance(&game.WidgetPing, 999999, " ms  ")
 }
 
-func setPaddingHoriz(iPanel gui.IPanel, horiz int) {
+func setPaddingHoriz(iPanel gui.IPanel, horiz float32) {
 	panel := iPanel.GetPanel()
 	paddings := panel.Paddings()
 	paddings.Left = horiz
