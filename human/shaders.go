@@ -68,7 +68,7 @@ void main() {
 #else
 	color = vec4(1, 0, 1, 1);
 #endif
-	fColor = vec4(color.rgb, 0.25);
+	fColor = vec4(color.rgb, 1);
 }
 `
 
