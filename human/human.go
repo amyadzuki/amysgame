@@ -85,7 +85,7 @@ func (h *Human) Init() *Human {
 	}
 	h.BufPos = math32.NewArrayF32(0, 0)
 	for _, set := range data.Float {
-		h.BufPos.Append(set[18*4 + 4]) // 21yo f 1muscle 1weight // TODO: change to younger default age after underwear works
+		h.BufPos.Append(set[40])
 	}
 	h.GeomEyes = geometry.NewGeometry()
 	h.GeomSkin = geometry.NewGeometry()
@@ -116,7 +116,7 @@ func (h *Human) Init() *Human {
 	h.MeshEyes = graphic.NewMesh(h.GeomEyes, h.MatEyes)
 	h.MeshSkin = graphic.NewMesh(h.GeomSkin, h.MatSkin)
 	h.Node = core.NewNode()
-	h.Node.Add(h.MeshSkin)
+	//h.Node.Add(h.MeshSkin)
 	h.Node.Add(h.MeshEyes)
 	h.finalized = false
 	if HumanInit != nil {
