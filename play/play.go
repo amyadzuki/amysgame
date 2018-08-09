@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/amyadzuki/amygolib/dialog"
-	"github.com/amyadzuki/amygolib/states"
-	"github.com/amyadzuki/amygolib/str"
+	"github.com/amy911/amy911/dialog"
+	"github.com/amy911/amy911/states"
+	"github.com/amy911/amy911/str"
 
 	"github.com/amyadzuki/amystuff/gamecam"
 
