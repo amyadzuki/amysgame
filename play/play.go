@@ -74,17 +74,18 @@ func update() {
 
 func Play() {
 	var account, password string
-	button := dialog.No
-	for button == dialog.No {
+	button := dialog.Register
+	for button == dialog.Register {
 		password = ""
+		button = dialog.Cancel
 		dialog.New("log in", &account, &password, &button)
 		switch button {
-		case dialog.Cancel: // Cancel
+		case dialog.Cancel:
 			return
-		case dialog.Yes: // Log In
+		case dialog.LogIn:
 			account = str.Simp(account)
 			fmt.Println("Logging in as \""+account+"\"")
-		case dialog.No: // Register
+		case dialog.Register:
 			account = str.Simp(account)
 			fmt.Println("Registering...")
 		}
