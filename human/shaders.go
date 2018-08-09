@@ -68,7 +68,7 @@ void main() {
 #else
 	color = vec4(1, 0, 1, 1);
 #endif
-	color = vec4(vTexcoord.xy, 0, 1) // TODO: debugging code
+	color = vec4(vTexcoord.xy, 0, 1); // TODO: debugging code
 	fColor = vec4(color.rgb, 1);
 }
 `
