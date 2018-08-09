@@ -10,6 +10,7 @@ import (
 
 	"github.com/amyadzuki/amygolib/dialog"
 	"github.com/amyadzuki/amygolib/states"
+	"github.com/amyadzuki/amygolib/str"
 
 	"github.com/amyadzuki/amystuff/gamecam"
 
