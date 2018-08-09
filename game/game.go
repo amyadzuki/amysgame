@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/amyadzuki/amygolib/logs"
+	"github.com/amy911/amy911/logs"
 
 	"github.com/amyadzuki/amystuff/widget"
 
