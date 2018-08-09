@@ -215,8 +215,8 @@ func Play() {
 		control.SetEnabled(true)
 		control.SetDefaultToScreen(true)
 
-		game.Main.Camera.SetPositionVec(&math32.Vector3{0, 2, 1})
-		game.Main.Camera.LookAt(&math32.Vector3{0, 0, 1})
+		game.Main.Camera.SetPositionVec(&math32.Vector3{0, -2, 0.75})
+		game.Main.Camera.LookAt(&math32.Vector3{0, 0, 0.75})
 
 		game.Main.Scene.Add(Me)
 		game.Main.WindowCharaDesignerOpen()
