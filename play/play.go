@@ -72,7 +72,22 @@ func update() {
 }
 
 func Play() {
-	dialog.New("log in")
+	var account, password string
+	button := dialog.No
+	for button == dialog.No {
+		password = ""
+		dialog.New("log in", &account, &password, &button)
+		switch button {
+		case dialog.Cancel: // Cancel
+			return
+		case dialog.Yes: // Log In
+			account = str.Simp(account)
+			fmt.Println("Logging in as \""+account+"\"")
+		case dialog.No: // Register
+			account = str.Simp(account)
+			fmt.Println("Registering...")
+		}
+	}
 
 	///////////////////////////////////////////////////////////////////////
 
