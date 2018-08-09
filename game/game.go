@@ -9,7 +9,7 @@ import (
 
 	"github.com/amy911/amy911/logs"
 
-	"github.com/amyadzuki/amystuff/widget"
+	"github.com/amy911/amy911/crap/widget"
 
 	//	"github.com/g3n/engine/audio"
 	"github.com/g3n/engine/camera"
