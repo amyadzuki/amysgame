@@ -68,6 +68,7 @@ void main() {
 #else
 	color = vec4(1, 0, 1, 1);
 #endif
+	color = vec4(vTexcoord.xy, 0, 1) // TODO: debugging code
 	fColor = vec4(color.rgb, 1);
 }
 `
@@ -93,7 +94,7 @@ var HumanEyesFs = `
 // blank line required by preprocessor
 in vec4 vPosition;
 in vec2 vTexcoord;
-uniform vec4 HumanEyes[4];
+uniform vec4 HumanEyes[` + strconv.Itoa(int(unsafe.Sizeof(EyesMaterialUdata{}) / 16)) + `];
 #define HumanEyesColor HumanEyes[0]
 out vec4 fColor;
 
