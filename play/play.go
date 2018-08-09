@@ -173,44 +173,7 @@ func Play() {
 		CharaSelect.Add(b)
 	}
 
-	State.Init(game.Main.Win.ShouldClose).SetData(game.Main).SetFps(30).OnEnter("log in", func(state *states.State) {
-
-		control.SetEnabled(false)
-		control.SetDefaultToScreen(true)
-		game.Main.Gui.Add(LogIn)
-		siw, sih := game.Main.Win.Size()
-		sw, sh := float64(siw), float64(sih)
-		hh := 0.5 * sh
-		pw, ph := math.Phi*hh, hh
-		cx, cy := sw*0.5, sh*0.5
-		px, py := cx-0.5*pw, cy-0.5*ph
-		LogIn.SetWidth(float32(pw))
-		LogIn.SetHeight(float32(ph))
-		LogIn.SetPosition(float32(px), float32(py))
-		LogIn.SetColor4(&math32.Color4{0, 0, 0, 0.5})
-
-		game.Main.Camera.SetPositionVec(&math32.Vector3{0, 0, 0})
-		game.Main.Camera.LookAt(&math32.Vector3{0, 0, 1.0 - 0.03125})
-
-	}).OnLeave(func(state *states.State) {
-
-		game.Main.Gui.Remove(LogIn)
-
-	}).OnFrame(func(state *states.State) {
-
-		// Render the root GUI panel using the specified camera
-		rendered, err := game.Main.Rend.Render(game.Main.Camera)
-		if err != nil {
-			panic(err)
-		}
-		game.Main.Wm.PollEvents()
-
-		// Update window and checks for I/O events
-		if rendered || true {
-			game.Main.Win.SwapBuffers()
-		}
-
-	}).OnEnter("chara select", func(state *states.State) {
+	State.Init(game.Main.Win.ShouldClose).SetData(game.Main).SetFps(30).OnEnter("chara select", func(state *states.State) {
 
 		control.SetEnabled(false)
 		control.SetDefaultToScreen(true)
@@ -299,7 +262,7 @@ func Play() {
 
 	}).OnFrame("play", func(state *states.State) {
 
-	}).SetNext("log in").Run()
+	}).SetNext("chara select").Run()
 }
 
 // COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
