@@ -6,7 +6,7 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/amyadzuki/amygolib/dirs"
+	"github.com/amy911/amy911/syspath"
 
 	"github.com/amyadzuki/amysgame/play"
 
@@ -22,7 +22,7 @@ const (
 
 var (
 	cfgFile string
-	Dirs *dirs.Dirs
+	SysPath *syspath.SysPath
 	Ofs int
 )
 
@@ -46,13 +46,13 @@ func Execute() {
 }
 
 func init() {
-	Dirs = dirs.New(VendorName, ApplicationName)
+	SysPath = syspath.New(VendorName, ApplicationName)
 	cobra.OnInitialize(initConfig)
 
 	// Here you will define your flags and configuration settings.
 	// Cobra supports persistent flags, which, if defined here,
 	// will be global for your application.
-	configFile := filepath.Join(Dirs.Config(), "config." + DefaultConfType)
+	configFile := filepath.Join(SysPath.Config(), "config." + DefaultConfType)
 	rootCmd.PersistentFlags().StringVar(&cfgFile, "config", "",
 		"config file (default is " + configFile + ")")
 	rootCmd.PersistentFlags().IntVar(&Ofs, "ofs", 0, "offset")
@@ -68,8 +68,8 @@ func initConfig() {
 		// Use config file from the flag.
 		viper.SetConfigFile(cfgFile)
 	} else {
-		// Search config in dirs.Config() directory with name "ApplicationName" (without extension).
-		viper.AddConfigPath(Dirs.Config())
+		// Search config in syspath.Config() directory with name "ApplicationName" (without extension).
+		viper.AddConfigPath(SysPath.Config())
 		viper.SetConfigName(ApplicationName)
 	}
 
