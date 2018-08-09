@@ -8,13 +8,14 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/amyadzuki/amysgame/events"
-	"github.com/amyadzuki/amysgame/game"
-	"github.com/amyadzuki/amysgame/human"
+	"github.com/amyadzuki/amygolib/dialog"
+	"github.com/amyadzuki/amygolib/states"
 
 	"github.com/amyadzuki/amystuff/gamecam"
 
-	"github.com/amyadzuki/amygolib/states"
+	"github.com/amyadzuki/amysgame/events"
+	"github.com/amyadzuki/amysgame/game"
+	"github.com/amyadzuki/amysgame/human"
 
 	"github.com/g3n/engine/core"
 	"github.com/g3n/engine/geometry"
@@ -71,6 +72,10 @@ func update() {
 }
 
 func Play() {
+	dialog.New("log in")
+
+	///////////////////////////////////////////////////////////////////////
+
 	game.Main.Init("My Game")
 	game.Main.StartUp("log.txt") // calls flag.Parse
 	human.Init(game.Main.Rend)
