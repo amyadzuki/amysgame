@@ -4,7 +4,7 @@ package human
 import (
 	"path/filepath"
 
-	"github.com/amyadzuki/amygolib/dirs"
+	"github.com/amy911/amy911/syspath"
 
 	"github.com/g3n/engine/renderer"
 	"github.com/g3n/engine/texture"
@@ -13,8 +13,8 @@ import (
 var (
 	Assets string
 
-	Dirs *dirs.Dirs
 	Builder *Human
+	SysPath *syspath.SysPath
 
 	Eyes      *texture.Texture2D
 	SkinDark  *texture.Texture2D
@@ -32,9 +32,9 @@ func Init(rend *renderer.Renderer) {
 }
 
 func init() {
-	Dirs = dirs.New("Amy", "amysgame") // TODO: FIXME: I need to update this here and also in root.go
+	SysPath = syspath.New("Amy", "amysgame") // TODO: FIXME: I need to update this here and also in root.go
 
-	Assets = filepath.Join(Dirs.ExeDir(), "assets")
+	Assets = filepath.Join(SysPath.ExeDir(), "assets")
 	SkinDark = TryLoad(filepath.Join(Assets, "hsv01-v3.png"))
 	SkinLight = TryLoad(filepath.Join(Assets, "hsv03-v3.png"))
 	Eyes = TryLoad(filepath.Join(Assets, "eyes-v4.png"))
