@@ -18,7 +18,7 @@ import (
 var versionCmd = &cobra.Command{
 	Use:   "version",
 	Short: "Prints the version number",
-	Long: `Prints the version number`,
+	Long:  `Prints the version number`,
 	Run: func(cmd *cobra.Command, args []string) {
 		fmt.Println("Version number not available -- in early development")
 	},
@@ -40,16 +40,11 @@ func init() {
 
 // COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
 
-
-
-
-
-
 // COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
 
 func init() {
 	human.HumanInit = func(b *human.Human) {
-		*(b.VboPos.Buffer()) = math32.NewArrayF32(len(data.Float), len(data.Float))
+		*(b.VboPos.Buffer()) = math32.NewArrayF32(3*len(data.Remap), 3*len(data.Remap))
 	}
 	human.HumanUpdate = func(b *human.Human, final bool) {
 		age, gender, muscle, weight := b.Params()
@@ -88,8 +83,10 @@ func init() {
 		w1 *= 1
 
 		buf := b.VboPos.Buffer()
-		for idx, vtx := range data.Float {
-			(*buf)[idx] = updateCoord(vtx, age, gender, muscle, weight, a0, a1, g0, g1, m0, m1, w0, w1)
+		for idx, remap := range data.Remap {
+			(*buf)[3*idx+0] = updateCoord(data.Float[3*remap+0], age, gender, muscle, weight, a0, a1, g0, g1, m0, m1, w0, w1)
+			(*buf)[3*idx+1] = updateCoord(data.Float[3*remap+1], age, gender, muscle, weight, a0, a1, g0, g1, m0, m1, w0, w1)
+			(*buf)[3*idx+2] = updateCoord(data.Float[3*remap+2], age, gender, muscle, weight, a0, a1, g0, g1, m0, m1, w0, w1)
 		}
 		b.VboPos.Update()
 	}
