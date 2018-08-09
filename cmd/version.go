@@ -4,7 +4,7 @@ package cmd
 import (
 	"fmt"
 
-	"github.com/amyadzuki/amygolib/maths"
+	"github.com/amy911/amy911/maths"
 
 	"github.com/amyadzuki/amysgame/data"
 	"github.com/amyadzuki/amysgame/human"
