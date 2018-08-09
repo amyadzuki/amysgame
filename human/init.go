@@ -38,7 +38,7 @@ func init() {
 	SkinDark = TryLoad(filepath.Join(Assets, "hsv01-v3.png"))
 	SkinLight = TryLoad(filepath.Join(Assets, "hsv03-v3.png"))
 	Eyes = TryLoad(filepath.Join(Assets, "eyes-v4.png"))
-	Underwear = TryLoad(filepath.Join(Assets, "under-v2.png"))
+	Underwear = TryLoad(filepath.Join(Assets, "under-v3.png"))
 
 	Builder = New()
 }
