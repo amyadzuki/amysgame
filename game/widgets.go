@@ -4,7 +4,7 @@ import (
 	"time"
 
 	"github.com/amyadzuki/amystuff/styles"
-	"github.com/amyadzuki/amystuff/widget"
+	"github.com/amy911/amy911/crap/widget"
 
 	"github.com/g3n/engine/gui"
 )
