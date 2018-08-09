@@ -76,16 +76,18 @@ func (h *Human) Init() *Human {
 	h.age, h.gender, h.muscle, h.weight = 0.5, 0.125, 0.5, 0.5
 	h.base, h.fOfEye, h.hToCap, h.hToEye = 0, -0.125, 1.5, 1.14
 	h.BufIndEyes = math32.NewArrayU32(0, 0)
-	for _, index := range data.Indices["high-poly.obj"] {
+	for _, index := range data.Ins["high-poly.obj"] {
 		h.BufIndEyes.Append(index)
 	}
 	h.BufIndSkin = math32.NewArrayU32(0, 0)
-	for _, index := range data.Indices["female_generic.obj"] {
+	for _, index := range data.Ins["female_generic.obj"] {
 		h.BufIndSkin.Append(index)
 	}
 	h.BufPos = math32.NewArrayF32(0, 0)
-	for _, set := range data.Float {
-		h.BufPos.Append(set[40])
+	for _, remap := range data.Remap {
+		h.BufPos.Append(data.Float[3*remap+0][40])
+		h.BufPos.Append(data.Float[3*remap+1][40])
+		h.BufPos.Append(data.Float[3*remap+2][40])
 	}
 	h.GeomEyes = geometry.NewGeometry()
 	h.GeomSkin = geometry.NewGeometry()
@@ -149,7 +151,7 @@ func (h *Human) update_unlocked(final bool) {
 		return
 	}
 	if HumanUpdate != nil {
-		HumanUpdate(h, final)
+		//HumanUpdate(h, final)
 	}
 }
 
@@ -160,7 +162,7 @@ var HumanUpdate func(*Human, bool)
 var VboUvs *gls.VBO
 
 func init() {
-	VboUvs = gls.NewVBO(data.Coords[:]).AddAttrib(gls.VertexTexcoord)
+	VboUvs = gls.NewVBO(data.Uvs[:]).AddAttrib(gls.VertexTexcoord)
 }
 
 // COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
