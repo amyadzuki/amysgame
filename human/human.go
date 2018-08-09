@@ -151,7 +151,7 @@ func (h *Human) update_unlocked(final bool) {
 		return
 	}
 	if HumanUpdate != nil {
-		//HumanUpdate(h, final)
+		HumanUpdate(h, final)
 	}
 }
 
