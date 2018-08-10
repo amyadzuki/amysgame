@@ -20,7 +20,7 @@ func (game *Game) AddWidgetCharaChanger(label string) {
 	game.WidgetCharaChanger = gui.NewButton(label)
 	game.WidgetCharaChanger.SetLayoutParams(&gui.DockLayoutParams{gui.DockLeft})
 	game.WidgetCharaChanger.Subscribe(gui.OnClick, func(name string, ev interface{}) {
-		//
+		game.State.SetNext("chara select")
 	})
 	game.addDockSize(game.DockTop, game.WidgetCharaChanger)
 	game.DockTop.Add(game.WidgetCharaChanger)
