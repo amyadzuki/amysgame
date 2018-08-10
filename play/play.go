@@ -153,7 +153,7 @@ func Play() {
 		e1.SetHeight(80)
 		b.SetHeight(80)
 		b.Subscribe(gui.OnClick, func(evname string, event interface{}) {
-			State.SetNext("chara select")
+			game.Main.State.SetNext("chara select")
 		})
 		LogIn.Add(e0)
 		LogIn.Add(e1)
@@ -167,7 +167,7 @@ func Play() {
 		b.SetLayoutParams(&gui.DockLayoutParams{gui.DockTop})
 		b.SetHeight(40)
 		b.Subscribe(gui.OnClick, func(evname string, event interface{}) {
-			State.SetNext("chara designer")
+			game.Main.State.SetNext("chara designer")
 		})
 		CharaSelect.Add(b)
 	}
