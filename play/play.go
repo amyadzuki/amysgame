@@ -260,7 +260,23 @@ func Play() {
 			game.Main.Win.SwapBuffers()
 		}
 
-	}).OnFrame("play", func(state *states.State) {
+	}).OnEnter("play", func(state *states.State) {
+
+	}).OnLeave(func(state *states.State) {
+
+	}).OnFrame(func(state *states.State) {
+
+		// Render the root GUI panel using the specified camera
+		rendered, err := game.Main.Rend.Render(game.Main.Camera)
+		if err != nil {
+			panic(err)
+		}
+		game.Main.Wm.PollEvents()
+
+		// Update window and checks for I/O events
+		if rendered || true {
+			game.Main.Win.SwapBuffers()
+		}
 
 	}).SetNext("chara select").Run()
 }

@@ -137,6 +137,15 @@ func (game *Game) InitWindows() {
 		game.CharaDesignerUwTrimBlue.SetValue(0xc1/255.0)
 		uw.Add(game.CharaDesignerUwTrimBlue)
 
+		confirm := tree.AddNode("Confirm")
+		{
+			b := gui.NewButton("Confirm")
+			b.Subscribe(gui.OnClick, func(evname string, event interface{}) {
+				game.State.SetNext("play")
+			})
+			confirm.Add(b)
+		}
+
 		game.WindowCharaDesigner.Add(tree)
 	}
 	game.WindowInventory = game.newWindow(960, 720, "Inventory")
