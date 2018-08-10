@@ -9,7 +9,6 @@ import (
 	"strings"
 
 	"github.com/amy911/amy911/dialog"
-	"github.com/amy911/amy911/states"
 	"github.com/amy911/amy911/str"
 
 	"github.com/amyadzuki/amystuff/gamecam"
