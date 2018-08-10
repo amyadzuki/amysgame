@@ -57,7 +57,6 @@ func (m *MeType) Position() (position math32.Vector3) {
 }
 
 var Me MeType
-var State states.State
 
 func init() {
 	Me.Human = human.New()
@@ -173,7 +172,8 @@ func Play() {
 		CharaSelect.Add(b)
 	}
 
-	State.Init(game.Main.Win.ShouldClose).SetData(game.Main).SetFps(30).OnEnter("chara select", func(state *states.State) {
+	game.Main.State.Init(game.Main.Win.ShouldClose).SetData(game.Main).SetFps(30)
+	game.Main.State.OnEnter("chara select", func(state *states.State) {
 
 		control.SetEnabled(false)
 		control.SetDefaultToScreen(true)
