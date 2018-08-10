@@ -34,6 +34,8 @@ var Main Game
 type Game struct {
 	logs.Logs
 
+	State states.State
+
 	Camera *camera.Perspective // TODO: camera.ICamera
 	Win    window.IWindow
 	Wm     window.IWindowManager
