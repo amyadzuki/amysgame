@@ -45,7 +45,8 @@
 - Fix bugs
 
 ## 1.1 First bugfix release
+- Arena
 
-## 1.2
+## 1.2 Arena
 
 ## 1.3
