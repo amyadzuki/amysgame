@@ -2,7 +2,7 @@
 package cobra
 
 import (
-	"github.com/amyadzuki/amysgame/play"
+	"github.com/amyadzuki/amysgame/run"
 
 	"github.com/spf13/cobra"
 )
@@ -13,7 +13,7 @@ var playCmd = &cobra.Command{
 	Short: "Play the game",
 	Long: `Play the game`,
 	Run: func(cmd *cobra.Command, args []string) {
-		play.Play()
+		run.Play()
 	},
 }
 
