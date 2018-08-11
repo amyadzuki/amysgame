@@ -33,7 +33,7 @@
 
 ## 0.95 Late Public Beta
 
-## 0.99
+## 0.99 Finishing touches
 
 ## 1.0 Official release
 - Fix bugs
