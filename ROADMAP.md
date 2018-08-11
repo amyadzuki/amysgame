@@ -33,20 +33,31 @@
 ## 0.89
 - Semantic version numbering
 
-## 0.90 Early Public Beta
+## 0.90.0 Early Public Beta
 
-## 0.91
+## 0.91.0
 
-## 0.95 Late Public Beta
+## 0.95.0 Late Public Beta
 
-## 0.99 Finishing touches
+## 0.99.0 Finishing touches
 
-## 1.0 Official release
+## 1.0.0 Official release
 - Fix bugs
 
-## 1.1 First bugfix release
+## 1.0.1 First bugfix release
+- Tower
+
+## 1.1.0 Tower
+- Fix bugs
+
+## 1.1.1 Tower bugfix release
 - Arena
 
-## 1.2 Arena
+## 1.2.0 Arena
+- Fix bugs
 
-## 1.3
+## 1.2.1 Arena bugfix release
+
+## 1.3.0
+
+## 1.3.1
