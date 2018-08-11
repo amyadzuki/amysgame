@@ -4,12 +4,14 @@
 - [x] Camera control
 - [x] Chara designer
 - [x] Commander
-- [ ] Configurating reading
+- [ ] Configuration reading
 - [ ] Version numbering
 
 ## 0.1 Screenshot-ready
 - [ ] Level loading
 - [ ] Movement control
+- [ ] Character loading
+- [ ] Character saving
 
 ## 0.2 Interactive
 - [ ] Server: Logging in
