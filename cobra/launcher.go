@@ -1,5 +1,5 @@
 // COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
-package cmd
+package cobra
 
 import (
 	"fmt"
