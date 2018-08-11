@@ -4,12 +4,12 @@
 - Chara designer
 - Version numbering
 
-## 0.1 Screenshot Ready
+## 0.1 Screenshot-ready
 - Level loading
 
 ## 0.2 Interactive
 
-## 0.3
+## 0.3 Server
 
 ## 0.4
 
@@ -38,7 +38,7 @@
 ## 1.0 Official release
 - Fix bugs
 
-## 1.1 First Bugfix Release
+## 1.1 First bugfix release
 
 ## 1.2
 
