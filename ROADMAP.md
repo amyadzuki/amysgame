@@ -3,7 +3,7 @@
 ## 0.0
 - Implement version numbering
 
-## 0.1
+## 0.1 Screenshot Ready
 
 ## 0.2
 
@@ -17,21 +17,13 @@
 
 ## 0.7
 
-## 0.8
+## 0.80 Alpha Testing
 
-## 0.9
+## 0.85 Beta Testing
 
-## 0.10
+## 0.90 Early Public Beta
 
-## 0.11
-
-## 0.12
-
-## 0.13
-
-## 0.14
-
-## 0.15
+## 0.95 Late Public Beta
 
 ## 1.0 Official release
 
