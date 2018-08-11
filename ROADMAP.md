@@ -2,6 +2,8 @@
 
 ## 0.0
 - Chara designer
+- Commander
+- Configurating reading
 - Version numbering
 
 ## 0.1 Screenshot-ready
@@ -20,6 +22,8 @@
 ## 0.7
 
 ## 0.80 Alpha Testing
+- Launcher
+- Title screen
 
 ## 0.81
 
