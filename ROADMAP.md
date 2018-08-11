@@ -1,19 +1,24 @@
 # Roadmap
 
 ## 0.0
-- Chara designer
-- Commander
-- Configurating reading
-- Version numbering
+- [x] Camera control
+- [x] Chara designer
+- [x] Commander
+- [ ] Configurating reading
+- [ ] Version numbering
 
 ## 0.1 Screenshot-ready
-- Level loading
+- [ ] Level loading
+- [ ] Movement control
 
 ## 0.2 Interactive
+- [ ] Server: Logging in
+- [ ] Server: Registration
 
 ## 0.3 Server
+- [ ] Market
 
-## 0.4
+## 0.4 Market
 
 ## 0.5
 
@@ -22,16 +27,16 @@
 ## 0.7
 
 ## 0.80 Alpha Testing
-- Launcher
-- Lore
+- [ ] Launcher
+- [ ] Lore
 
 ## 0.81
-- Title screen
+- [ ] Title screen
 
 ## 0.85 Beta Testing
 
 ## 0.89
-- Semantic version numbering
+- [ ] Semantic version numbering
 
 ## 0.90.0 Early Public Beta
 
@@ -42,19 +47,19 @@
 ## 0.99.0 Finishing touches
 
 ## 1.0.0 Official release
-- Fix bugs
+- [ ] Fix bugs
 
 ## 1.0.1 First bugfix release
-- Arena
+- [ ] Arena
 
 ## 1.2.0 Arena
-- Fix bugs
+- [ ] Fix bugs
 
 ## 1.2.1 Arena bugfix release
-- Tower
+- [ ] Tower
 
 ## 1.1.0 Tower
-- Fix bugs
+- [ ] Fix bugs
 
 ## 1.1.1 Tower bugfix release
 
@@ -63,6 +68,6 @@
 ## 1.3.1
 
 ---
-- Raids
+- [ ] Raids
 
 ## 2.0.0 Raids
