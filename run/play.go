@@ -1,5 +1,5 @@
 // COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
-package play
+package run
 
 import (
 	"fmt"
