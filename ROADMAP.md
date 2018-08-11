@@ -70,6 +70,6 @@
 ## 1.3.1
 
 ---
-- [ ] Raids
+- [ ] Battleground
 
-## 2.0.0 Raids
+## 2.0.0 Battleground
