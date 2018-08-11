@@ -23,13 +23,15 @@
 
 ## 0.80 Alpha Testing
 - Launcher
-- Title screen
+- Lore
 
 ## 0.81
+- Title screen
 
 ## 0.85 Beta Testing
 
 ## 0.89
+- Semantic version numbering
 
 ## 0.90 Early Public Beta
 
