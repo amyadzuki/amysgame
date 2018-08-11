@@ -8,7 +8,7 @@ import (
 
 	"github.com/amy911/amy911/syspath"
 
-	"github.com/amyadzuki/amysgame/play"
+	"github.com/amyadzuki/amysgame/run"
 
 	"github.com/spf13/cobra"
 	"github.com/spf13/viper"
@@ -32,7 +32,7 @@ var rootCmd = &cobra.Command{
 	Short: "The client application for games by amyadzuki",
 	Long: `The client application for games by amyadzuki`,
 	Run: func(cmd *cobra.Command, args []string) {
-		play.Play()
+		run.Play()
 	},
 }
 
