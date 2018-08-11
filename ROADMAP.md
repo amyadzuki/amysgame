@@ -45,18 +45,18 @@
 - Fix bugs
 
 ## 1.0.1 First bugfix release
-- Tower
-
-## 1.1.0 Tower
-- Fix bugs
-
-## 1.1.1 Tower bugfix release
 - Arena
 
 ## 1.2.0 Arena
 - Fix bugs
 
 ## 1.2.1 Arena bugfix release
+- Tower
+
+## 1.1.0 Tower
+- Fix bugs
+
+## 1.1.1 Tower bugfix release
 
 ## 1.3.0
 
