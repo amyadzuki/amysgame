@@ -58,10 +58,6 @@ func (m *MeType) Position() (position math32.Vector3) {
 
 var Me MeType
 
-func init() {
-	Me.Human = human.New()
-}
-
 func update() {
 	age := float64(game.Main.CharaDesignerBodyAge.Value())
 	gender := float64(game.Main.CharaDesignerBodyGender.Value())
@@ -95,6 +91,7 @@ func Play() {
 	game.Main.Init("My Game")
 	game.Main.StartUp("log.txt") // calls flag.Parse
 	human.Init(game.Main.Rend)
+	Me.Human = human.New(game.Main.Gs)
 	fmt.Printf("Base:        %f\n", Me.Base())
 	fmt.Printf("HeightToCap: %f\n", Me.HeightToCap())
 	fmt.Printf("HeightToEye: %f\n", Me.HeightToEye())
