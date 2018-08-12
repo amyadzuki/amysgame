@@ -166,30 +166,34 @@ func (h *Human) update_unlocked(final bool) {
 	if HumanUpdate != nil {
 		HumanUpdate(h, final)
 	}
-	zMaxSkin, zMinSkin := 0.0, 0.0
-	for _, index := range h.BufIndSkin {
-		z := float64(h.BufPos[index+2])
-		if z > zMaxSkin {
-			zMaxSkin = z
+	{
+		zMaxSkin, zMinSkin := 0.0, 0.0
+		for _, index := range h.BufIndSkin {
+			z := float64(h.BufPos[index+2])
+			if z > zMaxSkin {
+				zMaxSkin = z
+			}
+			if z < zMinSkin {
+				zMinSkin = z
+			}
 		}
-		if z < zMinSkin {
-			zMinSkin = z
-		}
+		h.zAtBot = zMinSkin
+		h.zAtCap = zMaxSkin
 	}
-	h.zAtBot = zMinSkin
-	h.zAtCap = zMaxSkin
-	yMinEyes, zMaxEyes := 0.0, 0.0
-	for _, index := range h.BufIndEyes {
-		y, z := float64(h.BufPos[index+1]), float64(h.BufPos[index+2])
-		if y < yMinEyes {
-			yMinEyes = y
+	{
+		yMinEyes, zMaxEyes := 0.0, 0.0
+		for _, index := range h.BufIndEyes {
+			y, z := float64(h.BufPos[index+1]), float64(h.BufPos[index+2])
+			if y < yMinEyes {
+				yMinEyes = y
+			}
+			if z > zMaxEyes {
+				zMaxEyes = z
+			}
 		}
-		if z > zMaxEyes {
-			zMaxEyes = z
-		}
+		h.yAtEye = yMinEyes
+		h.zAtEye = zMaxEyes - HalfEyeHeight
 	}
-	h.yAtEye = yMinEyes
-	h.zAtEye = zMaxEyes - HalfEyeHeight
 }
 
 var Backest = false
