@@ -2,6 +2,7 @@
 package human
 
 import (
+	"math"
 	"sync"
 
 	"github.com/amy911/amy911/maths"
@@ -18,6 +19,7 @@ import (
 type Human struct {
 	age, gender, muscle, weight  float64
 	yAtEye, zAtBot, zAtCap, zAtEye float64
+	theta, _padding float64
 
 	BufIndEyes math32.ArrayU32
 	BufIndSkin math32.ArrayU32
@@ -45,6 +47,12 @@ func New(gs *gls.GLS) *Human {
 	return new(Human).Init(gs)
 }
 
+func (h *Human) FacingNormalized() (dx, dy float64) {
+	// h.RLock(); defer h.RUnlock()
+	dy, dx = math.Sincos(h.theta)
+	return
+}
+
 func (h *Human) Finalize() *Human {
 	h.Lock() ; defer h.Unlock()
 	if !h.finalized {
@@ -63,6 +71,7 @@ func (h *Human) Init(gs *gls.GLS) *Human {
 	h.Lock() ; defer h.Unlock()
 	h.age, h.gender, h.muscle, h.weight = 0.5, 0.125, 0.5, 0.5
 	// Calc'd later: yAtEye, zAtBot, zAtCap, zAtEye
+	h.theta = -0.5*math.Pi
 	h.BufIndEyes = math32.NewArrayU32(0, 0)
 	for _, index := range data.Ins["high-poly.obj"] {
 		h.BufIndEyes.Append(index)
@@ -125,6 +134,11 @@ func (h *Human) Init(gs *gls.GLS) *Human {
 func (h *Human) Params() (float64, float64, float64, float64) {
 	// h.RLock(); defer h.RUnlock()
 	return h.age, h.gender, h.muscle, h.weight
+}
+
+func (h *Human) Position() (pos math32.Vector3) {
+	// h.RLock(); defer h.RUnlock()
+	return
 }
 
 func (h *Human) Update(age, gender, muscle, weight float64) *Human {
