@@ -30,7 +30,8 @@ type Human struct {
 	MatSkin    *SkinMaterial
 	MeshEyes   *graphic.Mesh
 	MeshSkin   *graphic.Mesh
-	VboPos     *gls.VBO
+	VboPosEyes *gls.VBO
+	VboPosSkin *gls.VBO
 
 	sync.RWMutex
 	*core.Node
@@ -98,20 +99,21 @@ func (h *Human) Init(gs *gls.GLS) *Human {
 	}
 	h.GeomEyes = geometry.NewGeometry()
 	h.GeomSkin = geometry.NewGeometry()
-	h.handleVao = gs.GenVertexArray()
-	h.GeomEyes.SetVAO(h.handleVao)
-	h.GeomSkin.SetVAO(h.handleVao)
+	//h.handleVao = gs.GenVertexArray()
+	//h.GeomEyes.SetVAO(h.handleVao)
+	//h.GeomSkin.SetVAO(h.handleVao)
 	h.GroupEyes = h.GeomEyes.AddGroup(h.BufIndEyes.Len(), 0, 0)
 	h.GroupSkin = h.GeomSkin.AddGroup(h.BufIndSkin.Len(), 0, 0)
 	h.GroupEyes.Count = h.BufPos.Len()
 	h.GroupSkin.Count = h.BufPos.Len()
 	h.GeomEyes.SetIndices(h.BufIndEyes)
 	h.GeomSkin.SetIndices(h.BufIndSkin)
-	h.VboPos = gls.NewVBO(h.BufPos).AddAttrib(gls.VertexPosition)
-	h.GeomEyes.AddVBO(h.VboPos)
-	// h.GeomSkin.AddVBO(h.VboPos)
-	h.GeomEyes.AddVBO(VboUvs)
-	// h.GeomSkin.AddVBO(VboUvs)
+	h.VboPosEyes = gls.NewVBO(h.BufPos).AddAttrib(gls.VertexPosition)
+	h.VboPosSkin = gls.NewVBO(h.BufPos).AddAttrib(gls.VertexPosition)
+	h.GeomEyes.AddVBO(h.VboPosEyes)
+	h.GeomSkin.AddVBO(h.VboPosSkin)
+	h.GeomEyes.AddVBO(VboUvsEyes)
+	h.GeomSkin.AddVBO(VboUvsSkin)
 	h.MatEyes = new(EyesMaterial)
 	h.MatEyes.Init()
 	h.MatEyes.Udata.Color = math32.Color4{1.0/3, 2.0/3, 1, 1}
@@ -170,10 +172,12 @@ var Backest = false
 var HalfEyeHeight float64 = 0.013799965381622314
 var HumanInit func(*Human)
 var HumanUpdate func(*Human, bool)
-var VboUvs *gls.VBO
+var VboUvsEyes *gls.VBO
+var VboUvsSkin *gls.VBO
 
 func init() {
-	VboUvs = gls.NewVBO(data.Uvs[:]).AddAttrib(gls.VertexTexcoord)
+	VboUvsEyes = gls.NewVBO(data.Uvs[:]).AddAttrib(gls.VertexTexcoord)
+	VboUvsSkin = gls.NewVBO(data.Uvs[:]).AddAttrib(gls.VertexTexcoord)
 }
 
 // COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
