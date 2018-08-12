@@ -91,6 +91,7 @@ func Play() {
 	game.Main.Init("My Game")
 	game.Main.StartUp("log.txt") // calls flag.Parse
 	human.Init(game.Main.Rend)
+	human.Builder = human.New(game.Main.Gs)
 	Me.Human = human.New(game.Main.Gs)
 	fmt.Printf("Base:        %f\n", Me.Base())
 	fmt.Printf("HeightToCap: %f\n", Me.HeightToCap())
