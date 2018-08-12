@@ -93,9 +93,6 @@ func Play() {
 	human.Init(game.Main.Rend)
 	human.Builder = human.New(game.Main.Gs)
 	Me.Human = human.New(game.Main.Gs)
-	fmt.Printf("Base:        %f\n", Me.Base())
-	fmt.Printf("HeightToCap: %f\n", Me.HeightToCap())
-	fmt.Printf("HeightToEye: %f\n", Me.HeightToEye())
 	control := gamecam.New(&Me, game.Main.Camera, game.Main.Win)
 	control.Gui = game.Main.Gui
 	control.SetDefaultToScreen(false)
@@ -222,6 +219,9 @@ func Play() {
 	}).OnLeave(func(state *states.State) {
 
 		game.Main.WindowCharaDesignerClose()
+		fmt.Printf("Base:        %f\n", Me.Base())
+		fmt.Printf("HeightToCap: %f\n", Me.HeightToCap())
+		fmt.Printf("HeightToEye: %f\n", Me.HeightToEye())
 		game.Main.Scene.Remove(Me)
 
 	}).OnFrame(func(state *states.State) {
