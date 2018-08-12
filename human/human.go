@@ -40,8 +40,8 @@ type Human struct {
 	finalized bool
 }
 
-func New() *Human {
-	return new(Human).Init()
+func New(gs *gls.GLS) *Human {
+	return new(Human).Init(gs)
 }
 
 func (h *Human) Base() float64 {
@@ -78,7 +78,7 @@ func (h *Human) HeightToEye() float64 {
 	return h.hToEye
 }
 
-func (h *Human) Init() *Human {
+func (h *Human) Init(gs *gls.GLS) *Human {
 	h.Lock() ; defer h.Unlock()
 	h.age, h.gender, h.muscle, h.weight = 0.5, 0.125, 0.5, 0.5
 	h.base, h.fOfEye, h.hToCap, h.hToEye = 0, -0.125, 1.5, 1.14
@@ -98,10 +98,9 @@ func (h *Human) Init() *Human {
 	}
 	h.GeomEyes = geometry.NewGeometry()
 	h.GeomSkin = geometry.NewGeometry()
-	h.handleVao = h.GeomEyes.VAO()
-	badvao := h.GeomSkin.VAO()
+	h.handleVao = gs.GenVertexArray()
+	h.GeomEyes.SetVAO(h.handleVao)
 	h.GeomSkin.SetVAO(h.handleVao)
-	_ = badvao // TODO: delete it
 	h.GroupEyes = h.GeomEyes.AddGroup(h.BufIndEyes.Len(), 0, 0)
 	h.GroupSkin = h.GeomSkin.AddGroup(h.BufIndSkin.Len(), 0, 0)
 	h.GroupEyes.Count = h.BufPos.Len()
