@@ -45,7 +45,7 @@ func New(gs *gls.GLS) *Human {
 }
 
 func (h *Human) Base() float64 {
-	h.RLock(); defer h.RUnlock()
+	// h.RLock(); defer h.RUnlock()
 	return h.base
 }
 
@@ -59,22 +59,22 @@ func (h *Human) Finalize() *Human {
 }
 
 func (h *Human) Finalized() bool {
-	h.RLock(); defer h.RUnlock()
+	// h.RLock(); defer h.RUnlock()
 	return h.finalized
 }
 
 func (h *Human) FrontOfEye() float64 {
-	h.RLock(); defer h.RUnlock()
+	// h.RLock(); defer h.RUnlock()
 	return h.fOfEye
 }
 
 func (h *Human) HeightToCap() float64 {
-	h.RLock(); defer h.RUnlock()
+	// h.RLock(); defer h.RUnlock()
 	return h.hToCap
 }
 
 func (h *Human) HeightToEye() float64 {
-	h.RLock(); defer h.RUnlock()
+	// h.RLock(); defer h.RUnlock()
 	return h.hToEye
 }
 
@@ -141,7 +141,7 @@ func (h *Human) Init(gs *gls.GLS) *Human {
 }
 
 func (h *Human) Params() (float64, float64, float64, float64) {
-	h.RLock(); defer h.RUnlock()
+	// h.RLock(); defer h.RUnlock()
 	return h.age, h.gender, h.muscle, h.weight
 }
 
