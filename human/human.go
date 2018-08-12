@@ -17,7 +17,7 @@ import (
 
 type Human struct {
 	age, gender, muscle, weight  float64
-	base, fOfEye, hToCap, hToEye float64
+	yAtEye, zAtBot, zAtCap, zAtEye float64
 
 	BufIndEyes math32.ArrayU32
 	BufIndSkin math32.ArrayU32
@@ -45,11 +45,6 @@ func New(gs *gls.GLS) *Human {
 	return new(Human).Init(gs)
 }
 
-func (h *Human) Base() float64 {
-	// h.RLock(); defer h.RUnlock()
-	return h.base
-}
-
 func (h *Human) Finalize() *Human {
 	h.Lock() ; defer h.Unlock()
 	if !h.finalized {
@@ -64,25 +59,10 @@ func (h *Human) Finalized() bool {
 	return h.finalized
 }
 
-func (h *Human) FrontOfEye() float64 {
-	// h.RLock(); defer h.RUnlock()
-	return h.fOfEye
-}
-
-func (h *Human) HeightToCap() float64 {
-	// h.RLock(); defer h.RUnlock()
-	return h.hToCap
-}
-
-func (h *Human) HeightToEye() float64 {
-	// h.RLock(); defer h.RUnlock()
-	return h.hToEye
-}
-
 func (h *Human) Init(gs *gls.GLS) *Human {
 	h.Lock() ; defer h.Unlock()
 	h.age, h.gender, h.muscle, h.weight = 0.5, 0.125, 0.5, 0.5
-	h.base, h.fOfEye, h.hToCap, h.hToEye = 0, -0.125, 1.5, 1.14
+	// Calc'd later: yAtEye, zAtBot, zAtCap, zAtEye
 	h.BufIndEyes = math32.NewArrayU32(0, 0)
 	for _, index := range data.Ins["high-poly.obj"] {
 		h.BufIndEyes.Append(index)
@@ -159,6 +139,26 @@ func (h *Human) Update(age, gender, muscle, weight float64) *Human {
 	return h
 }
 
+func (h *Human) YAtEye() float64 {
+	// h.RLock(); defer h.RUnlock()
+	return h.yAtEye
+}
+
+func (h *Human) ZAtBot() float64 {
+	// h.RLock(); defer h.RUnlock()
+	return h.zAtBot
+}
+
+func (h *Human) ZAtCap() float64 {
+	// h.RLock(); defer h.RUnlock()
+	return h.zAtCap
+}
+
+func (h *Human) ZAtEye() float64 {
+	// h.RLock(); defer h.RUnlock()
+	return h.zAtEye
+}
+
 func (h *Human) update_unlocked(final bool) {
 	if h.finalized {
 		return
@@ -176,8 +176,8 @@ func (h *Human) update_unlocked(final bool) {
 			zMinSkin = z
 		}
 	}
-	h.base = zMinSkin
-	h.hToCap = zMaxSkin
+	h.zAtBot = zMinSkin
+	h.zAtCap = zMaxSkin
 	yMinEyes, zMaxEyes := 0.0, 0.0
 	for _, index := range h.BufIndEyes {
 		y, z := float64(h.BufPos[index+1]), float64(h.BufPos[index+2])
@@ -188,8 +188,8 @@ func (h *Human) update_unlocked(final bool) {
 			zMaxEyes = z
 		}
 	}
-	h.fOfEye = yMinEyes
-	h.hToEye = zMaxEyes - HalfEyeHeight
+	h.yAtEye = yMinEyes
+	h.zAtEye = zMaxEyes - HalfEyeHeight
 }
 
 var Backest = false
