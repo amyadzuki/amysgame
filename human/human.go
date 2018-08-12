@@ -109,9 +109,9 @@ func (h *Human) Init(gs *gls.GLS) *Human {
 	h.GeomSkin.SetIndices(h.BufIndSkin)
 	h.VboPos = gls.NewVBO(h.BufPos).AddAttrib(gls.VertexPosition)
 	h.GeomEyes.AddVBO(h.VboPos)
-	h.GeomSkin.AddVBO(h.VboPos)
+	// h.GeomSkin.AddVBO(h.VboPos)
 	h.GeomEyes.AddVBO(VboUvs)
-	h.GeomSkin.AddVBO(VboUvs)
+	// h.GeomSkin.AddVBO(VboUvs)
 	h.MatEyes = new(EyesMaterial)
 	h.MatEyes.Init()
 	h.MatEyes.Udata.Color = math32.Color4{1.0/3, 2.0/3, 1, 1}
