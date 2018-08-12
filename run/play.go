@@ -219,9 +219,10 @@ func Play() {
 	}).OnLeave(func(state *states.State) {
 
 		game.Main.WindowCharaDesignerClose()
-		fmt.Printf("Base:        %f\n", Me.Base())
-		fmt.Printf("HeightToCap: %f\n", Me.HeightToCap())
-		fmt.Printf("HeightToEye: %f\n", Me.HeightToEye())
+		fmt.Printf("YAtEye: %f\n", Me.YAtEye())
+		fmt.Printf("ZAtBot: %f\n", Me.ZAtBot())
+		fmt.Printf("ZAtCap: %f\n", Me.ZAtCap())
+		fmt.Printf("ZAtEye: %f\n", Me.ZAtEye())
 		game.Main.Scene.Remove(Me)
 
 	}).OnFrame(func(state *states.State) {
