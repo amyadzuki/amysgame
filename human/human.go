@@ -166,6 +166,30 @@ func (h *Human) update_unlocked(final bool) {
 	if HumanUpdate != nil {
 		HumanUpdate(h, final)
 	}
+	zMaxSkin, zMinSkin := 0.0, 0.0
+	for _, index := range h.BufIndSkin {
+		z := float64(h.BufPos[index+2])
+		if z > zMaxSkin {
+			zMaxSkin = z
+		}
+		if z < zMinSkin {
+			zMinSkin = z
+		}
+	}
+	h.base = zMinSkin
+	h.hToCap = zMaxSkin
+	yMinEyes, zMaxEyes := 0.0, 0.0
+	for _, index := range h.BufIndEyes {
+		y, z := float64(h.BufPos[index+1]), float64(h.BufPos[index+2])
+		if y < yMinEyes {
+			yMinEyes = y
+		}
+		if z > zMaxEyes {
+			zMaxEyes = z
+		}
+	}
+	h.fOfEye = yMinEyes
+	h.hToEye = zMaxEyes - HalfEyeHeight
 }
 
 var Backest = false
