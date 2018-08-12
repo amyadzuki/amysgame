@@ -44,7 +44,9 @@ func init() {
 
 func init() {
 	human.HumanInit = func(b *human.Human) {
-		*(b.VboPos.Buffer()) = math32.NewArrayF32(3*len(data.Remap), 3*len(data.Remap))
+		b.BufPos = math32.NewArrayF32(3*len(data.Remap), 3*len(data.Remap))
+		*(b.VboPosEyes.Buffer()) = b.BufPos
+		*(b.VboPosSkin.Buffer()) = b.BufPos
 	}
 	human.HumanUpdate = func(b *human.Human, final bool) {
 		age, gender, muscle, weight := b.Params()
@@ -82,13 +84,14 @@ func init() {
 		w0 *= 1
 		w1 *= 1
 
-		buf := b.VboPos.Buffer()
+		buf := b.BufPos
 		for idx, remap := range data.Remap {
-			(*buf)[3*idx+0] = updateCoord(data.Float[3*remap+0], age, gender, muscle, weight, a0, a1, g0, g1, m0, m1, w0, w1)
-			(*buf)[3*idx+1] = updateCoord(data.Float[3*remap+1], age, gender, muscle, weight, a0, a1, g0, g1, m0, m1, w0, w1)
-			(*buf)[3*idx+2] = updateCoord(data.Float[3*remap+2], age, gender, muscle, weight, a0, a1, g0, g1, m0, m1, w0, w1)
+			buf[3*idx+0] = updateCoord(data.Float[3*remap+0], age, gender, muscle, weight, a0, a1, g0, g1, m0, m1, w0, w1)
+			buf[3*idx+1] = updateCoord(data.Float[3*remap+1], age, gender, muscle, weight, a0, a1, g0, g1, m0, m1, w0, w1)
+			buf[3*idx+2] = updateCoord(data.Float[3*remap+2], age, gender, muscle, weight, a0, a1, g0, g1, m0, m1, w0, w1)
 		}
-		b.VboPos.Update()
+		b.VboPosEyes.Update()
+		b.VboPosSkin.Update()
 	}
 }
 
