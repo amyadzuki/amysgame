@@ -43,20 +43,20 @@ var _ = material.NewStandard
 var Fps, Ping int
 var start = false
 
-type MeType struct {
-	*human.Human
-}
-
-func (m *MeType) FacingNormalized() (x float64, y float64) {
-	y, x = math.Sincos(math.Pi * 0.5)
-	return
-}
-
-func (m *MeType) Position() (position math32.Vector3) {
-	return
-}
-
-var Me MeType
+//type MeType struct {
+//	*human.Human
+//}
+//
+//func (m *MeType) FacingNormalized() (x float64, y float64) {
+//	y, x = math.Sincos(math.Pi * 0.5)
+//	return
+//}
+//
+//func (m *MeType) Position() (position math32.Vector3) {
+//	return
+//}
+//
+//var Me MeType
 
 func update() {
 	age := float64(game.Main.CharaDesignerBodyAge.Value())
@@ -64,7 +64,7 @@ func update() {
 	muscle := float64(game.Main.CharaDesignerBodyMuscle.Value())
 	weight := float64(game.Main.CharaDesignerBodyWeight.Value())
 	human.Builder.Update(age, gender, muscle, weight)
-	Me.Update(age, gender, muscle, weight)
+	//Me.Update(age, gender, muscle, weight)
 }
 
 func Play() {
@@ -92,8 +92,8 @@ func Play() {
 	game.Main.StartUp("log.txt") // calls flag.Parse
 	human.Init(game.Main.Rend)
 	human.Builder = human.New(game.Main.Gs)
-	Me.Human = human.New(game.Main.Gs)
-	control := gamecam.New(&Me, game.Main.Camera, game.Main.Win)
+	//Me.Human = human.New(game.Main.Gs)
+	control := gamecam.New(human.Builder, game.Main.Camera, game.Main.Win)
 	control.Gui = game.Main.Gui
 	control.SetDefaultToScreen(false)
 
@@ -213,39 +213,39 @@ func Play() {
 		game.Main.Camera.SetPositionVec(&math32.Vector3{0, -2, 0.75})
 		game.Main.Camera.LookAt(&math32.Vector3{0, 0, 0.75})
 
-		game.Main.Scene.Add(Me)
+		game.Main.Scene.Add(human.Builder)
 		game.Main.WindowCharaDesignerOpen()
 
 	}).OnLeave(func(state *states.State) {
 
 		game.Main.WindowCharaDesignerClose()
-		fmt.Printf("YAtEye: %f\n", Me.YAtEye())
-		fmt.Printf("ZAtBot: %f\n", Me.ZAtBot())
-		fmt.Printf("ZAtCap: %f\n", Me.ZAtCap())
-		fmt.Printf("ZAtEye: %f\n", Me.ZAtEye())
-		game.Main.Scene.Remove(Me)
+		fmt.Printf("YAtEye: %f\n", human.Builder.YAtEye())
+		fmt.Printf("ZAtBot: %f\n", human.Builder.ZAtBot())
+		fmt.Printf("ZAtCap: %f\n", human.Builder.ZAtCap())
+		fmt.Printf("ZAtEye: %f\n", human.Builder.ZAtEye())
+		game.Main.Scene.Remove(human.Builder)
 
 	}).OnFrame(func(state *states.State) {
 
-		Me.MatSkin.Udata.SkinDelta.X = game.Main.CharaDesignerSkinHue.Value()
-		Me.MatSkin.Udata.SkinDelta.Y = game.Main.CharaDesignerSkinSat.Value()
-		Me.MatSkin.Udata.SkinDelta.Z = game.Main.CharaDesignerSkinVal.Value()
-		Me.MatSkin.Udata.SkinDelta.W = game.Main.CharaDesignerSkinTone.Value()
+		human.Builder.MatSkin.Udata.SkinDelta.X = game.Main.CharaDesignerSkinHue.Value()
+		human.Builder.MatSkin.Udata.SkinDelta.Y = game.Main.CharaDesignerSkinSat.Value()
+		human.Builder.MatSkin.Udata.SkinDelta.Z = game.Main.CharaDesignerSkinVal.Value()
+		human.Builder.MatSkin.Udata.SkinDelta.W = game.Main.CharaDesignerSkinTone.Value()
 
-		Me.MatSkin.Udata.UwFabric.R = game.Main.CharaDesignerUwFabricRed.Value()
-		Me.MatSkin.Udata.UwFabric.G = game.Main.CharaDesignerUwFabricGreen.Value()
-		Me.MatSkin.Udata.UwFabric.B = game.Main.CharaDesignerUwFabricBlue.Value()
-		Me.MatSkin.Udata.UwDetail.R = game.Main.CharaDesignerUwDetailRed.Value()
-		Me.MatSkin.Udata.UwDetail.G = game.Main.CharaDesignerUwDetailGreen.Value()
-		Me.MatSkin.Udata.UwDetail.B = game.Main.CharaDesignerUwDetailBlue.Value()
-		Me.MatSkin.Udata.UwDetail.A = game.Main.CharaDesignerUwDetailAlpha.Value()
-		Me.MatSkin.Udata.UwTrim.R = game.Main.CharaDesignerUwTrimRed.Value()
-		Me.MatSkin.Udata.UwTrim.G = game.Main.CharaDesignerUwTrimGreen.Value()
-		Me.MatSkin.Udata.UwTrim.B = game.Main.CharaDesignerUwTrimBlue.Value()
+		human.Builder.MatSkin.Udata.UwFabric.R = game.Main.CharaDesignerUwFabricRed.Value()
+		human.Builder.MatSkin.Udata.UwFabric.G = game.Main.CharaDesignerUwFabricGreen.Value()
+		human.Builder.MatSkin.Udata.UwFabric.B = game.Main.CharaDesignerUwFabricBlue.Value()
+		human.Builder.MatSkin.Udata.UwDetail.R = game.Main.CharaDesignerUwDetailRed.Value()
+		human.Builder.MatSkin.Udata.UwDetail.G = game.Main.CharaDesignerUwDetailGreen.Value()
+		human.Builder.MatSkin.Udata.UwDetail.B = game.Main.CharaDesignerUwDetailBlue.Value()
+		human.Builder.MatSkin.Udata.UwDetail.A = game.Main.CharaDesignerUwDetailAlpha.Value()
+		human.Builder.MatSkin.Udata.UwTrim.R = game.Main.CharaDesignerUwTrimRed.Value()
+		human.Builder.MatSkin.Udata.UwTrim.G = game.Main.CharaDesignerUwTrimGreen.Value()
+		human.Builder.MatSkin.Udata.UwTrim.B = game.Main.CharaDesignerUwTrimBlue.Value()
 
-		Me.MatEyes.Udata.Color.R = game.Main.CharaDesignerEyeRed.Value()
-		Me.MatEyes.Udata.Color.G = game.Main.CharaDesignerEyeGreen.Value()
-		Me.MatEyes.Udata.Color.B = game.Main.CharaDesignerEyeBlue.Value()
+		human.Builder.MatEyes.Udata.Color.R = game.Main.CharaDesignerEyeRed.Value()
+		human.Builder.MatEyes.Udata.Color.G = game.Main.CharaDesignerEyeGreen.Value()
+		human.Builder.MatEyes.Udata.Color.B = game.Main.CharaDesignerEyeBlue.Value()
 
 		// Render the root GUI panel using the specified camera
 		rendered, err := game.Main.Rend.Render(game.Main.Camera)
