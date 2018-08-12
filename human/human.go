@@ -32,7 +32,7 @@ type Human struct {
 	MeshSkin   *graphic.Mesh
 	VboPos     *gls.VBO
 
-	sync.Mutex
+	sync.RWMutex
 	*core.Node
 
 	Vao uint32
@@ -45,6 +45,7 @@ func New() *Human {
 }
 
 func (h *Human) Base() float64 {
+	h.RLock(); defer h.RUnlock()
 	return h.base
 }
 
@@ -58,18 +59,22 @@ func (h *Human) Finalize() *Human {
 }
 
 func (h *Human) Finalized() bool {
+	h.RLock(); defer h.RUnlock()
 	return h.finalized
 }
 
 func (h *Human) FrontOfEye() float64 {
+	h.RLock(); defer h.RUnlock()
 	return h.fOfEye
 }
 
 func (h *Human) HeightToCap() float64 {
+	h.RLock(); defer h.RUnlock()
 	return h.hToCap
 }
 
 func (h *Human) HeightToEye() float64 {
+	h.RLock(); defer h.RUnlock()
 	return h.hToEye
 }
 
@@ -137,6 +142,7 @@ func (h *Human) Init() *Human {
 }
 
 func (h *Human) Params() (float64, float64, float64, float64) {
+	h.RLock(); defer h.RUnlock()
 	return h.age, h.gender, h.muscle, h.weight
 }
 
