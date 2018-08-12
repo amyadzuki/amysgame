@@ -39,8 +39,6 @@ func init() {
 	SkinLight = TryLoad(filepath.Join(Assets, "hsv03-v3.png"))
 	Eyes = TryLoad(filepath.Join(Assets, "eyes-v4.png"))
 	Underwear = TryLoad(filepath.Join(Assets, "under-v3.png"))
-
-	Builder = New()
 }
 
 func Load(path string) *texture.Texture2D {
