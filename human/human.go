@@ -35,6 +35,8 @@ type Human struct {
 	sync.Mutex
 	*core.Node
 
+	Vao uint32
+
 	finalized bool
 }
 
@@ -91,6 +93,10 @@ func (h *Human) Init() *Human {
 	}
 	h.GeomEyes = geometry.NewGeometry()
 	h.GeomSkin = geometry.NewGeometry()
+	h.Vao = h.GeomEyes.VAO()
+	badvao := h.GeomSkin.VAO()
+	h.GeomSkin.SetVAO(h.Vao)
+	_ = badvao // TODO: delete it
 	h.GroupEyes = h.GeomEyes.AddGroup(h.BufIndEyes.Len(), 0, 0)
 	h.GroupSkin = h.GeomSkin.AddGroup(h.BufIndSkin.Len(), 0, 0)
 	h.GroupEyes.Count = h.BufPos.Len()
