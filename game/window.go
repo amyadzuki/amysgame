@@ -12,14 +12,20 @@ func (game *Game) InitWindows() {
 	{
 		const sliderWidth = 480 - 60
 		tree := gui.NewTree(480, 720)
+
 		presets := tree.AddNode("Presets")
-		presets.Add(gui.NewRadioButton("A").SetGroup("preset"))
-		presets.Add(gui.NewRadioButton("B").SetGroup("preset"))
-		presets.Add(gui.NewRadioButton("C").SetGroup("preset"))
-		presets.Add(gui.NewRadioButton("D").SetGroup("preset"))
+
+		eyes.Add(gui.NewLabel("\n"))
+		game.CharaDesignerPreset = gui.NewDrowDown(
+			sliderWidth,
+			gui.NewImageLabel("Default"),
+		)
+		game.CharaDesignerPresetsApply = gui.NewButton("Apply")
+		presets.Add(game.CharaDesignerPresetsApply)
 
 		body := tree.AddNode("Body")
 
+		eyes.Add(gui.NewLabel("\n"))
 		game.CharaDesignerBodyAge = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerBodyAge.SetText("Apparent Age")
 		game.CharaDesignerBodyAge.SetValue(0.5)
@@ -45,11 +51,13 @@ func (game *Game) InitWindows() {
 
 		skin := tree.AddNode("Skin")
 
+		eyes.Add(gui.NewLabel("\nA simple light↔dark skin tone slider:"))
 		game.CharaDesignerSkinTone = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerSkinTone.SetText("Skin Tone")
 		game.CharaDesignerSkinTone.SetValue(0.25)
 		skin.Add(game.CharaDesignerSkinTone)
 
+		eyes.Add(gui.NewLabel("\nAn HSV color modification which gets applied to the chosen skin tone:"))
 		game.CharaDesignerSkinHue = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerSkinHue.SetText("Hue Adjustment")
 		game.CharaDesignerSkinHue.SetValue(0.5)
@@ -86,20 +94,21 @@ func (game *Game) InitWindows() {
 
 		hair := tree.AddNode("Hair")
 
+		hair.Add(gui.NewLabel("\nFirst, choose a hair style:"))
 		game.CharaDesignerHairStyle = gui.NewDropDown(
 			sliderWidth,
 			gui.NewImageLabel("Straight"),
 		)
 		hair.Add(game.CharaDesignerHairStyle)
 
-		hair.Add(gui.NewLabel("\nHair length (\"Straight\" hair only):"))
+		hair.Add(gui.NewLabel("\nHair length*"))
 
 		game.CharaDesignerHairLength = gui.NewHSlider(sliderWidth, 20)
-		game.CharaDesignerHairLength.SetText("Length Adjustment (\"Straight\" only)")
+		game.CharaDesignerHairLength.SetText("Length Adjustment*")
 		game.CharaDesignerHairLength.SetValue(0.5)
 		hair.Add(game.CharaDesignerHairLength)
 
-		hair.Add(gui.NewLabel("\nHair color (all hair styles):"))
+		hair.Add(gui.NewLabel("*\"Straight\" hair style only.\nHair color (all hair styles):"))
 
 		game.CharaDesignerHairHue = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerHairHue.SetText("Hue Adjustment")
@@ -118,7 +127,7 @@ func (game *Game) InitWindows() {
 
 		uw := tree.AddNode("Underwear")
 
-		hair.Add(gui.NewLabel("\nFabric color:"))
+		uw.Add(gui.NewLabel("\nFabric color:"))
 
 		game.CharaDesignerUwFabricRed = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerUwFabricRed.SetText("Fabric Red")
@@ -135,7 +144,7 @@ func (game *Game) InitWindows() {
 		game.CharaDesignerUwFabricBlue.SetValue(1)
 		uw.Add(game.CharaDesignerUwFabricBlue)
 
-		hair.Add(gui.NewLabel("\nDetail color:"))
+		uw.Add(gui.NewLabel("\nDetail color:"))
 
 		game.CharaDesignerUwDetailRed = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerUwDetailRed.SetText("Detail Red")
@@ -157,7 +166,7 @@ func (game *Game) InitWindows() {
 		game.CharaDesignerUwDetailAlpha.SetValue(0.5)
 		uw.Add(game.CharaDesignerUwDetailAlpha)
 
-		hair.Add(gui.NewLabel("\nTrim color:"))
+		uw.Add(gui.NewLabel("\nTrim color:"))
 
 		game.CharaDesignerUwTrimRed = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerUwTrimRed.SetText("Trim Red")
@@ -175,6 +184,7 @@ func (game *Game) InitWindows() {
 		uw.Add(game.CharaDesignerUwTrimBlue)
 
 		confirm := tree.AddNode("Confirm")
+		confirm.Add(gui.NewLabel("\nClick the button to finish designing your character!"))
 		{
 			b := gui.NewButton("Confirm")
 			b.Subscribe(gui.OnClick, func(evname string, event interface{}) {
