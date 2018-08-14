@@ -32,7 +32,7 @@ type Human struct {
 	GroupHair  *geometry.Group
 	GroupSkin  *geometry.Group
 	MatEyes    *EyesMaterial
-	MatHair    *EyesMaterial
+	MatHair    *HairMaterial
 	MatSkin    *SkinMaterial
 	MeshEyes   *graphic.Mesh
 	MeshHair   *graphic.Mesh
