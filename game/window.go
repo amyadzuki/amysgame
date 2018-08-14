@@ -22,7 +22,7 @@ func (game *Game) InitWindows() {
 				gui.NewImageLabel("Default"),
 			)
 			game.CharaDesignerPresetApply = gui.NewButton("Apply")
-			presets.Add(game.CharaDesignerPresetsApply)
+			presets.Add(game.CharaDesignerPresetApply)
 		//}
 		//{
 			body := tree.AddNode("Body")
