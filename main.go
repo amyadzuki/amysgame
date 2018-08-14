@@ -25,11 +25,11 @@ func init() {
 	env911.InitAll("AMYSGAME_", nil, "amyadzuki", "amysgame") // TODO: better vendor and app names!!
 
 	human.Assets = filepath.Join(app.Bin(), "assets")
-	human.SkinDark = TryLoad(filepath.Join(human.Assets, "hsv01-v3.png"))
-	human.SkinLight = TryLoad(filepath.Join(human.Assets, "hsv03-v3.png"))
-	human.Eyes = TryLoad(filepath.Join(human.Assets, "eyes-v4.png"))
-	human.HairLong = TryLoad(filepath.Join(human.Assets, "long01_diffuse.png"))
-	human.Underwear = TryLoad(filepath.Join(human.Assets, "under-v3.png"))
+	human.SkinDark = human.TryLoad(filepath.Join(human.Assets, "hsv01-v3.png"))
+	human.SkinLight = human.TryLoad(filepath.Join(human.Assets, "hsv03-v3.png"))
+	human.Eyes = human.TryLoad(filepath.Join(human.Assets, "eyes-v4.png"))
+	human.HairLong = human.TryLoad(filepath.Join(human.Assets, "long01_diffuse.png"))
+	human.Underwear = human.TryLoad(filepath.Join(human.Assets, "under-v3.png"))
 }
 
 func main() {
