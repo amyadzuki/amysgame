@@ -27,9 +27,16 @@ func main() {
 	quick := config.Bool("quick", false, "Skip the launcher and just play the game played previously")
 
 	config.BoolVarP(&vars.Verbose, "verbose", "v", false, "Write more output")
+	config.BoolVarP(&vars.Quiet, "quiet", "q", false, "Silence -info- messages from the console")
 
-	config.BoolVar(&vars.Debug, "debug", false, "Write more log output")
-	config.BoolVar(&vars.Trace, "debugextra", false, "Write significantly more log output")
+	config.BoolVar(&vars.FullScreen, "fullscreen", false, "Launch the game fullscreen")
+	config.StringVar(&vars.Geometry, "geometry",
+		strconv.Itoa(DflWidth)+"x"+strconv.Itoa(DflHeight),
+		"Window geometry (H, WxH, or WxH+X+Y)")
+	config.StringVar(&vars.WM, "wm", "glfw", "Window manager (one of: \"glfw\")")
+
+	config.BoolVar(&vars.Debug, "debug", false, "Log debug info (may slightly slow the game)")
+	config.BoolVar(&vars.Trace, "debugextra", false, "Log trace info (may drastically slow the game)")
 
 	config.BoolVar(&vars.JSON, "json", false, "Use JSON for the data format")
 	config.BoolVar(&vars.XML, "xml", false, "Use XML for the data format")
