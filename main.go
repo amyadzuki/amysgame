@@ -26,9 +26,9 @@ func main() {
 	config.BoolVar(&vars.Debug, "debug", false, "Write more log output")
 	config.BoolVar(&vars.Trace, "debugextra", false, "Write significantly more log output")
 
-	config.BoolVar(&vars.Json, "json", false, "Use JSON for the data format")
-	config.BoolVar(&vars.Xml, "xml", false, "Use XML for the data format")
-	config.BoolVar(&vars.Yaml, "yaml", false, "Use YAML for the data format")
+	config.BoolVar(&vars.JSON, "json", false, "Use JSON for the data format")
+	config.BoolVar(&vars.XML, "xml", false, "Use XML for the data format")
+	config.BoolVar(&vars.YAML, "yaml", false, "Use YAML for the data format")
 
 	config.LoadAndParse()
 
