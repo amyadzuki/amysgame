@@ -17,7 +17,7 @@ func (game *Game) InitWindows() {
 			presets := tree.AddNode("Presets")
 
 			presets.Add(gui.NewLabel("\n"))
-			game.CharaDesignerPreset = gui.NewDrowDown(
+			game.CharaDesignerPreset = gui.NewDropDown(
 				sliderWidth,
 				gui.NewImageLabel("Default"),
 			)
