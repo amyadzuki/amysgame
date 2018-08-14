@@ -11,6 +11,7 @@ import (
 
 	"github.com/amy911/amy911/maths"
 	"github.com/amy911/env911"
+	"github.com/amy911/env911/app"
 	"github.com/amy911/env911/config"
 
 	"github.com/g3n/engine/math32"
@@ -22,6 +23,13 @@ const (
 
 func init() {
 	env911.InitAll("AMYSGAME_", nil, "amyadzuki", "amysgame") // TODO: better vendor and app names!!
+
+	human.Assets = filepath.Join(app.Bin(), "assets")
+	human.SkinDark = TryLoad(filepath.Join(human.Assets, "hsv01-v3.png"))
+	human.SkinLight = TryLoad(filepath.Join(human.Assets, "hsv03-v3.png"))
+	human.Eyes = TryLoad(filepath.Join(human.Assets, "eyes-v4.png"))
+	human.HairLong = TryLoad(filepath.Join(human.Assets, "long01_diffuse.png"))
+	human.Underwear = TryLoad(filepath.Join(human.Assets, "under-v3.png"))
 }
 
 func main() {
