@@ -3,6 +3,7 @@ package main
 
 import (
 	"github.com/amyadzuki/amysgame/run"
+	"github.com/amyadzuki/amysgame/vars"
 
 	"github.com/amy911/env911"
 	"github.com/amy911/env911/app"
