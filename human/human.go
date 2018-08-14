@@ -22,17 +22,23 @@ type Human struct {
 	theta, _padding float64
 
 	BufIndEyes math32.ArrayU32
+	BufIndHair math32.ArrayU32
 	BufIndSkin math32.ArrayU32
 	BufPos     math32.ArrayF32
 	GeomEyes   *geometry.Geometry
+	GeomHair   *geometry.Geometry
 	GeomSkin   *geometry.Geometry
 	GroupEyes  *geometry.Group
+	GroupHair  *geometry.Group
 	GroupSkin  *geometry.Group
 	MatEyes    *EyesMaterial
+	MatHair    *EyesMaterial
 	MatSkin    *SkinMaterial
 	MeshEyes   *graphic.Mesh
+	MeshHair   *graphic.Mesh
 	MeshSkin   *graphic.Mesh
 	VboPosEyes *gls.VBO
+	VboPosHair *gls.VBO
 	VboPosSkin *gls.VBO
 
 	sync.RWMutex
@@ -76,6 +82,10 @@ func (h *Human) Init(gs *gls.GLS) *Human {
 	for _, index := range data.Ins["high-poly.obj"] {
 		h.BufIndEyes.Append(index)
 	}
+	h.BufIndHair = math32.NewArrayU32(0, 0)
+	for _, index := range data.Ins["long01.obj"] {
+		h.BufIndHair.Append(index)
+	}
 	h.BufIndSkin = math32.NewArrayU32(0, 0)
 	for _, index := range data.Ins["female_generic.obj"] {
 		h.BufIndSkin.Append(index)
@@ -87,26 +97,37 @@ func (h *Human) Init(gs *gls.GLS) *Human {
 		h.BufPos.Append(data.Float[3*remap+2][40])
 	}
 	h.GeomEyes = geometry.NewGeometry()
+	h.GeomHair = geometry.NewGeometry()
 	h.GeomSkin = geometry.NewGeometry()
 	//h.handleVao = gs.GenVertexArray()
 	//h.GeomEyes.SetVAO(h.handleVao)
+	//h.GeomHair.SetVAO(h.handleVao)
 	//h.GeomSkin.SetVAO(h.handleVao)
 	h.GroupEyes = h.GeomEyes.AddGroup(h.BufIndEyes.Len(), 0, 0)
+	h.GroupHair = h.GeomHair.AddGroup(h.BufIndHair.Len(), 0, 0)
 	h.GroupSkin = h.GeomSkin.AddGroup(h.BufIndSkin.Len(), 0, 0)
 	h.GroupEyes.Count = h.BufPos.Len()
+	h.GroupHair.Count = h.BufPos.Len()
 	h.GroupSkin.Count = h.BufPos.Len()
 	h.GeomEyes.SetIndices(h.BufIndEyes)
+	h.GeomHair.SetIndices(h.BufIndHair)
 	h.GeomSkin.SetIndices(h.BufIndSkin)
 	h.VboPosEyes = gls.NewVBO(h.BufPos).AddAttrib(gls.VertexPosition)
+	h.VboPosHair = gls.NewVBO(h.BufPos).AddAttrib(gls.VertexPosition)
 	h.VboPosSkin = gls.NewVBO(h.BufPos).AddAttrib(gls.VertexPosition)
 	h.GeomEyes.AddVBO(h.VboPosEyes)
+	h.GeomHair.AddVBO(h.VboPosHair)
 	h.GeomSkin.AddVBO(h.VboPosSkin)
 	h.GeomEyes.AddVBO(VboUvsEyes)
+	h.GeomHair.AddVBO(VboUvsHair)
 	h.GeomSkin.AddVBO(VboUvsSkin)
 	h.MatEyes = new(EyesMaterial)
 	h.MatEyes.Init()
 	h.MatEyes.Udata.Color = math32.Color4{1.0/3, 2.0/3, 1, 1}
 	h.MatEyes.AddTexture(Eyes)
+	h.MatHair = new(HairMaterial)
+	h.MatHair.Init()
+	h.MatHair.Udata.Color = math32.Color4{1, 1, 2.0/3.0, 1}
 	h.MatSkin = new(SkinMaterial)
 	h.MatSkin.Init()
 	h.MatSkin.Udata.SkinDelta = math32.Vector4{0.5, 0.5, 0.5, 0.25}
@@ -117,10 +138,12 @@ func (h *Human) Init(gs *gls.GLS) *Human {
 	h.MatSkin.AddTexture(SkinLight)
 	h.MatSkin.AddTexture(Underwear)
 	h.MeshEyes = graphic.NewMesh(h.GeomEyes, h.MatEyes)
+	h.MeshHair = graphic.NewMesh(h.GeomHair, h.MatHair)
 	h.MeshSkin = graphic.NewMesh(h.GeomSkin, h.MatSkin)
 	h.Node = core.NewNode()
 	h.Node.Add(h.MeshSkin)
 	h.Node.Add(h.MeshEyes)
+	h.Node.Add(h.MeshHair)
 	h.finalized = false
 	if HumanInit != nil {
 		HumanInit(h)
@@ -181,13 +204,13 @@ func (h *Human) update_unlocked(final bool) {
 		HumanUpdate(h, final)
 	}
 	{
-		zMaxSkin, zMinSkin := 0.0, 0.0
+		zMaxSkin, zMinSkin := math.NaN, math.NaN
 		for _, index := range h.BufIndSkin {
 			z := float64(h.BufPos[index+2])
-			if z > zMaxSkin {
+			if math.IsNaN(zMaxSkin) || z > zMaxSkin {
 				zMaxSkin = z
 			}
-			if z < zMinSkin {
+			if math.IsNaN(zMinSkin) || z < zMinSkin {
 				zMinSkin = z
 			}
 		}
@@ -195,13 +218,13 @@ func (h *Human) update_unlocked(final bool) {
 		h.zAtCap = zMaxSkin
 	}
 	{
-		yMinEyes, zMaxEyes := 0.0, 0.0
+		yMinEyes, zMaxEyes := math.NaN, math.NaN
 		for _, index := range h.BufIndEyes {
 			y, z := float64(h.BufPos[index+1]), float64(h.BufPos[index+2])
-			if y < yMinEyes {
+			if math.IsNaN(yMinEyes) || y < yMinEyes {
 				yMinEyes = y
 			}
-			if z > zMaxEyes {
+			if math.IsNaN(zMaxEyes) || z > zMaxEyes {
 				zMaxEyes = z
 			}
 		}
@@ -215,10 +238,12 @@ var HalfEyeHeight float64 = 0.013799965381622314
 var HumanInit func(*Human)
 var HumanUpdate func(*Human, bool)
 var VboUvsEyes *gls.VBO
+var VboUvsHair *gls.VBO
 var VboUvsSkin *gls.VBO
 
 func init() {
 	VboUvsEyes = gls.NewVBO(data.Uvs[:]).AddAttrib(gls.VertexTexcoord)
+	VboUvsHair = gls.NewVBO(data.Uvs[:]).AddAttrib(gls.VertexTexcoord)
 	VboUvsSkin = gls.NewVBO(data.Uvs[:]).AddAttrib(gls.VertexTexcoord)
 }
 
