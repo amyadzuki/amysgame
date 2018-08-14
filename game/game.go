@@ -76,6 +76,11 @@ type Game struct {
 	CharaDesignerEyeRed        *gui.Slider
 	CharaDesignerEyeGreen      *gui.Slider
 	CharaDesignerEyeBlue       *gui.Slider
+	CharaDesignerHairStyle     *gui.DropDown
+	CharaDesignerHairLength    *gui.Slider
+	CharaDesignerHairHue       *gui.Slider
+	CharaDesignerHairSat       *gui.Slider
+	CharaDesignerHairVal       *gui.Slider
 	CharaDesignerUwFabricRed   *gui.Slider
 	CharaDesignerUwFabricGreen *gui.Slider
 	CharaDesignerUwFabricBlue  *gui.Slider
