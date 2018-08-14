@@ -128,6 +128,7 @@ func (h *Human) Init(gs *gls.GLS) *Human {
 	h.MatHair = new(HairMaterial)
 	h.MatHair.Init()
 	h.MatHair.Udata.Color = math32.Color4{1, 1, 2.0/3.0, 1}
+	h.MatHair.AddTexture(HairLong)
 	h.MatSkin = new(SkinMaterial)
 	h.MatSkin.Init()
 	h.MatSkin.Udata.SkinDelta = math32.Vector4{0.5, 0.5, 0.5, 0.25}
