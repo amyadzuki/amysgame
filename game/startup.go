@@ -37,7 +37,7 @@ func (game *Game) StartUp(logPath string) (err error) {
 		CommandLine.Parse(os.Args[1:])
 	}()
 
-	info, debug, trace := !*vars.Quiet, *vars.Debug, *vars.Trace
+	info, debug, trace := !vars.Quiet, vars.Debug, vars.Trace
 	game.InfoDebug = debug || trace
 	game.InfoTrace = trace
 	if err = game.Logs.Init(logPath, info, debug, trace); err != nil {
