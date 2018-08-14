@@ -67,6 +67,8 @@ func (game *Game) InitWindows() {
 
 		eyes := tree.AddNode("Eyes")
 
+		eyes.Add(gui.NewLabel("\nEye color:"))
+
 		game.CharaDesignerEyeRed = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerEyeRed.SetText("Red")
 		game.CharaDesignerEyeRed.SetValue(1.0/3)
@@ -83,9 +85,40 @@ func (game *Game) InitWindows() {
 		eyes.Add(game.CharaDesignerEyeBlue)
 
 		hair := tree.AddNode("Hair")
-		_ = hair
+
+		game.CharaDesignerHairStyle = gui.NewDropDown(
+			sliderWidth,
+			NewImageLabel("Straight"),
+		)
+		hair.Add(game.CharaDesignerHairStyle)
+
+		hair.Add(gui.NewLabel("\nHair length (\"Straight\" hair only):"))
+
+		game.CharaDesignerHairLength = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerHairLength.SetText("Length Adjustment (\"Straight\" only)")
+		game.CharaDesignerHairLength.SetValue(0.5)
+		hair.Add(game.CharaDesignerHairLength)
+
+		hair.Add(gui.NewLabel("\nHair color (all hair styles):"))
+
+		game.CharaDesignerHairHue = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerHairHue.SetText("Hue Adjustment")
+		game.CharaDesignerHairHue.SetValue(0.5)
+		hair.Add(game.CharaDesignerHairHue)
+
+		game.CharaDesignerHairSat = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerHairSat.SetText("Saturation Adjustment")
+		game.CharaDesignerHairSat.SetValue(0.5)
+		hair.Add(game.CharaDesignerHairSat)
+
+		game.CharaDesignerHairVal = gui.NewHSlider(sliderWidth, 20)
+		game.CharaDesignerHairVal.SetText("Value Adjustment")
+		game.CharaDesignerHairVal.SetValue(0.5)
+		hair.Add(game.CharaDesignerHairVal)
 
 		uw := tree.AddNode("Underwear")
+
+		hair.Add(gui.NewLabel("\nFabric color:"))
 
 		game.CharaDesignerUwFabricRed = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerUwFabricRed.SetText("Fabric Red")
@@ -101,6 +134,8 @@ func (game *Game) InitWindows() {
 		game.CharaDesignerUwFabricBlue.SetText("Fabric Blue")
 		game.CharaDesignerUwFabricBlue.SetValue(1)
 		uw.Add(game.CharaDesignerUwFabricBlue)
+
+		hair.Add(gui.NewLabel("\nDetail color:"))
 
 		game.CharaDesignerUwDetailRed = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerUwDetailRed.SetText("Detail Red")
@@ -121,6 +156,8 @@ func (game *Game) InitWindows() {
 		game.CharaDesignerUwDetailAlpha.SetText("Detail Opacity")
 		game.CharaDesignerUwDetailAlpha.SetValue(0.5)
 		uw.Add(game.CharaDesignerUwDetailAlpha)
+
+		hair.Add(gui.NewLabel("\nTrim color:"))
 
 		game.CharaDesignerUwTrimRed = gui.NewHSlider(sliderWidth, 20)
 		game.CharaDesignerUwTrimRed.SetText("Trim Red")
