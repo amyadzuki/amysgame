@@ -13,7 +13,7 @@ func (game *Game) InitWindows() {
 		const sliderWidth = 480 - 60
 		tree := gui.NewTree(480, 720)
 
-		{
+		//{
 			presets := tree.AddNode("Presets")
 
 			presets.Add(gui.NewLabel("\n"))
@@ -21,10 +21,10 @@ func (game *Game) InitWindows() {
 				sliderWidth,
 				gui.NewImageLabel("Default"),
 			)
-			game.CharaDesignerPresetsApply = gui.NewButton("Apply")
+			game.CharaDesignerPresetApply = gui.NewButton("Apply")
 			presets.Add(game.CharaDesignerPresetsApply)
-		}
-		{
+		//}
+		//{
 			body := tree.AddNode("Body")
 
 			body.Add(gui.NewLabel("\n"))
@@ -50,8 +50,8 @@ func (game *Game) InitWindows() {
 
 			game.CharaDesignerBodyApply = gui.NewButton("Apply")
 			body.Add(game.CharaDesignerBodyApply)
-		}
-		{
+		//}
+		//{
 			skin := tree.AddNode("Skin")
 
 			skin.Add(gui.NewLabel("\nA simple light↔dark skin tone slider:"))
@@ -75,8 +75,8 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerSkinVal.SetText("Value Adjustment")
 			game.CharaDesignerSkinVal.SetValue(0.5)
 			skin.Add(game.CharaDesignerSkinVal)
-		}
-		{
+		//}
+		//{
 			eyes := tree.AddNode("Eyes")
 
 			eyes.Add(gui.NewLabel("\nEye color:"))
@@ -95,8 +95,8 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerEyeBlue.SetText("Blue")
 			game.CharaDesignerEyeBlue.SetValue(1)
 			eyes.Add(game.CharaDesignerEyeBlue)
-		}
-		{
+		//}
+		//{
 			hair := tree.AddNode("Hair")
 
 			hair.Add(gui.NewLabel("\nFirst, choose a hair style:"))
@@ -129,8 +129,8 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerHairVal.SetText("Value Adjustment")
 			game.CharaDesignerHairVal.SetValue(0.5)
 			hair.Add(game.CharaDesignerHairVal)
-		}
-		{
+		//}
+		//{
 			uw := tree.AddNode("Underwear")
 
 			uw.Add(gui.NewLabel("\nFabric color:"))
@@ -188,8 +188,8 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerUwTrimBlue.SetText("Trim Blue")
 			game.CharaDesignerUwTrimBlue.SetValue(0xc1/255.0)
 			uw.Add(game.CharaDesignerUwTrimBlue)
-		}
-		{
+		//}
+		//{
 			confirm := tree.AddNode("Confirm")
 			confirm.Add(gui.NewLabel("\nClick the button to finish designing your character!"))
 			{
@@ -199,7 +199,7 @@ func (game *Game) InitWindows() {
 				})
 				confirm.Add(b)
 			}
-		}
+		//}
 		game.WindowCharaDesigner.Add(tree)
 	}
 	game.WindowInventory = game.newWindow(960, 720, "Inventory")
