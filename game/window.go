@@ -17,10 +17,12 @@ func (game *Game) InitWindows() {
 			presets := tree.AddNode("Presets")
 
 			presets.Add(gui.NewLabel("\n"))
+		/*
 			game.CharaDesignerPreset = gui.NewDropDown(
 				sliderWidth,
 				gui.NewImageLabel("Default"),
 			)
+		*/
 			game.CharaDesignerPresetApply = gui.NewButton("Apply")
 			presets.Add(game.CharaDesignerPresetApply)
 		//}
@@ -96,6 +98,7 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerEyeBlue.SetValue(1)
 			eyes.Add(game.CharaDesignerEyeBlue)
 		//}
+		/*
 		//{
 			hair := tree.AddNode("Hair")
 
@@ -189,6 +192,7 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerUwTrimBlue.SetValue(0xc1/255.0)
 			uw.Add(game.CharaDesignerUwTrimBlue)
 		//}
+		*/
 		//{
 			confirm := tree.AddNode("Confirm")
 			confirm.Add(gui.NewLabel("\nClick the button to finish designing your character!"))
