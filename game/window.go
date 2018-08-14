@@ -88,7 +88,7 @@ func (game *Game) InitWindows() {
 
 		game.CharaDesignerHairStyle = gui.NewDropDown(
 			sliderWidth,
-			NewImageLabel("Straight"),
+			gui.NewImageLabel("Straight"),
 		)
 		hair.Add(game.CharaDesignerHairStyle)
 
