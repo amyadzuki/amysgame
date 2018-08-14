@@ -2,6 +2,7 @@
 package main
 
 import (
+	"path/filepath"
 	"strconv"
 
 	"github.com/amyadzuki/amysgame/data"
