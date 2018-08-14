@@ -5,6 +5,6 @@ var (
 
 	Debug, Trace bool
 
-	JSON, XML, YML bool
+	JSON, XML, YAML bool
 )
 
