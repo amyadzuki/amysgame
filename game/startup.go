@@ -66,9 +66,9 @@ func (game *Game) StartUp(logPath string) (err error) {
 		w = 160
 	}
 
-	fs := *vars.FullScreen
+	fs := vars.FullScreen
 
-	wm := str.Simp(*vars.WM)
+	wm := str.Simp(vars.WM)
 	switch wm {
 	case "glfw":
 	default:
