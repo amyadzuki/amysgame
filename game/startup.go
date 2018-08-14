@@ -7,9 +7,10 @@ import (
 	"runtime"
 	"strconv"
 
-	"github.com/amy911/amy911/str"
+	"github.com/amyadzuki/amysgame/vars"
 
-	"github.com/amyadzuki/amystuff/styles"
+	"github.com/amy911/amy911/str"
+	"github.com/amy911/g3nstyle"
 
 	"github.com/g3n/engine/camera"
 	"github.com/g3n/engine/gls"
@@ -21,19 +22,6 @@ import (
 )
 
 func (game *Game) StartUp(logPath string) (err error) {
-	flag_debug := CommandLine.Bool("debug", false,
-		"Log debug info (may slightly slow the game)")
-	flag_trace := CommandLine.Bool("debugextra", false,
-		"Log trace info (may drastically slow the game)")
-	flag_quiet := CommandLine.Bool("quiet", false,
-		"Silence -info- messages from the console")
-	flag_fullscreen := CommandLine.Bool("fullscreen", false,
-		"Launch fullscreen")
-	flag_geometry := CommandLine.String("geometry", strconv.Itoa(DflWidth)+"x"+strconv.Itoa(DflHeight),
-		"Window geometry (H, WxH, or WxH+X+Y)")
-	flag_wm := CommandLine.String("wm", "glfw",
-		"Window manager (one of: \"glfw\")")
-
 	func() {
 		defer func() {
 			if r := recover(); r != nil {
@@ -49,7 +37,7 @@ func (game *Game) StartUp(logPath string) (err error) {
 		CommandLine.Parse(os.Args[1:])
 	}()
 
-	info, debug, trace := !*flag_quiet, *flag_debug, *flag_trace
+	info, debug, trace := !*vars.Quiet, *vars.Debug, *vars.Trace
 	game.InfoDebug = debug || trace
 	game.InfoTrace = trace
 	if err = game.Logs.Init(logPath, info, debug, trace); err != nil {
@@ -59,9 +47,9 @@ func (game *Game) StartUp(logPath string) (err error) {
 	game.Major("Created process and initialized logging for \"" + game.Title + "\"")
 
 	w, h, x, y, n := DflWidth, DflHeight, 0, 0, 0
-	n, err = fmt.Sscanf(*flag_geometry, "%dx%d+%d+%d", &w, &h, &x, &y)
+	n, err = fmt.Sscanf(*vars.Geometry, "%dx%d+%d+%d", &w, &h, &x, &y)
 	if n < 1 || n > 4 || (n == 4 && err != nil) {
-		game.Warn("could not parse window geometry \"" + *flag_geometry + "\"")
+		game.Warn("could not parse window geometry \"" + *vars.Geometry + "\"")
 	}
 	if n == 1 {
 		h = w
@@ -78,9 +66,9 @@ func (game *Game) StartUp(logPath string) (err error) {
 		w = 160
 	}
 
-	fs := *flag_fullscreen
+	fs := *vars.FullScreen
 
-	wm := str.Simp(*flag_wm)
+	wm := str.Simp(*vars.WM)
 	switch wm {
 	case "glfw":
 	default:
@@ -132,7 +120,7 @@ func (game *Game) StartUp(logPath string) (err error) {
 	game.LightAmbient = light.NewAmbient(&math32.Color{1, 1, 1}, 0.5)
 	game.Scene.Add(game.LightAmbient)
 
-	gui.SetStyleDefault(&styles.AmyDark)
+	gui.SetStyleDefault(&g3nstyle.Base)
 
 	game.RealRoot = gui.NewRoot(game.Gs, game.Win)
 	game.RealRoot.SetSize(float32(width), float32(height))
