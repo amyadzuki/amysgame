@@ -114,7 +114,7 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerHairLength.SetValue(0.5)
 			hair.Add(game.CharaDesignerHairLength)
 
-			hair.Add(gui.NewLabel("*\"Straight\" hair style only.\nHair color (all hair styles):"))
+			hair.Add(gui.NewLabel("*\"Straight\" hair style only.\n\nHair color (all hair styles):"))
 
 			game.CharaDesignerHairHue = gui.NewHSlider(sliderWidth, 20)
 			game.CharaDesignerHairHue.SetText("Hue Adjustment")
