@@ -10,7 +10,7 @@ import (
 )
 
 func init() {
-	env911.InitAll("AMYSGAME_", f, "amyadzuki", "amysgame") // TODO: better vendor and app names!!
+	env911.InitAll("AMYSGAME_", nil, "amyadzuki", "amysgame") // TODO: better vendor and app names!!
 }
 
 func main() {
