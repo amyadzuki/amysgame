@@ -124,7 +124,7 @@ func (game *Game) AddWidgetPing() {
 }
 
 func setPaddingHoriz(iPanel gui.IPanel, horiz float32) {
-	return // TODO: delete this
+	return // TODO: delete this function
 	panel := iPanel.GetPanel()
 	paddings := panel.Paddings()
 	paddings.Left = horiz
