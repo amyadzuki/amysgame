@@ -1,7 +1,9 @@
 package vars
 
 var (
-	Verbose bool
+	Geometry, WM string
+
+	FullScreen, Quiet, Verbose bool
 
 	Debug, Trace bool
 
