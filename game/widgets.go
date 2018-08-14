@@ -30,7 +30,6 @@ func (game *Game) AddWidgetClose(label string) {
 	game.WidgetClose = gui.NewButton(label)
 	game.WidgetClose.SetLayoutParams(&gui.DockLayoutParams{gui.DockRight})
 	game.WidgetClose.SetStyles(&vars.StylesEx.CloseButton)
-	setPaddingHoriz(game.WidgetClose, PaddingClose)
 	game.WidgetClose.Subscribe(gui.OnClick, func(name string, ev interface{}) {
 		game.WidgetClose.SetStyles(&vars.StylesEx.ClosingButton)
 		if game.SoftQuit() > 0 {
@@ -65,7 +64,6 @@ func (game *Game) AddWidgetFullScreen(labelFullScreen, labelWindow string) {
 	}
 	game.WidgetFullScreen = gui.NewButton(label)
 	game.WidgetFullScreen.SetLayoutParams(&gui.DockLayoutParams{gui.DockRight})
-	setPaddingHoriz(game.WidgetClose, PaddingTopRight)
 	game.WidgetFullScreen.Subscribe(gui.OnClick, func(name string, ev interface{}) {
 		game.ToggleFullScreen()
 	})
@@ -80,7 +78,6 @@ func (game *Game) AddWidgetHelp(label string) {
 	game.WidgetHelp = gui.NewButton(label)
 	game.WidgetHelp.SetLayoutParams(&gui.DockLayoutParams{gui.DockRight})
 	game.WidgetClose.SetStyles(&vars.StylesEx.HelpButton)
-	setPaddingHoriz(game.WidgetClose, PaddingTopRight)
 	game.WidgetHelp.Subscribe(gui.OnClick, func(name string, ev interface{}) {
 		wh := !game.WantHelp
 		game.WantHelp = wh
@@ -109,7 +106,6 @@ func (game *Game) AddWidgetIconify(label string) {
 	}
 	game.WidgetIconify = gui.NewButton(label)
 	game.WidgetIconify.SetLayoutParams(&gui.DockLayoutParams{gui.DockRight})
-	setPaddingHoriz(game.WidgetClose, PaddingTopRight)
 	game.WidgetIconify.Subscribe(gui.OnClick, func(name string, ev interface{}) {
 		// TODO
 	})
