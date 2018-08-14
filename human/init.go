@@ -23,12 +23,15 @@ var (
 )
 
 func Init(rend *renderer.Renderer) {
-	rend.AddShader("HumanEyesVs", HumanEyesVs)
-	rend.AddShader("HumanEyesFs", HumanEyesFs)
-	rend.AddProgram("HumanEyes", "HumanEyesVs", "HumanEyesFs")
 	rend.AddShader("HumanSkinVs", HumanSkinVs)
 	rend.AddShader("HumanSkinFs", HumanSkinFs)
 	rend.AddProgram("HumanSkin", "HumanSkinVs", "HumanSkinFs")
+	rend.AddShader("HumanEyesVs", HumanEyesVs)
+	rend.AddShader("HumanEyesFs", HumanEyesFs)
+	rend.AddProgram("HumanEyes", "HumanEyesVs", "HumanEyesFs")
+	rend.AddShader("HumanHairVs", HumanHairVs)
+	rend.AddShader("HumanHairFs", HumanHairFs)
+	rend.AddProgram("HumanHair", "HumanHairVs", "HumanHairFs")
 }
 
 func init() {
