@@ -152,7 +152,7 @@ void main() {
 	color = mix(sampColor, color, dist > .75 ? 0.5 : 0);
 	color = vec4(mix(HumanHairColor.rgb, color.rgb, sampColor.a), 1);
 #else
-	color = vec3(1, 0, 1, 1);
+	color = vec4(HumanHairColor.rgb, 1);
 #endif
 	fColor = color;
 }
