@@ -47,9 +47,9 @@ func (game *Game) StartUp(logPath string) (err error) {
 	game.Major("Created process and initialized logging for \"" + game.Title + "\"")
 
 	w, h, x, y, n := DflWidth, DflHeight, 0, 0, 0
-	n, err = fmt.Sscanf(*vars.Geometry, "%dx%d+%d+%d", &w, &h, &x, &y)
+	n, err = fmt.Sscanf(vars.Geometry, "%dx%d+%d+%d", &w, &h, &x, &y)
 	if n < 1 || n > 4 || (n == 4 && err != nil) {
-		game.Warn("could not parse window geometry \"" + *vars.Geometry + "\"")
+		game.Warn("could not parse window geometry \"" + vars.Geometry + "\"")
 	}
 	if n == 1 {
 		h = w
