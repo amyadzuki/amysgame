@@ -77,14 +77,14 @@ func (game *Game) AddWidgetHelp(label string) {
 	}
 	game.WidgetHelp = gui.NewButton(label)
 	game.WidgetHelp.SetLayoutParams(&gui.DockLayoutParams{gui.DockRight})
-	game.WidgetClose.SetStyles(&vars.StylesEx.HelpButton)
+	game.WidgetHelp.SetStyles(&vars.StylesEx.HelpButton)
 	game.WidgetHelp.Subscribe(gui.OnClick, func(name string, ev interface{}) {
 		wh := !game.WantHelp
 		game.WantHelp = wh
 		if wh {
-			game.WidgetClose.SetStyles(&vars.StylesEx.HelpingButton)
+			game.WidgetHelp.SetStyles(&vars.StylesEx.HelpingButton)
 		} else {
-			game.WidgetClose.SetStyles(&vars.StylesEx.HelpButton)
+			game.WidgetHelp.SetStyles(&vars.StylesEx.HelpButton)
 		}
 	})
 	game.addDockSize(game.DockTop, game.WidgetHelp)
