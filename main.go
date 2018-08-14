@@ -40,7 +40,7 @@ func main() {
 	case want_copyright:
 	case *version:
 	default:
-		if quick {
+		if *quick {
 			// TODO
 		}
 		run.Play()
