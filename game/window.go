@@ -60,7 +60,7 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerSkinTone.SetValue(0.25)
 			skin.Add(game.CharaDesignerSkinTone)
 
-			//skin.Add(gui.NewLabel("\nAn HSV color modification which gets applied to the chosen skin tone:"))
+			skin.Add(gui.NewLabel("\nAn HSV color modification which gets applied to the chosen skin tone:"))
 			game.CharaDesignerSkinHue = gui.NewHSlider(sliderWidth, 20)
 			game.CharaDesignerSkinHue.SetText("Hue Adjustment")
 			game.CharaDesignerSkinHue.SetValue(0.5)
