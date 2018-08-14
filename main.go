@@ -6,7 +6,6 @@ import (
 	"github.com/amyadzuki/amysgame/vars"
 
 	"github.com/amy911/env911"
-	"github.com/amy911/env911/app"
 	"github.com/amy911/env911/config"
 )
 
