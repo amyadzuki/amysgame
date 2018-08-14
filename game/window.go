@@ -21,6 +21,7 @@ func (game *Game) InitWindows() {
 				sliderWidth,
 				gui.NewImageLabel("Default"),
 			)
+			presets.Add(game.CharaDesignerPreset)
 			game.CharaDesignerPresetApply = gui.NewButton("Apply")
 			presets.Add(game.CharaDesignerPresetApply)
 		}
