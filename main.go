@@ -2,11 +2,16 @@
 package main
 
 import (
+	"github.com/amyadzuki/amysgame/data"
+	"github.com/amyadzuki/amysgame/human"
 	"github.com/amyadzuki/amysgame/run"
 	"github.com/amyadzuki/amysgame/vars"
 
+	"github.com/amy911/amy911/maths"
 	"github.com/amy911/env911"
 	"github.com/amy911/env911/config"
+
+	"github.com/g3n/engine/math32"
 )
 
 func init() {
