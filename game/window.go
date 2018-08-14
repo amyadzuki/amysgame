@@ -133,6 +133,7 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerHairVal.SetValue(0.5)
 			hair.Add(game.CharaDesignerHairVal)
 		//}
+		*/
 		//{
 			uw := tree.AddNode("Underwear")
 
@@ -192,7 +193,6 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerUwTrimBlue.SetValue(0xc1/255.0)
 			uw.Add(game.CharaDesignerUwTrimBlue)
 		//}
-		*/
 		//{
 			confirm := tree.AddNode("Confirm")
 			confirm.Add(gui.NewLabel("\nClick the button to finish designing your character!"))
