@@ -58,4 +58,27 @@ func (m *EyesMaterial) RenderSetup(gs *gls.GLS) {
 	gs.Uniform4fvUP(location, int32(unsafe.Sizeof(m.Udata) / 16), unsafe.Pointer(&m.Udata))
 }
 
+// Hair ///////////////////////////////////////////////////////////////////////
+
+type HairMaterial struct {
+	material.Standard
+	uni gls.Uniform
+	Udata HairMaterialUdata
+}
+
+type HairMaterialUdata struct {
+	Color math32.Color4
+}
+
+func (m *HairMaterial) Init() {
+	m.Standard.Init("HumanHair", &math32.Color{1, 0, 1})
+	m.uni.Init("HumanHair")
+}
+
+func (m *HairMaterial) RenderSetup(gs *gls.GLS) {
+	m.Standard.RenderSetup(gs)
+	location := m.uni.Location(gs)
+	gs.Uniform4fvUP(location, int32(unsafe.Sizeof(m.Udata) / 16), unsafe.Pointer(&m.Udata))
+}
+
 // COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
