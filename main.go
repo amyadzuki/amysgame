@@ -2,6 +2,8 @@
 package main
 
 import (
+	"strconv"
+
 	"github.com/amyadzuki/amysgame/data"
 	"github.com/amyadzuki/amysgame/human"
 	"github.com/amyadzuki/amysgame/run"
@@ -12,6 +14,10 @@ import (
 	"github.com/amy911/env911/config"
 
 	"github.com/g3n/engine/math32"
+)
+
+const (
+	DflWidth, DflHeight = 1600, 900
 )
 
 func init() {
