@@ -143,14 +143,8 @@ out vec4 fColor;
 void main() {
 	vec4 color;
 #if MAT_TEXTURES>0
-	if (min(vTexcoord.x, vTexcoord.y) >= 0.8125) {
-		discard;
-	}
-	float dist = vPosition.z / vPosition.w;
 	vec4 sampColor = texture(MatTexture[0], vTexcoord);
-	color = max(sampColor, vec4(HumanHairColor.rgb, 1));
-	color = mix(sampColor, color, dist > .75 ? 0.5 : 0);
-	color = vec4(mix(HumanHairColor.rgb, color.rgb, sampColor.a), 1);
+	color = vec4(sampColor.rgb, 1);
 #else
 	color = vec4(HumanHairColor.rgb, 1);
 #endif
