@@ -119,8 +119,7 @@ func (game *Game) StartUp(logPath string) (err error) {
 	game.LightAmbient = light.NewAmbient(&math32.Color{1, 1, 1}, 0.5)
 	game.Scene.Add(game.LightAmbient)
 
-	vars.StylesEx.Init(nil, nil, 0.375, 8)
-	gui.SetStyleDefault(&vars.StylesEx.Style)
+	gui.SetStyleDefault(&vars.StylesEx.Init(nil, nil, 0.375, 5).Style)
 
 	game.RealRoot = gui.NewRoot(game.Gs, game.Win)
 	game.RealRoot.SetSize(float32(width), float32(height))
