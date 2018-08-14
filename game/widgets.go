@@ -3,14 +3,11 @@ package game
 import (
 	"time"
 
-	"github.com/amyadzuki/amystuff/styles"
+	"github.com/amyadzuki/amysgame/vars"
 	"github.com/amy911/amy911/crap/widget"
 
 	"github.com/g3n/engine/gui"
 )
-
-var PaddingClose float32 = 16
-var PaddingTopRight float32 = 9
 
 func (game *Game) AddWidgetCharaChanger(label string) {
 	if game.DockTop == nil {
@@ -32,10 +29,10 @@ func (game *Game) AddWidgetClose(label string) {
 	}
 	game.WidgetClose = gui.NewButton(label)
 	game.WidgetClose.SetLayoutParams(&gui.DockLayoutParams{gui.DockRight})
-	game.WidgetClose.SetStyles(&styles.AmyDarkCloseButton)
+	game.WidgetClose.SetStyles(&vars.StylesEx.CloseButton)
 	setPaddingHoriz(game.WidgetClose, PaddingClose)
 	game.WidgetClose.Subscribe(gui.OnClick, func(name string, ev interface{}) {
-		game.WidgetClose.SetStyles(&styles.AmyDarkClosingButton)
+		game.WidgetClose.SetStyles(&vars.StylesEx.ClosingButton)
 		if game.SoftQuit() > 0 {
 			game.Quit()
 		}
@@ -45,7 +42,7 @@ func (game *Game) AddWidgetClose(label string) {
 			if game.AskQuit < 0 {
 				game.AskQuit = 0
 			}
-			game.WidgetClose.SetStyles(&styles.AmyDarkCloseButton)
+			game.WidgetClose.SetStyles(&vars.StylesEx.CloseButton)
 		}()
 	})
 	game.addDockSize(game.DockTop, game.WidgetClose)
@@ -82,9 +79,16 @@ func (game *Game) AddWidgetHelp(label string) {
 	}
 	game.WidgetHelp = gui.NewButton(label)
 	game.WidgetHelp.SetLayoutParams(&gui.DockLayoutParams{gui.DockRight})
+	game.WidgetClose.SetStyles(&vars.StylesEx.HelpButton)
 	setPaddingHoriz(game.WidgetClose, PaddingTopRight)
 	game.WidgetHelp.Subscribe(gui.OnClick, func(name string, ev interface{}) {
-		game.WantHelp = !game.WantHelp
+		wh := !game.WantHelp
+		game.WantHelp = wh
+		if wh {
+			game.WidgetClose.SetStyles(&vars.StylesEx.HelpingButton)
+		} else {
+			game.WidgetClose.SetStyles(&vars.StylesEx.HelpButton)
+		}
 	})
 	game.addDockSize(game.DockTop, game.WidgetHelp)
 	game.DockTop.Add(game.WidgetHelp)
@@ -122,13 +126,3 @@ func (game *Game) AddWidgetPerformance(w *widget.Performance, large int, label s
 func (game *Game) AddWidgetPing() {
 	game.AddWidgetPerformance(&game.WidgetPing, 999999, " ms  ")
 }
-
-func setPaddingHoriz(iPanel gui.IPanel, horiz float32) {
-	return // TODO: delete this function
-	panel := iPanel.GetPanel()
-	paddings := panel.Paddings()
-	paddings.Left = horiz
-	paddings.Right = horiz
-	panel.SetPaddingsFrom(&paddings)
-}
-
