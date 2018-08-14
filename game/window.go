@@ -17,12 +17,10 @@ func (game *Game) InitWindows() {
 			presets := tree.AddNode("Presets")
 
 			//presets.Add(gui.NewLabel("\n"))
-		/*
 			game.CharaDesignerPreset = gui.NewDropDown(
 				sliderWidth,
 				gui.NewImageLabel("Default"),
 			)
-		*/
 			game.CharaDesignerPresetApply = gui.NewButton("Apply")
 			presets.Add(game.CharaDesignerPresetApply)
 		//}
