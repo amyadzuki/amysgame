@@ -2,20 +2,13 @@
 package human
 
 import (
-	"path/filepath"
-
-	"github.com/amy911/amy911/syspath"
-
 	"github.com/g3n/engine/renderer"
 	"github.com/g3n/engine/texture"
 )
 
 var (
-	Assets string
-
-	Builder *Human
-	SysPath *syspath.SysPath
-
+	Assets    string
+	Builder   *Human
 	Eyes      *texture.Texture2D
 	HairLong  *texture.Texture2D
 	SkinDark  *texture.Texture2D
