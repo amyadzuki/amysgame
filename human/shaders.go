@@ -115,4 +115,47 @@ void main() {
 }
 `
 
+// Hair ///////////////////////////////////////////////////////////////////////
+
+var HumanHairVs = `
+#include <attributes>
+// blank line required by preprocessor
+uniform mat4 MVP;
+out vec4 vPosition;
+out vec2 vTexcoord;
+void main() {
+	vec4 position = MVP * vec4(VertexPosition.xyz, 1);
+	gl_Position = position;
+	vPosition = position;
+	vTexcoord = vec2(VertexTexcoord.x, 1.0 - VertexTexcoord.y); // TODO: flip textures
+}
+`
+
+var HumanHairFs = `
+#include <material>
+// blank line required by preprocessor
+in vec4 vPosition;
+in vec2 vTexcoord;
+uniform vec4 HumanHair[` + strconv.Itoa(int(unsafe.Sizeof(HairMaterialUdata{}) / 16)) + `];
+#define HumanHairColor HumanHair[0]
+out vec4 fColor;
+
+void main() {
+	vec4 color;
+#if MAT_TEXTURES>0
+	if (min(vTexcoord.x, vTexcoord.y) >= 0.8125) {
+		discard;
+	}
+	float dist = vPosition.z / vPosition.w;
+	vec4 sampColor = texture(MatTexture[0], vTexcoord);
+	color = max(sampColor, vec4(HumanHairColor.rgb, 1));
+	color = mix(sampColor, color, dist > .75 ? 0.5 : 0);
+	color = vec4(mix(HumanHairColor.rgb, color.rgb, sampColor.a), 1);
+#else
+	color = vec3(1, 0, 1, 1);
+#endif
+	fColor = color;
+}
+`
+
 // COPYRIGHT © 2018 amyadzuki <amyadzuki@gmail.com> ALL RIGHTS RESERVED.
