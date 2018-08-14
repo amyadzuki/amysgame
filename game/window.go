@@ -96,7 +96,6 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerEyeBlue.SetValue(1)
 			eyes.Add(game.CharaDesignerEyeBlue)
 		//}
-		/*
 		//{
 			hair := tree.AddNode("Hair")
 
@@ -131,7 +130,6 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerHairVal.SetValue(0.5)
 			hair.Add(game.CharaDesignerHairVal)
 		//}
-		*/
 		//{
 			uw := tree.AddNode("Underwear")
 
