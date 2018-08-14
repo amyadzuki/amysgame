@@ -16,7 +16,7 @@ func (game *Game) InitWindows() {
 		//{
 			presets := tree.AddNode("Presets")
 
-			presets.Add(gui.NewLabel("\n"))
+			//presets.Add(gui.NewLabel("\n"))
 		/*
 			game.CharaDesignerPreset = gui.NewDropDown(
 				sliderWidth,
@@ -29,7 +29,7 @@ func (game *Game) InitWindows() {
 		//{
 			body := tree.AddNode("Body")
 
-			body.Add(gui.NewLabel("\n"))
+			//body.Add(gui.NewLabel("\n"))
 			game.CharaDesignerBodyAge = gui.NewHSlider(sliderWidth, 20)
 				game.CharaDesignerBodyAge.SetText("Apparent Age")
 			game.CharaDesignerBodyAge.SetValue(0.5)
@@ -56,13 +56,13 @@ func (game *Game) InitWindows() {
 		//{
 			skin := tree.AddNode("Skin")
 
-			skin.Add(gui.NewLabel("\nA simple light↔dark skin tone slider:"))
+			//skin.Add(gui.NewLabel("\nA simple light↔dark skin tone slider:"))
 			game.CharaDesignerSkinTone = gui.NewHSlider(sliderWidth, 20)
 			game.CharaDesignerSkinTone.SetText("Skin Tone")
 			game.CharaDesignerSkinTone.SetValue(0.25)
 			skin.Add(game.CharaDesignerSkinTone)
 
-			skin.Add(gui.NewLabel("\nAn HSV color modification which gets applied to the chosen skin tone:"))
+			//skin.Add(gui.NewLabel("\nAn HSV color modification which gets applied to the chosen skin tone:"))
 			game.CharaDesignerSkinHue = gui.NewHSlider(sliderWidth, 20)
 			game.CharaDesignerSkinHue.SetText("Hue Adjustment")
 			game.CharaDesignerSkinHue.SetValue(0.5)
@@ -137,7 +137,7 @@ func (game *Game) InitWindows() {
 		//{
 			uw := tree.AddNode("Underwear")
 
-			uw.Add(gui.NewLabel("\nFabric color:"))
+			//uw.Add(gui.NewLabel("\nFabric color:"))
 
 			game.CharaDesignerUwFabricRed = gui.NewHSlider(sliderWidth, 20)
 			game.CharaDesignerUwFabricRed.SetText("Fabric Red")
@@ -154,7 +154,7 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerUwFabricBlue.SetValue(1)
 			uw.Add(game.CharaDesignerUwFabricBlue)
 
-			uw.Add(gui.NewLabel("\nDetail color:"))
+			//uw.Add(gui.NewLabel("\nDetail color:"))
 
 			game.CharaDesignerUwDetailRed = gui.NewHSlider(sliderWidth, 20)
 			game.CharaDesignerUwDetailRed.SetText("Detail Red")
@@ -176,7 +176,7 @@ func (game *Game) InitWindows() {
 			game.CharaDesignerUwDetailAlpha.SetValue(0.5)
 			uw.Add(game.CharaDesignerUwDetailAlpha)
 
-			uw.Add(gui.NewLabel("\nTrim color:"))
+			//uw.Add(gui.NewLabel("\nTrim color:"))
 
 			game.CharaDesignerUwTrimRed = gui.NewHSlider(sliderWidth, 20)
 			game.CharaDesignerUwTrimRed.SetText("Trim Red")
