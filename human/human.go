@@ -204,7 +204,7 @@ func (h *Human) update_unlocked(final bool) {
 		HumanUpdate(h, final)
 	}
 	{
-		zMaxSkin, zMinSkin := math.NaN, math.NaN
+		zMaxSkin, zMinSkin := math.NaN(), math.NaN()
 		for _, index := range h.BufIndSkin {
 			z := float64(h.BufPos[index+2])
 			if math.IsNaN(zMaxSkin) || z > zMaxSkin {
@@ -218,7 +218,7 @@ func (h *Human) update_unlocked(final bool) {
 		h.zAtCap = zMaxSkin
 	}
 	{
-		yMinEyes, zMaxEyes := math.NaN, math.NaN
+		yMinEyes, zMaxEyes := math.NaN(), math.NaN()
 		for _, index := range h.BufIndEyes {
 			y, z := float64(h.BufPos[index+1]), float64(h.BufPos[index+2])
 			if math.IsNaN(yMinEyes) || y < yMinEyes {
