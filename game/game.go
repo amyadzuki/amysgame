@@ -7,10 +7,10 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/amy911/amy911/logs"
-	"github.com/amy911/amy911/states"
+	"github.com/suite911/amy911/logs"
+	"github.com/suite911/state911/states"
 
-	"github.com/amy911/amy911/crap/widget"
+	"github.com/suite911/amy911/crap/widget"
 
 	//	"github.com/g3n/engine/audio"
 	"github.com/g3n/engine/camera"
