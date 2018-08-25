@@ -58,7 +58,7 @@ func main() {
 	flagSet.BoolVar(&vars.XML, "xml", false, "Use XML for the data format")
 	flagSet.BoolVar(&vars.YAML, "yaml", false, "Use YAML for the data format")
 
-	flagSet.LoadAndParse()
+	config.LoadAndParse()
 
 	want_copyright := *legal || *copyright
 	want_license := *legal || *eula || *license
