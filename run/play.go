@@ -10,7 +10,6 @@ import (
 
 	"github.com/suite911/dlog911/dialog"
 	"github.com/suite911/state911/states"
-	"github.com/suite911/str911/str"
 
 	"github.com/amyadzuki/amysgame/events"
 	"github.com/amyadzuki/amysgame/game"
