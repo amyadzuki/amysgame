@@ -1,7 +1,7 @@
 package game
 
 import (
-	"github.com/amyadzuki/amystuff/styles"
+	"github.com/amyadzuki/amysgame/styles"
 
 	"github.com/g3n/engine/gui"
 )
