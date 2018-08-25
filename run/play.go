@@ -8,9 +8,9 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/amy911/amy911/dialog"
-	"github.com/amy911/amy911/states"
-	"github.com/amy911/amy911/str"
+	"github.com/suite911/dlog911/dialog"
+	"github.com/suite911/state911/states"
+	"github.com/suite911/str911/str"
 
 	"github.com/amyadzuki/amystuff/gamecam"
 
