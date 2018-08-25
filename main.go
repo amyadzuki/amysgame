@@ -34,30 +34,31 @@ func init() {
 }
 
 func main() {
-	copyright := config.Bool("copyright", false, "Print the copyright notice and exit")
-	eula := config.Bool("eula", false, "Print the End User License Agreement (EULA) and exit")
-	legal := config.Bool("legal", false, "Print the copyright notice and exit")
-	license := config.Bool("license", false, "Print the End User License Agreement (EULA) and exit")
-	version := config.Bool("version", false, "Print the version number and exit")
-	quick := config.Bool("quick", false, "Skip the launcher and just play the game played previously")
+	flagSet := config.FlagSet()
+	copyright := flagSet.Bool("copyright", false, "Print the copyright notice and exit")
+	eula := flagSet.Bool("eula", false, "Print the End User License Agreement (EULA) and exit")
+	legal := flagSet.Bool("legal", false, "Print the copyright notice and exit")
+	license := flagSet.Bool("license", false, "Print the End User License Agreement (EULA) and exit")
+	version := flagSet.Bool("version", false, "Print the version number and exit")
+	quick := flagSet.Bool("quick", false, "Skip the launcher and just play the game played previously")
 
-	config.BoolVarP(&vars.Verbose, "verbose", "v", false, "Write more output")
-	config.BoolVarP(&vars.Quiet, "quiet", "q", false, "Silence -info- messages from the console")
+	flagSet.BoolVarP(&vars.Verbose, "verbose", "v", false, "Write more output")
+	flagSet.BoolVarP(&vars.Quiet, "quiet", "q", false, "Silence -info- messages from the console")
 
-	config.BoolVar(&vars.FullScreen, "fullscreen", false, "Launch the game fullscreen")
-	config.StringVar(&vars.Geometry, "geometry",
+	flagSet.BoolVar(&vars.FullScreen, "fullscreen", false, "Launch the game fullscreen")
+	flagSet.StringVar(&vars.Geometry, "geometry",
 		strconv.Itoa(DflWidth)+"x"+strconv.Itoa(DflHeight),
 		"Window geometry (H, WxH, or WxH+X+Y)")
-	config.StringVar(&vars.WM, "wm", "glfw", "Window manager (one of: \"glfw\")")
+	flagSet.StringVar(&vars.WM, "wm", "glfw", "Window manager (one of: \"glfw\")")
 
-	config.BoolVar(&vars.Debug, "debug", false, "Log debug info (may slightly slow the game)")
-	config.BoolVar(&vars.Trace, "debugextra", false, "Log trace info (may drastically slow the game)")
+	flagSet.BoolVar(&vars.Debug, "debug", false, "Log debug info (may slightly slow the game)")
+	flagSet.BoolVar(&vars.Trace, "debugextra", false, "Log trace info (may drastically slow the game)")
 
-	config.BoolVar(&vars.JSON, "json", false, "Use JSON for the data format")
-	config.BoolVar(&vars.XML, "xml", false, "Use XML for the data format")
-	config.BoolVar(&vars.YAML, "yaml", false, "Use YAML for the data format")
+	flagSet.BoolVar(&vars.JSON, "json", false, "Use JSON for the data format")
+	flagSet.BoolVar(&vars.XML, "xml", false, "Use XML for the data format")
+	flagSet.BoolVar(&vars.YAML, "yaml", false, "Use YAML for the data format")
 
-	config.LoadAndParse()
+	flagSet.LoadAndParse()
 
 	want_copyright := *legal || *copyright
 	want_license := *legal || *eula || *license
