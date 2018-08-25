@@ -9,7 +9,7 @@ import (
 
 	"github.com/amyadzuki/amysgame/vars"
 
-	"github.com/amy911/amy911/str"
+	"github.com/suite911/str911/str"
 
 	"github.com/g3n/engine/camera"
 	"github.com/g3n/engine/gls"
