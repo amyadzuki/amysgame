@@ -7,7 +7,7 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/suite911/amy911/logs"
+	"github.com/suite911/logs911/logs"
 	"github.com/suite911/state911/states"
 
 	"github.com/suite911/amy911/crap/widget"
