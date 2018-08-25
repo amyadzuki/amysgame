@@ -12,10 +12,9 @@ import (
 	"github.com/suite911/state911/states"
 	"github.com/suite911/str911/str"
 
-	"github.com/amyadzuki/amystuff/gamecam"
-
 	"github.com/amyadzuki/amysgame/events"
 	"github.com/amyadzuki/amysgame/game"
+	"github.com/amyadzuki/amysgame/gamecam"
 	"github.com/amyadzuki/amysgame/human"
 
 	"github.com/g3n/engine/core"
