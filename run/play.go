@@ -28,6 +28,7 @@ import (
 	"github.com/g3n/engine/material"
 	"github.com/g3n/engine/math32"
 	"github.com/g3n/engine/window"
+	"github.com/pkg/browser"
 )
 
 var _ = fmt.Printf
@@ -68,21 +69,21 @@ func update() {
 }
 
 func Play() {
-	var account, password string
+	var email, username, password string
 	button := dialog.Register
 	for button == dialog.Register {
 		password = ""
 		button = dialog.Cancel
-		dialog.New("log in", &account, &password, &button)
+		dialog.New("log in", &email, &password, &username, &button)
 		switch button {
 		case dialog.Cancel:
 			return
 		case dialog.LogIn:
-			account = str.Simp(account)
-			fmt.Println("Logging in as \""+account+"\"")
+			fmt.Println("Logging in as (\""+email+"\", \""+username+"\")")
 		case dialog.Register:
-			account = str.Simp(account)
-			fmt.Println("Registering...")
+			if err := browser.OpenURL("https://localhost:10443/register"); err != nil {
+				panic(err)
+			}
 		}
 	}
 
