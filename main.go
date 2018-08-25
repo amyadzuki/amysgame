@@ -10,10 +10,10 @@ import (
 	"github.com/amyadzuki/amysgame/run"
 	"github.com/amyadzuki/amysgame/vars"
 
-	"github.com/amy911/amy911/maths"
-	"github.com/amy911/env911"
-	"github.com/amy911/env911/app"
-	"github.com/amy911/env911/config"
+	"github.com/suite911/maths911/maths"
+	"github.com/suite911/env911"
+	"github.com/suite911/env911/app"
+	"github.com/suite911/env911/config"
 
 	"github.com/g3n/engine/math32"
 )
