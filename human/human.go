@@ -5,7 +5,7 @@ import (
 	"math"
 	"sync"
 
-	"github.com/amy911/amy911/maths"
+	"github.com/suite911/maths911/maths"
 
 	"github.com/amyadzuki/amysgame/data"
 
