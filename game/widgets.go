@@ -4,7 +4,8 @@ import (
 	"time"
 
 	"github.com/amyadzuki/amysgame/vars"
-	"github.com/amy911/amy911/crap/widget"
+
+	"github.com/suite911/amy911/crap/widget"
 
 	"github.com/g3n/engine/gui"
 )
