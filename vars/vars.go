@@ -1,7 +1,7 @@
 package vars
 
 import (
-	"github.com/amy911/g3nstyle"
+	"github.com/suite911/g3nstyle"
 )
 
 var (
